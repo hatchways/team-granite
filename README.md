@@ -21,6 +21,8 @@ This is a little description about your project.
 3. Create your environment variable (.env) file
 4. Run `npm run dev` to start the server
 
+Kindly find [API documentation](https://documenter.getpostman.com/view/10413337/UV5f6tSz) Here 
+
 ---
 
 ## Client
