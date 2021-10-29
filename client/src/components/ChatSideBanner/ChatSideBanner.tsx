@@ -25,7 +25,6 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
       setNewChatUser(null);
     }
   };
-
   return (
     <Grid className={classes.chatSideBanner}>
       <Box className={classes.userPanel}>
