@@ -17,7 +17,7 @@ exports.cloudinary_upload = (file_path, folder) => {
       },
       (error, result) => {
         if (result === undefined) {
-          reject(error);
+          reject(null);
         } else {
           resolve({
             url: result.url,

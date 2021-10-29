@@ -13,10 +13,15 @@ exports.uploadImages = asyncHandler(async (req, res, next) => {
 
   if (files === undefined) {
     res.status(400);
-    throw new Error("File not uploaded");
+    throw new Error("File not uploaded to local server");
   } else {
     for (let file of files) {
       const imageData = await cloudinary_upload(file.path, "Images");
+      console.log(imageData);
+      if (!imageData) {
+        res.status(400);
+        throw new Error("File not uploaded to cloudinary");
+      }
       uploadedImageData.push(imageData);
     }
 
