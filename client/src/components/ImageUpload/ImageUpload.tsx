@@ -25,7 +25,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     );
   };
 
-  const thumbs = () => {
+  const previews = () => {
     return files.map((file: File) => (
       <div className={classes.thumb} key={file.name}>
         <div className={classes.thumbInner}>
@@ -44,7 +44,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
               <input {...state.getInputProps()} />
               <p>Drag and drop some files here, or click to select files</p>
             </div>
-            <div className={classes.center}>{thumbs(state.acceptedFiles)}</div>
+            <div className={classes.center}>{previews(state.acceptedFiles)}</div>
           </section>
           <Button
             onClick={() => {
