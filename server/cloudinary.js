@@ -15,7 +15,7 @@ exports.cloudinary_upload = (file_path, folder) => {
         resource_type: "auto",
         folder: folder,
       },
-      (error, result) => {
+      (_, result) => {
         if (result === undefined) {
           reject(null);
         } else {
