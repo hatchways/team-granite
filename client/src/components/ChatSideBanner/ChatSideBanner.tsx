@@ -7,7 +7,9 @@ import { User } from '../../interface/User';
 import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
 import Search from '../Search/Search';
 import AuthMenu from '../AuthMenu/AuthMenu';
+import EditProfileDialog from '../EditProfileDialog/EditProfileDialog';
 
+import getImageSource from '../../helpers/APICalls/getImageSource';
 interface Props {
   loggedInUser: User;
   handleDrawerToggle?: () => void;
@@ -16,7 +18,13 @@ interface Props {
 const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   const [search, setSearch] = useState<string>('test');
   const [newChatUser, setNewChatUser] = useState<User | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [];
   const classes = useStyles();
+
+  const onClick = () => {
+    setOpen(!open);
+  };
 
   // React.FormEvent<FormControl & FormControlProps>)
   const handleChange = (e: ChangeEvent<HTMLInputElement>, newInputValue: string) => {
@@ -26,23 +34,37 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
     }
   };
 
-  return (
-    <Grid className={classes.chatSideBanner}>
-      <Box className={classes.userPanel}>
-        <AvatarDisplay loggedIn user={loggedInUser} />
-        <Typography className={classes.userText} variant="h5">
-          {loggedInUser.username}
-        </Typography>
-        <AuthMenu />
-      </Box>
-      <Box>
-        <Typography className={classes.chatTitle} variant="h5">
-          Users
-        </Typography>
-        <Search search={search} handleChange={handleChange} />
-      </Box>
-    </Grid>
-  );
+  const handleUpload = () => {
+    //Contains the logic to send files to the server and to update the profile picture live.
+    return;
+  };
+
+  const handleClose = () => {
+    return;
+  };
+
+  getImageSource(loggedInUser).then((data) => {
+    const image_source = data.image_source;
+
+    return (
+      <Grid className={classes.chatSideBanner}>
+        <Box className={classes.userPanel}>
+          <AvatarDisplay loggedIn onClick={onClick} user={loggedInUser} image_source={image_source} />
+          <EditProfileDialog handleUpload={handleUpload} handleClose={handleClose} open={open} />
+          <Typography className={classes.userText} variant="h5">
+            {loggedInUser.username}
+          </Typography>
+          <AuthMenu />
+        </Box>
+        <Box>
+          <Typography className={classes.chatTitle} variant="h5">
+            Users
+          </Typography>
+          <Search search={search} handleChange={handleChange} />
+        </Box>
+      </Grid>
+    );
+  });
 };
 
 export default ChatSideBanner;
