@@ -1,25 +1,33 @@
-const multer = require('multer');
-const randomString = require('randomstring')
+const multer = require("multer");
+const randomString = require("randomstring");
+const fs = require("fs");
 
-//Can only be accessed if it is protected? //mmight remove need for thid
-const image_storage = multer.diskStorage({
+const directory = "./image_uploads";
 
-    destination: function (req, file, cb) {
-      cb(null, '/image_uploads')
-    },
-
-    filename: function (req, file, cb) {
-      const extension = file.originalname.split('.').slice(-1)[0]
-      cb(null, randomString.generate(20)+extension)
-    }
-  })
-
-const image_fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-        cb(null, true)
-    } else {
-        cb(new Error('Only Images Allowed!'))
-    }
+if (!fs.existsSync(directory)) {
+  fs.mkdirSync(directory);
 }
-  
-exports.image_upload = multer({storage:image_storage})
+
+const imageStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./image_uploads");
+  },
+
+  filename: function (req, file, cb) {
+    const extension = file.originalname.split(".").slice(-1)[0];
+    cb(null, randomString.generate(20) + "." + extension);
+  },
+});
+
+const imageFileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(new Error("Only Images Allowed!"));
+  }
+};
+
+exports.imageUpload = multer({
+  storage: imageStorage,
+  fileFilter: imageFileFilter,
+});
