@@ -1,8 +1,12 @@
-import { AuthApiData } from '../../interface/AuthApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 import { User } from '../../interface/User';
+import { ErrorJson } from '../../interface/Error';
 
-const getImageSource = async (user: User): Promise<AuthApiData> => {
+interface ImageSourceData {
+  imageSource: string;
+}
+
+const getImageSource = async (user: User): Promise<any> => {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -10,10 +14,12 @@ const getImageSource = async (user: User): Promise<AuthApiData> => {
     credentials: 'include',
   };
   return await fetch(`/getImageSource`, fetchOptions)
-    .then((res) => res.json())
-    .catch(() => ({
-      error: { message: 'Unable to connect to server. Please try again' },
-    }));
+    .then((): ImageSourceData => ({ imageSource: '' }))
+    .catch(
+      (): ErrorJson => ({
+        error: { message: 'Unable to connect to server. Please try again' },
+      }),
+    );
 };
 
 export default getImageSource;

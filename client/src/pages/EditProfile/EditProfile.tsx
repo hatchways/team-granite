@@ -6,9 +6,7 @@ import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { updateProfile } from '../../helpers/APICalls/updateProfile';
-import { uploadImages } from '../../helpers/APICalls/uploadImages';
 import EditProfileForm from './EditProfileForm/EditProfileForm';
-import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 
@@ -35,12 +33,6 @@ export default function EditProfile(): JSX.Element {
         setSubmitting(false);
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
-    });
-  };
-
-  const handleUpload = (acceptedFiles: File[]): void => {
-    uploadImages(acceptedFiles).then((data) => {
-      return;
     });
   };
 

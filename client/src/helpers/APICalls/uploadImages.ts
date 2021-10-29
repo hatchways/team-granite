@@ -1,11 +1,11 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { SearchUsersApiData } from '../../interface/User';
+import { ErrorJson } from '../../interface/Error';
 
-interface DataData {
-  success?: string;
+interface ImageData {
+  imageURIs?: Array<string>;
 }
 
-export async function uploadImages(images: Array<File>): Promise<DataData> {
+const uploadImages = async (images: Array<File>): Promise<any> => {
   const form_data = new FormData();
 
   for (const image of images) {
@@ -19,8 +19,16 @@ export async function uploadImages(images: Array<File>): Promise<DataData> {
   };
 
   return await fetch(`/image-upload`, fetchOptions)
-    .then((res) => res.json())
-    .catch(() => ({
-      error: { message: 'Unable to connect to server. Please try again' },
-    }));
-}
+    .then(
+      (): ImageData => ({
+        imageURIs: [''],
+      }),
+    )
+    .catch(
+      (): ErrorJson => ({
+        error: { message: 'Unable to connect to server. Please try again' },
+      }),
+    );
+};
+
+export default uploadImages;

@@ -7,10 +7,12 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import useStyles from './useStyles';
 
 interface Props {
-  handleUpload: (files: File[], set_profile_photo_url: (string) => void) => void;
+  handleUpload: (files: File[]) => void;
+  handleClose: () => void;
+  open: boolean;
 }
 
-const EditProfileDialog = ({ handleUpload, handleClose, open }: Props): JSX.Element => {
+const EditProfilePhotoDialog = ({ handleUpload, handleClose, open }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -21,4 +23,4 @@ const EditProfileDialog = ({ handleUpload, handleClose, open }: Props): JSX.Elem
   );
 };
 
-export default EditProfileDialog;
+export default EditProfilePhotoDialog;
