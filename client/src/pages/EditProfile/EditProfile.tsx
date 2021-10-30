@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
-import { updateProfile } from '../../helpers/APICalls/updateProfile';
+import updateProfile from '../../helpers/APICalls/updateProfile';
 import EditProfileForm from './EditProfileForm/EditProfileForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';

@@ -8,19 +8,21 @@ interface UpdateProfileData {
   };
 }
 
-export async function updateProfile(
+const updateProfile = async (
   new_username: string,
   new_email: string,
   new_password: string,
-): Promise<UpdateProfileData> {
+): Promise<UpdateProfileData> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
     credentials: 'include',
     body: JSON.stringify({ new_username, new_email, new_password }),
   };
-  return await fetch(`/update_user`, fetchOptions)
+  return await fetch(`/update-user`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));
-}
+};
+
+export default updateProfile;
