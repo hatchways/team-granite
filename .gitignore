@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules/
-
+server/image_uploads
 
 # production
 /build/
