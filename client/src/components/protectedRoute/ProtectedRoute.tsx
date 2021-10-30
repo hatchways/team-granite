@@ -7,16 +7,14 @@ const ProtectedRoute = (routeProps: RouteProps): JSX.Element => {
   const { loggedInUser, updateLoginContext } = useAuth();
 
   useEffect(() => {
-    if (loggedInUser) {
-      return;
+    if (!loggedInUser) {
+      (async () => {
+        const data = await loginWithCookies();
+        if (data.success) {
+          updateLoginContext(data.success);
+        }
+      })();
     }
-    (async () => {
-      const data = await loginWithCookies();
-      if (data.success) {
-        console.log(data);
-        updateLoginContext(data.success);
-      }
-    })();
   }, [loggedInUser, updateLoginContext]);
 
   return loggedInUser ? <Route {...routeProps} /> : <Redirect to="/login" />;
