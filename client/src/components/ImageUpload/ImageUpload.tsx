@@ -10,8 +10,6 @@ interface Props {
   handleUpload: (files: File[]) => void;
 }
 
-//lift up the state
-
 const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
   const classes = useStyles();
   const [files, setFiles] = useState([]);
