@@ -6,20 +6,24 @@ import { FormikHelpers } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import updateProfile from '../../helpers/APICalls/updateProfile';
+import changePassword from '../../helpers/APICalls/changePassword';
 import EditProfileForm from './EditProfileForm/EditProfileForm';
+import ChangePasswordForm from './ChangePasswordForm/ChangePasswordForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
+import { CircularProgress } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export default function EditProfile(): JSX.Element {
   const classes = useStyles();
-  const { updateLoginContext } = useAuth();
+  const { loggedInUser, updateLoginContext } = useAuth();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const handleSubmit = (
-    { new_username, new_email, new_password }: { new_email: string; new_password: string; new_username: string },
-    { setSubmitting }: FormikHelpers<{ new_email: string; new_password: string; new_username: string }>,
+  const handleEditSubmit = (
+    { newEmail, newUsername }: { newEmail: string; newUsername: string },
+    { setSubmitting }: FormikHelpers<{ newEmail: string; newUsername: string }>,
   ) => {
-    updateProfile(new_username, new_email, new_password).then((data) => {
+    updateProfile(newUsername, newEmail).then((data) => {
       if (data.error) {
         console.error({ error: data.error.message });
         setSubmitting(false);
@@ -36,6 +40,36 @@ export default function EditProfile(): JSX.Element {
     });
   };
 
+  const handlePasswordSubmit = (
+    { oldPassword, newPassword }: { oldPassword: string; newPassword: string },
+    { setSubmitting }: FormikHelpers<{ oldPassword: string; newPassword: string }>,
+  ) => {
+    changePassword(oldPassword, newPassword).then((data) => {
+      if (data.error) {
+        console.error({ error: data.error.message });
+        setSubmitting(false);
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateSnackBarMessage('Success');
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+
+        setSubmitting(false);
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
+  const history = useHistory();
+
+  if (loggedInUser === undefined) return <CircularProgress />;
+  if (!loggedInUser) {
+    history.push('/login');
+    // loading for a split seconds until history.push works
+    return <CircularProgress />;
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -47,9 +81,15 @@ export default function EditProfile(): JSX.Element {
                 <Typography className={classes.welcome} component="h1" variant="h5">
                   Edit Your Profile
                 </Typography>
+                <EditProfileForm handleSubmit={handleEditSubmit} loggedInUser={loggedInUser} />
               </Grid>
             </Grid>
-            <EditProfileForm handleSubmit={handleSubmit} />
+            <Grid item xs>
+              <Typography className={classes.welcome} component="h1" variant="h5">
+                Change Password
+              </Typography>
+              <ChangePasswordForm handleSubmit={handlePasswordSubmit} />
+            </Grid>
           </Box>
           <Box p={1} alignSelf="center" />
         </Box>
