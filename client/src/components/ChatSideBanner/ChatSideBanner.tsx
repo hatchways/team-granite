@@ -9,7 +9,7 @@ import Search from '../Search/Search';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import EditProfileDialog from '../EditProfilePhotoDialog/EditProfilePhotoDialog';
 
-import uploadImages from '../../helpers/APICalls/uploadImages';
+import uploadImages from '../../helpers/APICalls/uploadProfilePhoto';
 import getImageSource from '../../helpers/APICalls/getImageSource';
 interface Props {
   loggedInUser: User;
@@ -24,7 +24,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
 
   const classes = useStyles();
 
-  const onClick = () => {
+  const handleClick = () => {
     setOpen(true);
   };
 
@@ -46,7 +46,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   return (
     <Grid className={classes.chatSideBanner}>
       <Box className={classes.userPanel}>
-        <AvatarDisplay loggedIn onClick={onClick} user={loggedInUser} image_source={imageSource} />
+        <AvatarDisplay loggedIn handleClick={handleClick} user={loggedInUser} imageSource={imageSource} />
         <EditProfileDialog handleUpload={handleUpload} handleClose={handleClose} open={open} />
         <Typography className={classes.userText} variant="h5">
           {loggedInUser.username}

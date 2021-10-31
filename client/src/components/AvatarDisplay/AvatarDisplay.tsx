@@ -4,12 +4,12 @@ import { User } from '../../interface/User';
 interface Props {
   loggedIn: boolean;
   user: User;
-  image_source: string;
-  onClick: () => void;
+  imageSource: string;
+  handleClick: () => void;
 }
 
-const AvatarDisplay = ({ image_source, onClick }: Props): JSX.Element => {
-  return <Avatar onClick={onClick} alt="Profile Image" src={image_source} />;
+const AvatarDisplay = ({ imageSource, handleClick }: Props): JSX.Element => {
+  return <Avatar onClick={handleClick} alt="Profile Image" src={imageSource} />;
 };
 
 export default AvatarDisplay;

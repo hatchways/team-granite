@@ -6,47 +6,46 @@ import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
-import { User } from '../../../interface/User';
+
 interface Props {
   handleSubmit: (
     {
-      newUsername,
-      newEmail,
+      oldPassword,
+      newPassword,
     }: {
-      newUsername: string;
-      newEmail: string;
+      oldPassword: string;
+      newPassword: string;
     },
     {
       setStatus,
       setSubmitting,
     }: FormikHelpers<{
-      newUsername: string;
-      newEmail: string;
+      oldPassword: string;
+      newPassword: string;
     }>,
   ) => void;
-  loggedInUser: User;
 }
 
-const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => {
+const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
     <Formik
       initialValues={{
-        newEmail: loggedInUser.email,
-        newUsername: loggedInUser.username,
+        oldPassword: '',
+        newPassword: '',
       }}
       validationSchema={Yup.object().shape({
-        newUsername: Yup.string().max(40, 'Username is too long'),
-        newEmail: Yup.string().email('Email is not valid'),
+        oldPassword: Yup.string().max(100, 'Password is too long').min(6, 'Password too short'),
+        newPassword: Yup.string().max(100, 'Password is too long').min(6, 'Password too short'),
       })}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
-            id="new_username"
-            label={<Typography className={classes.label}>Username</Typography>}
+            id="old_password"
+            label={<Typography className={classes.label}>Old Password</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -55,17 +54,16 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
             InputProps={{
               classes: { input: classes.inputs },
             }}
-            name="new_username"
-            autoComplete="new_username"
-            autoFocus
-            helperText={touched.newUsername ? errors.newUsername : ''}
-            error={touched.newUsername && Boolean(errors.newUsername)}
-            value={values.newUsername}
+            type="password"
+            autoComplete="old_password"
+            helperText={touched.oldPassword ? errors.oldPassword : ''}
+            error={touched.oldPassword && Boolean(errors.oldPassword)}
+            value={values.oldPassword}
             onChange={handleChange}
           />
           <TextField
-            id="new_email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
+            id="new_password"
+            label={<Typography className={classes.label}>New Password</Typography>}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -74,11 +72,11 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
             InputProps={{
               classes: { input: classes.inputs },
             }}
-            name="new_email"
-            autoComplete="new_email"
-            helperText={touched.newEmail ? errors.newEmail : ''}
-            error={touched.newEmail && Boolean(errors.newEmail)}
-            value={values.newEmail}
+            type="password"
+            autoComplete="current-password"
+            helperText={touched.newPassword ? errors.newPassword : ''}
+            error={touched.newPassword && Boolean(errors.newPassword)}
+            value={values.newPassword}
             onChange={handleChange}
           />
 
@@ -93,4 +91,4 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
   );
 };
 
-export default EditProfileForm;
+export default ChangePasswordForm;
