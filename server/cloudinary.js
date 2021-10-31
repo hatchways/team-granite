@@ -7,7 +7,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-exports.cloudinary_upload = (file_path, folder) => {
+exports.cloudinaryUpload = (file_path, folder) => {
   return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
       file_path,
@@ -16,7 +16,7 @@ exports.cloudinary_upload = (file_path, folder) => {
         folder: folder,
       },
       (_, result) => {
-        if (result === undefined) {
+        if (!result) {
           reject(null);
         } else {
           resolve({

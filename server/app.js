@@ -11,12 +11,11 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-const imageUploadRouter = require("./routes/imageUpload")
+const imageUploadRouter = require("./routes/image");
 
-const UPLOAD_LIMIT = "1000kb"
+const UPLOAD_LIMIT = "1000kb";
 
 const { json, urlencoded } = express;
-
 
 connectDB();
 const app = express();
@@ -35,8 +34,8 @@ io.on("connection", (socket) => {
 if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
 }
-app.use(json({limit: UPLOAD_LIMIT}));
-app.use(urlencoded({ extended: false, limit:UPLOAD_LIMIT }));
+app.use(json({ limit: UPLOAD_LIMIT }));
+app.use(urlencoded({ extended: false, limit: UPLOAD_LIMIT }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
@@ -47,7 +46,7 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-app.use("/image-upload", imageUploadRouter);
+app.use("/image", imageUploadRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
