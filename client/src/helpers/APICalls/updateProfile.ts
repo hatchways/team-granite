@@ -2,10 +2,9 @@ import { FetchOptions } from '../../interface/FetchOptions';
 import { AuthApiDataSuccess } from '../../interface/AuthApiData';
 
 interface UpdateProfileData {
-  success: AuthApiDataSuccess;
-  error: {
-    message: string;
-  };
+  success?: AuthApiDataSuccess;
+  error?: string;
+  errors?: string[];
 }
 
 const updateProfile = async (newUsername: string, newEmail: string): Promise<UpdateProfileData> => {

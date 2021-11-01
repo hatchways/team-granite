@@ -2,12 +2,12 @@ import { FetchOptions } from '../../interface/FetchOptions';
 
 interface ImageData {
   success: { imageURI: string };
-  error: { message: string };
+  error?: string;
+  errors?: string[];
 }
 
 const uploadProfilePhoto = async (image: File): Promise<ImageData> => {
   const form_data = new FormData();
-
   form_data.append('profilePhoto', image);
 
   const fetchOptions: FetchOptions = {

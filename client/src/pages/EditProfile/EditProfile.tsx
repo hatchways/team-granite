@@ -23,12 +23,11 @@ export default function EditProfile(): JSX.Element {
     { newEmail, newUsername }: { newEmail: string; newUsername: string },
     { setSubmitting }: FormikHelpers<{ newEmail: string; newUsername: string }>,
   ) => {
-    console.log(newUsername, newEmail);
     updateProfile(newUsername, newEmail).then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
+        console.error({ error: data.error });
         setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
         updateLoginContext(data.success);
         updateSnackBarMessage('Profile Edited');
@@ -47,10 +46,11 @@ export default function EditProfile(): JSX.Element {
   ) => {
     changePassword(oldPassword, newPassword).then((data) => {
       if (data.error) {
-        console.error({ error: data.error.message });
+        console.error({ error: data.error });
         setSubmitting(false);
-        updateSnackBarMessage(data.error.message);
+        updateSnackBarMessage(data.error);
       } else if (data.success) {
+        setSubmitting(false);
         updateSnackBarMessage('Success');
       } else {
         // should not get here from backend but this catch is for an unknown issue

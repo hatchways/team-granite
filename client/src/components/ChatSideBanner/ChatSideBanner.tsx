@@ -8,7 +8,6 @@ import AvatarDisplay from '../AvatarDisplay/AvatarDisplay';
 import Search from '../Search/Search';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import EditProfileDialog from '../EditProfilePhotoDialog/EditProfilePhotoDialog';
-
 import uploadProfilePhoto from '../../helpers/APICalls/uploadProfilePhoto';
 import getProfilePhoto from '../../helpers/APICalls/getProfilePhoto';
 interface Props {

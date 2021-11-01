@@ -4,7 +4,6 @@
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import useStyles from './useStyles';
 
 interface Props {
   handleUpload: (files: File[]) => void;
@@ -13,8 +12,6 @@ interface Props {
 }
 
 const EditProfilePhotoDialog = ({ handleUpload, handleClose, open }: Props): JSX.Element => {
-  const classes = useStyles();
-
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Modify Profile Photo</DialogTitle>

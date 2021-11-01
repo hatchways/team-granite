@@ -49,32 +49,40 @@ exports.getProfilePhoto = asyncHandler(async (req, res, next) => {
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const { newUsername, newEmail } = req.body;
 
-  await checkUserExists(newEmail, newUsername, res);
-
   const update = {};
 
-  if (req.user.username !== newUsername) {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not authorized");
+  }
+
+  if (user.username !== newUsername) {
     Object.assign(update, { username: newUsername });
   }
 
-  if (req.user.email !== newUsername) {
+  if (user.email !== newUsername) {
     Object.assign(update, { email: newEmail });
   }
 
-  const user = await User.findByIdAndUpdate(req.user.id, update, { new: true });
-
-  if (!user) {
-    res.status(404).json({
-      error: "User not found.",
-    });
+  if (Object.keys(update).length === 0) {
+    res.status(400);
+    throw new Error("Same Email and Username");
   }
+
+  await checkUserExists(newEmail, newUsername, res);
+
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, update, {
+    new: true,
+  });
 
   res.status(200).json({
     success: {
       user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+        id: updatedUser._id,
+        username: updatedUser.username,
+        email: updatedUser.email,
       },
     },
   });
