@@ -36,15 +36,21 @@ const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
         newPassword: '',
       }}
       validationSchema={Yup.object().shape({
-        oldPassword: Yup.string().max(100, 'Password is too long').min(6, 'Password too short'),
-        newPassword: Yup.string().max(100, 'Password is too long').min(6, 'Password too short'),
+        oldPassword: Yup.string()
+          .required('Password is required')
+          .max(100, 'Password is too long')
+          .min(6, 'Password too short'),
+        newPassword: Yup.string()
+          .required('Password is required')
+          .max(100, 'Password is too long')
+          .min(6, 'Password too short'),
       })}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
-            id="old_password"
+            id="oldPassword"
             label={<Typography className={classes.label}>Old Password</Typography>}
             fullWidth
             margin="normal"
@@ -62,7 +68,7 @@ const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
           <TextField
-            id="new_password"
+            id="newPassword"
             label={<Typography className={classes.label}>New Password</Typography>}
             fullWidth
             margin="normal"

@@ -23,6 +23,7 @@ export default function EditProfile(): JSX.Element {
     { newEmail, newUsername }: { newEmail: string; newUsername: string },
     { setSubmitting }: FormikHelpers<{ newEmail: string; newUsername: string }>,
   ) => {
+    console.log(newUsername, newEmail);
     updateProfile(newUsername, newEmail).then((data) => {
       if (data.error) {
         console.error({ error: data.error.message });
@@ -30,10 +31,10 @@ export default function EditProfile(): JSX.Element {
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
         updateLoginContext(data.success);
+        updateSnackBarMessage('Profile Edited');
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
-
         setSubmitting(false);
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
@@ -54,7 +55,6 @@ export default function EditProfile(): JSX.Element {
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
-
         setSubmitting(false);
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }

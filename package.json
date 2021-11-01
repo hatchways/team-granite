@@ -6,8 +6,5 @@
   },
   "scripts": {
     "prepare": "husky install"
-  },
-  "dependencies": {
-    "react-dropzone": "^11.4.2"
   }
 }

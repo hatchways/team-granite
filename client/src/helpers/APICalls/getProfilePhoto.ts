@@ -1,23 +1,21 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { User } from '../../interface/User';
 
 interface ImageSourceData {
-  success: { imageSource: string };
+  success: { imageURI: string };
   error: { message: string };
 }
 
-const getImageSource = async (user: User): Promise<ImageSourceData> => {
+const getProfilePhotoURI = async (): Promise<ImageSourceData> => {
   const fetchOptions: FetchOptions = {
-    method: 'POST',
+    method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user }),
     credentials: 'include',
   };
-  return await fetch(`/image/profile`, fetchOptions)
+  return await fetch(`/users/profile-photo`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 };
 
-export default getImageSource;
+export default getProfilePhotoURI;

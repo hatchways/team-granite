@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Image = require("../models/Image");
 const asyncHandler = require("express-async-handler");
+const { checkUserExists } = require("./helper.js");
 
 // @route GET /users
 // @desc Search for users
@@ -23,18 +24,58 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
   res.status(200).json({ users: users });
 });
 
-// @route POST /users
-// @desc Update users
+// @route GET /image/profile
+// @desc returns the profile photo of the user.
 // @access Private
 exports.getProfilePhoto = asyncHandler(async (req, res, next) => {
-  const profilePhoto = await Image.findById(req.user.profilePhoto);
-  if (!profilePhoto) {
-    res.status(200).json({ imageSource: profilePhoto.url });
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found.");
+  }
+
+  if (user.profilePhoto) {
+    res.status(200).json({ success: { imageURI: user.profilePhoto.url } });
   } else {
-    res.status(404).json({ error: "Profile photo not found." });
+    res.status(404);
+    throw new Error("Photo not found.");
   }
 });
 
+// @route POST /users
+// @desc Update users
+// @access Private
 exports.updateUser = asyncHandler(async (req, res, next) => {
-  const { newUsername, newEmail, newPassword } = req.body;
+  const { newUsername, newEmail } = req.body;
+
+  await checkUserExists(newEmail, newUsername, res);
+
+  const update = {};
+
+  if (req.user.username !== newUsername) {
+    Object.assign(update, { username: newUsername });
+  }
+
+  if (req.user.email !== newUsername) {
+    Object.assign(update, { email: newEmail });
+  }
+
+  const user = await User.findByIdAndUpdate(req.user.id, update, { new: true });
+
+  if (!user) {
+    res.status(404).json({
+      error: "User not found.",
+    });
+  }
+
+  res.status(200).json({
+    success: {
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    },
+  });
 });

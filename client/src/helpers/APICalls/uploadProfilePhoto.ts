@@ -5,20 +5,18 @@ interface ImageData {
   error: { message: string };
 }
 
-const uploadProfilePhoto = async (images: Array<File>): Promise<ImageData> => {
+const uploadProfilePhoto = async (image: File): Promise<ImageData> => {
   const form_data = new FormData();
 
-  for (const image of images) {
-    form_data.append('images', image);
-  }
+  form_data.append('profilePhoto', image);
 
   const fetchOptions: FetchOptions = {
-    method: 'GET',
+    method: 'POST',
     credentials: 'include',
     body: form_data,
   };
 
-  return await fetch(`/image-upload`, fetchOptions)
+  return await fetch(`/image/profile`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

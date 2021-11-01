@@ -9,9 +9,11 @@ interface UpdateProfileData {
 }
 
 const updateProfile = async (newUsername: string, newEmail: string): Promise<UpdateProfileData> => {
+  console.log(JSON.stringify({ newUsername, newEmail }));
   const fetchOptions: FetchOptions = {
     method: 'POST',
     credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ newUsername, newEmail }),
   };
   return await fetch(`/users`, fetchOptions)

@@ -2,10 +2,12 @@ const Image = require("../models/Image");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const { cloudinaryUpload } = require("../cloudinary");
+const userId = null;
 
-// Can accept null user
-const helperUploadImages = async (res, files, user) => {
+const helperUploadImages = async (res, files, req) => {
   const images = [];
+  const uploadedImageData = [];
+  const userId = null;
 
   for (let file of files) {
     const imageData = await cloudinaryUpload(
@@ -13,16 +15,20 @@ const helperUploadImages = async (res, files, user) => {
       process.env.CLOUDINARY_DIR
     );
     if (!imageData) {
-      res.status(400);
+      res.status(500);
       throw new Error("File not uploaded to cloudinary.");
     }
     uploadedImageData.push(imageData);
   }
 
+  if (req.user) {
+    const userId = user.id;
+  }
+
   for (let imageData of uploadedImageData) {
     images.push(
       await Image.create({
-        userId: user,
+        userId: userId,
         cloudinaryId: imageData.id,
         url: imageData.url,
       })
@@ -36,9 +42,13 @@ const helperUploadImages = async (res, files, user) => {
 // @desc Upload any number of images
 // @access Public
 exports.uploadImages = asyncHandler(async (req, res, next) => {
-  await helperUploadImages(res, req.files, req.user);
+  const images = await helperUploadImages(res, req.files, req.user);
+  const imageURIs = [];
+  images.map((image) => {
+    imageURIs.push(image.url);
+  });
   res.status(200).json({
-    success: "Images uploaded.",
+    success: { imageURIs },
   });
 });
 
@@ -48,9 +58,18 @@ exports.uploadImages = asyncHandler(async (req, res, next) => {
 exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
   const [image] = await helperUploadImages(res, [req.file], req.user);
 
-  await User.findByIdAndUpdate(req.user.id, { profilePhoto: image });
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    { profilePhoto: image.id },
+    { new: true }
+  );
+
+  if (!user) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
 
   res.status(200).json({
-    success: "Profile photo uploaded.",
+    success: { imageURI: image.url },
   });
 });

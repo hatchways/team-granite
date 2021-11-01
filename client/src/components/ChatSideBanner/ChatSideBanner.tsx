@@ -1,4 +1,4 @@
-import { ChangeEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,8 +9,8 @@ import Search from '../Search/Search';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import EditProfileDialog from '../EditProfilePhotoDialog/EditProfilePhotoDialog';
 
-import uploadImages from '../../helpers/APICalls/uploadProfilePhoto';
-import getImageSource from '../../helpers/APICalls/getImageSource';
+import uploadProfilePhoto from '../../helpers/APICalls/uploadProfilePhoto';
+import getProfilePhoto from '../../helpers/APICalls/getProfilePhoto';
 interface Props {
   loggedInUser: User;
   handleDrawerToggle?: () => void;
@@ -20,9 +20,15 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   const [search, setSearch] = useState<string>('test');
   const [newChatUser, setNewChatUser] = useState<User | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-  const [imageSource, setImageSource] = useState<string>('');
+  const [imageSource, setImageSource] = useState<string | null>(null);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    getProfilePhoto().then((data) => {
+      setImageSource(data.success.imageURI);
+    });
+  }, [imageSource]);
 
   const handleClick = () => {
     setOpen(true);
@@ -36,6 +42,11 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   };
 
   const handleUpload = (files: File[]) => {
+    if (files.length) {
+      uploadProfilePhoto(files[0]).then((data) => {
+        setImageSource(data.success.imageURI);
+      });
+    }
     setOpen(false);
   };
 

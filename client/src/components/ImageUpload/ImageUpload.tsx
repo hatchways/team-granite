@@ -1,10 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-// <input {...state.getInputProps()} /> type DropzoneInputProps is of the wrong type.
 import Dropzone, { DropzoneState } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
+import { Input, Typography } from '@material-ui/core';
+import Image from 'material-ui-image';
 
 interface Props {
   handleUpload: (files: File[]) => void;
@@ -12,9 +12,9 @@ interface Props {
 
 const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
   const classes = useStyles();
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = (acceptedFiles: { map: (arg0: (file: File) => any) => SetStateAction<never[]> }) => {
+  const onDrop = (acceptedFiles: File[]) => {
     setFiles(
       acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -26,11 +26,11 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
 
   const previews = () => {
     return files.map((file: any) => (
-      <div className={classes.thumb} key={file.name}>
-        <div className={classes.thumbInner}>
-          <img src={file.preview} className={classes.img} />
-        </div>
-      </div>
+      <Grid className={classes.thumb} key={file.name}>
+        <Grid className={classes.thumbInner}>
+          <Image src={file.preview} className={classes.img} />
+        </Grid>
+      </Grid>
     ));
   };
 
@@ -38,13 +38,13 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     <Dropzone onDrop={onDrop}>
       {(state: DropzoneState) => (
         <>
-          <section className="container">
-            <div {...state.getRootProps({ className: classes.dropzone })}>
-              <input {...state.getInputProps()} />
-              <p>Drag and drop some files here, or click to select files</p>
-            </div>
-            <div className={classes.center}>{previews}</div>
-          </section>
+          <Grid container>
+            <Grid {...state.getRootProps({ className: classes.dropzone })}>
+              <Input inputProps={state.getInputProps()} />
+              <Typography>Drag and drop some files here, or click to select files</Typography>
+            </Grid>
+            <Grid className={classes.center}>{previews()}</Grid>
+          </Grid>
           <Button
             onClick={() => {
               handleUpload(state.acceptedFiles);

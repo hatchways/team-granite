@@ -4,11 +4,14 @@ import { User } from '../../interface/User';
 interface Props {
   loggedIn: boolean;
   user: User;
-  imageSource: string;
+  imageSource: string | null;
   handleClick: () => void;
 }
 
 const AvatarDisplay = ({ imageSource, handleClick }: Props): JSX.Element => {
+  if (!imageSource) {
+    imageSource = '';
+  }
   return <Avatar onClick={handleClick} alt="Profile Image" src={imageSource} />;
 };
 
