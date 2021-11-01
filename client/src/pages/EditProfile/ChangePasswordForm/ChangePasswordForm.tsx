@@ -44,7 +44,7 @@ const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
-            id="old_password"
+            id="oldPassword"
             label={<Typography className={classes.label}>Old Password</Typography>}
             fullWidth
             margin="normal"
@@ -62,7 +62,7 @@ const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
             onChange={handleChange}
           />
           <TextField
-            id="new_password"
+            id="newPassword"
             label={<Typography className={classes.label}>New Password</Typography>}
             fullWidth
             margin="normal"

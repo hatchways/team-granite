@@ -45,7 +45,7 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
-            id="new_username"
+            id="newUsername"
             label={<Typography className={classes.label}>Username</Typography>}
             fullWidth
             margin="normal"
@@ -55,8 +55,8 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
             InputProps={{
               classes: { input: classes.inputs },
             }}
-            name="new_username"
-            autoComplete="new_username"
+            name="newUsername"
+            autoComplete="newUsername"
             autoFocus
             helperText={touched.newUsername ? errors.newUsername : ''}
             error={touched.newUsername && Boolean(errors.newUsername)}
@@ -64,7 +64,7 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
             onChange={handleChange}
           />
           <TextField
-            id="new_email"
+            id="newEmail"
             label={<Typography className={classes.label}>E-mail address</Typography>}
             fullWidth
             margin="normal"
@@ -74,8 +74,8 @@ const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => 
             InputProps={{
               classes: { input: classes.inputs },
             }}
-            name="new_email"
-            autoComplete="new_email"
+            name="newEmail"
+            autoComplete="newEmail"
             helperText={touched.newEmail ? errors.newEmail : ''}
             error={touched.newEmail && Boolean(errors.newEmail)}
             value={values.newEmail}
