@@ -62,7 +62,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     Object.assign(update, { username: newUsername });
   }
 
-  if (user.email !== newUsername) {
+  if (user.email !== newEmail) {
     Object.assign(update, { email: newEmail });
   }
 
@@ -71,7 +71,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     throw new Error("Same Email and Username");
   }
 
-  await checkUserExists(newEmail, newUsername, res);
+  await checkUserExists(update.email, update.username, res);
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, update, {
     new: true,

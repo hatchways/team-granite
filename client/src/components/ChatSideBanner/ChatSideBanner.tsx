@@ -25,7 +25,9 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
 
   useEffect(() => {
     getProfilePhoto().then((data) => {
-      setImageSource(data.success.imageURI);
+      if (data.success) {
+        setImageSource(data.success.imageURI);
+      }
     });
   }, [imageSource]);
 

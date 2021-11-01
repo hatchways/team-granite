@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 import { useState } from 'react';
 import { Input, Typography } from '@material-ui/core';
-import Image from 'material-ui-image';
 
 interface Props {
   handleUpload: (files: File[]) => void;
@@ -28,7 +27,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     return files.map((file: any) => (
       <Grid className={classes.thumb} key={file.name}>
         <Grid className={classes.thumbInner}>
-          <Image src={file.preview} className={classes.img} />
+          <img src={file.preview} className={classes.img} />
         </Grid>
       </Grid>
     ));
@@ -43,8 +42,8 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
               <Input inputProps={state.getInputProps()} />
               <Typography>Drag and drop some files here, or click to select files</Typography>
             </Grid>
-            <Grid className={classes.center}>{previews()}</Grid>
           </Grid>
+          <Grid className={classes.center}>{previews()}</Grid>
           <Button
             onClick={() => {
               handleUpload(state.acceptedFiles);
