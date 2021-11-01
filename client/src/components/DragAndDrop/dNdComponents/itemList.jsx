@@ -2,13 +2,17 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import ColumnItem from "./item";
 import classes from '../assets/item.module.scss'
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 
 export const Wrapper = props => <Grid item  sx={{ minHeight: '250px' }} className={props.isDraggingOver ?
     classes.wrapperOver : props.isDraggingFrom ?
         classes.wrapperFrom : classes.wrapper}>{props.children}
 </Grid>
-export const ScrollContainer = props => <>{props.children}</>
-export const Title = props => <h4 className={classes.boardTitle}>{props.children}</h4>;
+
+export const ScrollContainer = props => <Box>{props.children}</Box>
+export const Title = props => <Typography className={classes.boardTitle}>{props.children}</Typography>;
 
 export function InnerList(props) {
     const { columnItems, dropProvided } = props;

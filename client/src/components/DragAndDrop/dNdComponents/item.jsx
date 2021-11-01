@@ -6,8 +6,8 @@ import classes from '../assets/item.module.scss'
 
 export default function ColumnItem(props) {
     const { columnItem, isDragging, provided } = props;
-    const { title, description } = columnItem.content;
-    return (<Paper className={classes.columnItem}
+    const { title, description, tag } = columnItem.content;
+    return (<Paper className={isDragging ? classes.dragging : classes.columnItem}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}>

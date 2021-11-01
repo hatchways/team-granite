@@ -2,15 +2,16 @@ import { Draggable } from "react-beautiful-dnd";
 import ColumnList from "./dNdComponents/itemList";
 import classes from './assets/item.module.scss'
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Typography from '@material-ui/core/Typography';
 
-export const Header = ({ children, isDragging }) => <div className={classes.columnHeader + ' ' + (isDragging && classes.dragging)}>{children}</div>
+export const Header = ({ children, isDragging }) => <Box className={classes.columnHeader + ' ' + (isDragging && classes.dragging)}>{children}</Box>
 
 export default function BoardColumn({ title, items, index, isScrollable, isCombineEnabled }) {
 
     return (
         <Draggable draggableId={title} index={index}>
-            {(provided, snapshot) => (
+            {(provided) => (
                 <Grid className={classes.column} container item xs={12} sm={12}
                 ref={provided.innerRef} {...provided.draggableProps}>
                    

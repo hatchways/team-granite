@@ -4,20 +4,21 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import BoardColumn from './column'
 import classes from './assets/item.module.scss'
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { useBoardContext } from '../../context/useBoardContext';
 
 
 const Board = () => {
 
-    const { boardColumnMap: data, setBoardColumnMap, columnRawData, updateColumnRawContext } = useBoardContext();
+    const { boardColumnMap: data, setBoardColumnMap } = useBoardContext();
 
     const [columns, setColumns] = useState(data);
     const [ordered, setOrdered] = useState(Object.keys(data))
 
     const updateColumnRawContextFunction = () =>{
-        let newColumnData = [];
-        ordered.map((col, i) => newColumnData.push({ index: String(i), title: col }))
-       return updateColumnRawContext(newColumnData);
+    //     let newColumnData = [];
+    //     ordered.map((col, i) => newColumnData.push({ index: String(i), title: col }))
+    //    return updateColumnRawContext(newColumnData);
 }
 
 
@@ -27,7 +28,7 @@ const Board = () => {
         if (combine) {
             if (type === "COLUMN") {
                 const shallow = [...ordered].splice(source.index, 1);
-                updateColumnRawContextFunction()
+                // updateColumnRawContextFunction()
                 setOrdered(shallow);
                 return;
             }
@@ -56,7 +57,7 @@ const Board = () => {
             const $_ordered = reorder(ordered, source.index, destination.index);
             
             //UPDATE CONTEXT FOR EASY LOCATION
-            updateColumnRawContextFunction()
+            // updateColumnRawContextFunction()
             setOrdered($_ordered);
             return;
         }
@@ -78,13 +79,13 @@ const Board = () => {
                         {provided => (
                         <Grid container item xs={12} sm={12} className={classes.columnParentContainer}  spacing={2} sx={{marginTop:'50px'}} ref={provided.innerRef} {...provided.droppableProps}>
                                 {ordered.map((key, index) => (
-                                    <div key={key} className={classes.columnContainer} >
+                                    <Box key={key} className={classes.columnContainer} >
                                     <BoardColumn
                                         index={index}
                                         title={key}
                                         items={columns[key]}
                                     />
-                                    </div>
+                                    </Box>
                                 ))}
                                 {provided.placeholder}
                             </Grid>

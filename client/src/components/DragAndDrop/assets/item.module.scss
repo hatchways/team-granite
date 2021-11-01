@@ -10,7 +10,6 @@
     --Height: 250px;
 }
 
-
 .columnParentContainer{
   padding-bottom: 20px;
   display: flex;
@@ -22,7 +21,6 @@
     border-radius: 10px;
   }
 }
-
 
 .column{
   background-color: #001e3c;
@@ -43,37 +41,27 @@
   color: #fff
 }
 
-
-
 .scrollContainer{
     overflow-x: hidden;
   overflow-y: auto;
   max-height: var(--scrollHeight);
 }
 
-.item_container, .dragging{
+.item_container{
   border-radius: var(--borderRadius);
   border: 2px solid transparent;
  padding: var(--grid);
   min-height: 40px;
   margin-bottom: var(--grid);
   user-select: none;
-  &:hover,
-  &:active {
+  &:hover, &:active {
     text-decoration: none;
   }
-
   &:focus {
     outline: none;
     box-shadow: none;
     background: var(--leaving);
   }
-
-}
-
-
-.dragging{
-  background: var(--leaving);
 }
 
 .dropzone{
@@ -85,7 +73,6 @@
   background: var(--nudeColor);
   min-height: 250px;
   padding: 0 2.5px 15px;
-  // border: 1px solid black
 }
 
 .wrapper, .wrapperOver, .wrapperFrom{
@@ -108,12 +95,11 @@
   background-color: var(--entering)
 }
 
-
-.columnItem{
-  background: #7cc334;
+.columnItem, .dragging{
+  background: #7cc334 !important;
   width: 100%;
   padding: 10px 5px;
-  color: #fff;
+  color: #fff !important;
   letter-spacing: 1px;
   margin-bottom: 10px;
   .avatar{
@@ -123,5 +109,7 @@
   }
 }
 
-
-
+.dragging{
+  background: var(--leaving) !important;
+  color: black !important
+}
