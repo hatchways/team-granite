@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -13,12 +13,8 @@ import Board from '../../components/DragAndDrop/drag&drop';
 export default function Dashboard(): JSX.Element {
   
   const classes = useStyles();
-
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
-  // console.log(BoardColumnMap);
-
-  
 
   const history = useHistory();
 

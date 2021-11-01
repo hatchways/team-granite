@@ -1,9 +1,7 @@
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import ColumnItem from "./item";
 import classes from '../assets/item.module.scss'
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Grid, Typography } from '@material-ui/core';
 
 
 export const Wrapper = props => <Grid item  sx={{ minHeight: '250px' }} className={props.isDraggingOver ?

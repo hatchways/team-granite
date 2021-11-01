@@ -23,9 +23,7 @@ const useStyles = makeStyles((theme) => ({
   display: 'flex',
   flex: 1,
   maxWidth: '100%',
-  // display: 'contents',
-},
-
+}
 }));
 
 export default useStyles;

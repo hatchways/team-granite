@@ -1,26 +1,17 @@
-import { useState, useContext, useEffect } from "react";
-import reorder, { reorderColumnMap } from "./reorder";
+import { useState } from "react";
+import { reorderColumn, reorderColumnCardMap } from "./reorder";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import BoardColumn from './column'
 import classes from './assets/item.module.scss'
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Box, Grid } from '@material-ui/core';
 import { useBoardContext } from '../../context/useBoardContext';
 
 
 const Board = () => {
 
     const { boardColumnMap: data, setBoardColumnMap } = useBoardContext();
-
     const [columns, setColumns] = useState(data);
     const [ordered, setOrdered] = useState(Object.keys(data))
-
-    const updateColumnRawContextFunction = () =>{
-    //     let newColumnData = [];
-    //     ordered.map((col, i) => newColumnData.push({ index: String(i), title: col }))
-    //    return updateColumnRawContext(newColumnData);
-}
-
 
     const onDragEnd = result => {
         const { type, combine, source, destination, droppableId, index} = result
@@ -28,7 +19,6 @@ const Board = () => {
         if (combine) {
             if (type === "COLUMN") {
                 const shallow = [...ordered].splice(source.index, 1);
-                // updateColumnRawContextFunction()
                 setOrdered(shallow);
                 return;
             }
@@ -44,25 +34,18 @@ const Board = () => {
             return;
         }
 
-        // DROPPED OUTSIDE COLUMN OR UNCAPTURED REGION
         if (!destination) return;
         
-        // DRAGGED ITEM WAS NOT ADDED TO A NEW COLUMN? 
-        // RETURN BACK TO THE DESTINATION
         if (droppableId === destination.droppableId &&
             index === destination.index) return;
 
-        // REDORDER COLUMN
         if (type === "COLUMN") {
-            const $_ordered = reorder(ordered, source.index, destination.index);
-            
-            //UPDATE CONTEXT FOR EASY LOCATION
-            // updateColumnRawContextFunction()
+            const $_ordered = reorderColumn(ordered, source.index, destination.index);
             setOrdered($_ordered);
             return;
         }
 
-        const updatedData = reorderColumnMap({
+        const updatedData = reorderColumnCardMap({
             columnMap: columns,
             source,
             destination

@@ -1,7 +1,4 @@
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+import { Avatar, Grid, Typography, Paper } from '@material-ui/core';
 import classes from '../assets/item.module.scss'
 
 export default function ColumnItem(props) {

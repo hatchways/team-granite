@@ -1,9 +1,7 @@
 import { Draggable } from "react-beautiful-dnd";
 import ColumnList from "./dNdComponents/itemList";
 import classes from './assets/item.module.scss'
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@material-ui/core/Typography';
+import { Box, Grid, Typography} from '@material-ui/core';
 
 export const Header = ({ children, isDragging }) => <Box className={classes.columnHeader + ' ' + (isDragging && classes.dragging)}>{children}</Box>
 
