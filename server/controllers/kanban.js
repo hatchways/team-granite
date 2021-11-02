@@ -75,8 +75,18 @@ exports.createColumn = async (req, res) => {
     let { index } = req.body
     const { boardId } = req.params
 
-    // only allows 0 or null(i.e end) position within the Board
-    index = typeof index === 'number' ? 0 : null
+    // only allows 0 or 1(i.e end) position within the Board
+    if (index === 0) {
+      index = 0
+    } else if (index == 1 || index == null) {
+      index = null // mongodb takes null values as a directive to append to the end of the List
+    } else {
+      return res.status(403).json({
+        succes: false,
+        message: 'only index 0 and 1 is allowed during Column creation',
+      })
+    }
+    index = typeof index === 'number' && index == 0 ? 0 : null
     const column = await Column.createBoardColumn({ name, index }, boardId)
 
     res.status(200).json({ success: true, column })
@@ -140,8 +150,15 @@ exports.createCard = async (req, res) => {
     let { index } = req.body
     const { columnId } = req.params
 
-    // only allows 0 or null position within Column
-    index = typeof index === 'number' ? 0 : null
+    // only allows 1(i.e end) position during Card creation within the Column
+    if (index == 1 || index == null) {
+      index = null // mongodb takes null values as a directive to append to the end of the List
+    } else {
+      return res.status(403).json({
+        succes: false,
+        message: 'only index 0 and 1 is allowed during Card creation',
+      })
+    }
     const card = await Card.createColumnCard(
       { name, description, index },
       columnId

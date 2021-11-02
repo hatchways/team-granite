@@ -12,24 +12,26 @@ const { columnExist } = require('../middleware/columnExist')
 const { cardExist } = require('../middleware/cardExist')
 
 router.route('/').get(protect, controler.homeBoard)
-router.route('/board').post(protect, validateBoardData, controler.createBoard)
 router
-  .route('/board/:boardId')
+  .route('/createboard')
+  .post(protect, validateBoardData, controler.createBoard)
+router
+  .route('/updateboard/:boardId')
   .put(protect, userCanEditBoard, controler.updateBoard)
 router
-  .route('/board/:boardId')
+  .route('/deleteboard/:boardId')
   .delete(protect, userCanEditBoard, controler.deleteBoard)
 router
-  .route('/column/:boardId/')
+  .route('/createcolumn/:boardId/')
   .post(protect, userCanEditBoard, validateColumn, controler.createColumn)
 router
-  .route('/column/:boardId/:columnId')
+  .route('/updatecolumn/:boardId/:columnId')
   .put(protect, userCanEditBoard, controler.updateColumn)
 router
-  .route('/column/:boardId/:columnId')
+  .route('/deletecolumn/:boardId/:columnId')
   .delete(protect, userCanEditBoard, controler.deleteColumn)
 router
-  .route('/card/:boardId/:columnId')
+  .route('/createcard/:boardId/:columnId')
   .post(
     protect,
     validateCardData,
@@ -38,10 +40,10 @@ router
     controler.createCard
   )
 router
-  .route('/card/:boardId/:columnId/:cardId')
+  .route('/updatecard/:boardId/:columnId/:cardId')
   .put(protect, userCanEditBoard, columnExist, cardExist, controler.updateCard)
 router
-  .route('/card/:boardId/:columnId/:cardId')
+  .route('/deletecard/:boardId/:columnId/:cardId')
   .delete(
     protect,
     userCanEditBoard,

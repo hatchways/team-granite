@@ -47,6 +47,7 @@ columnSchema.statics.createBoardColumn = async function (
     cards: [],
   })
   await column.save()
+  index = index == 0 ? 0 : null
   // update the user board
   await this.model('Board').updateBoardColumnsList(boardId, column._id, index)
   return column
