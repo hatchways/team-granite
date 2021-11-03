@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const [grid, borderRadius, black, scrollHeight, nudeColor, leaving, entering, Height, placeholder, borderLine] =
-      ['8px', '2px', '#2e2e30', '94%', '#f4f6ff', '#ffeaea', '#eaffeb', '100px', '#e5ecfc', '#7aa1fc'];
+      ['8px', '2px', '#2e2e30', '94%', '#f4f6ff', '#ffeaea', '#eaffeb', '30px', '#e5ecfc', '#7aa1fc'];
       
 const dndStyles = makeStyles((theme) => ({
   columnParentContainer: {
@@ -120,6 +120,9 @@ const dndStyles = makeStyles((theme) => ({
     marginBottom: '15px',
     borderRadius: '5px',
     textAlign: 'justify',
+    '& p': {
+      fontWeight: 500,
+    },
   },
 
   avatar: {
