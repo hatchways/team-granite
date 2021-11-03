@@ -25,3 +25,9 @@ export interface Card {
   content: Content;
   columnKey: number | unknown;
 }
+
+
+export interface BoardApiData {
+  error?: { message: string };
+  success?: Board;
+}
