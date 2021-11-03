@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 
@@ -48,14 +47,11 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             id="email"
-            label={<Typography className={classes.label}>E-mail address</Typography>}
+            placeholder="Enter Email"
             fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             InputProps={{
               classes: { input: classes.inputs },
+              disableUnderline: true,
             }}
             name="email"
             autoComplete="email"
@@ -67,15 +63,11 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
           />
           <TextField
             id="password"
-            label={<Typography className={classes.label}>Password</Typography>}
+            placeholder="Password"
             fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
             InputProps={{
               classes: { input: classes.inputs },
-              endAdornment: <Typography className={classes.forgot}>Forgot?</Typography>,
+              disableUnderline: true,
             }}
             type="password"
             autoComplete="current-password"
@@ -85,7 +77,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             onChange={handleChange}
           />
           <Box textAlign="center">
-            <Button type="submit" size="large" variant="contained" color="primary" className={classes.submit}>
+            <Button type="submit" size="large" variant="contained" className={classes.submit}>
               {isSubmitting ? <CircularProgress style={{ color: 'white' }} /> : 'Login'}
             </Button>
           </Box>
