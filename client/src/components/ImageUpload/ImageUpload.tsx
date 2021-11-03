@@ -23,18 +23,16 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     );
   };
 
-  const previews = () => {
-    return files.map((file: any) => (
-      <Grid className={classes.thumb} key={file.name}>
-        <Grid className={classes.thumbInner}>
-          <img src={file.preview} className={classes.img} />
-        </Grid>
+  const previews = files.map((file: any) => (
+    <Grid className={classes.thumb} key={file.name}>
+      <Grid className={classes.thumbInner}>
+        <img src={file.preview} className={classes.img} />
       </Grid>
-    ));
-  };
+    </Grid>
+  ));
 
   return (
-    <Dropzone onDrop={onDrop}>
+    <Dropzone maxFiles={1} onDrop={onDrop}>
       {(state: DropzoneState) => (
         <>
           <Grid container>
@@ -43,7 +41,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
               <Typography>Drag and drop some files here, or click to select files</Typography>
             </Grid>
           </Grid>
-          <Grid className={classes.center}>{previews()}</Grid>
+          <Grid className={classes.center}>{previews}</Grid>
           <Button
             onClick={() => {
               handleUpload(state.acceptedFiles);
