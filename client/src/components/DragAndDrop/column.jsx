@@ -1,11 +1,12 @@
 import { Draggable } from "react-beautiful-dnd";
 import ColumnList from "./dNdComponents/itemList";
-import classes from './assets/item.module.scss'
+import dndStyles from './assets/dndStyles'
 import { Box, Grid, Typography} from '@material-ui/core';
 
 export const Header = ({ children, isDragging }) => <Box className={classes.columnHeader + ' ' + (isDragging && classes.dragging)}>{children}</Box>
 
 export default function BoardColumn({ title, items, index, isScrollable, isCombineEnabled }) {
+    const classes = dndStyles();
 
     return (
         <Draggable draggableId={title} index={index}>
@@ -13,9 +14,9 @@ export default function BoardColumn({ title, items, index, isScrollable, isCombi
                 <Grid className={classes.column} container item xs={12} sm={12}
                 ref={provided.innerRef} {...provided.draggableProps}>
                    
-                    <Grid className={classes.columnHeader} item xs={12} sx={{ height: '50px' }}
+                    <Grid  item xs={12} sx={{ height: '50px' }}
                         {...provided.dragHandleProps}>
-                        <Typography gutterBottom variant="h5" component="h2">{title} </Typography>
+                        <Typography className={classes.columnHeader} gutterBottom variant="h5" component="h5">{title} </Typography>
                     </Grid>
 
                     <Grid item xs={12} sx={{ minHeight: '250px'}}>

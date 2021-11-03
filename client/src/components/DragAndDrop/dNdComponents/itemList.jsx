@@ -1,22 +1,22 @@
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import ColumnItem from "./item";
-import classes from '../assets/item.module.scss'
-import { Box, Grid, Typography } from '@material-ui/core';
+import dndStyles from '../assets/dndStyles'
+import { Box, Grid, Typography, Button } from '@material-ui/core';
 
 
-export const Wrapper = props => <Grid item  sx={{ minHeight: '250px' }} className={props.isDraggingOver ?
-    classes.wrapperOver : props.isDraggingFrom ?
-        classes.wrapperFrom : classes.wrapper}>{props.children}
+export const Wrapper = ({ classes, isDraggingFrom, isDraggingOver, children}) => <Grid item className={isDraggingOver ?
+    classes.wrapperOver : isDraggingFrom ?
+        classes.wrapperFrom : classes.wrapper}>{children}
 </Grid>
 
-export const ScrollContainer = props => <Box>{props.children}</Box>
-export const Title = props => <Typography className={classes.boardTitle}>{props.children}</Typography>;
+export const ScrollContainer = ({children}) => <Box>{children}</Box>
+export const Title = ({classes, children}) => <Typography className={classes.boardTitle}>{children}</Typography>;
 
-export function InnerList(props) {
-    const { columnItems, dropProvided } = props;
-    const title = props.title ? <Title> {props.title} </Title> : null;
+export function InnerList({ columnItems, dropProvided, classes, isDraggingOver, isDraggingFrom }) {
+
     return (
-            <div className={classes.dropzone} ref={dropProvided.innerRef}>
+        <Box className={`${classes.dropzone +' '+ (isDraggingOver ? classes.colDragOver: isDraggingFrom && classes.colDragFrom)}`} ref={dropProvided.innerRef}
+        >
                 {columnItems.map((item, index) => (
                     <Draggable
                         key={item.id}
@@ -24,19 +24,21 @@ export function InnerList(props) {
                         index={index}
                         shouldRespectForceTouch={false}
                     >
-                        {(dragProvided, dragSnapshot) => (
+                        {(dragProvided, dragSnapshot) => (<>
                             <ColumnItem
                                 key={item.id}
                                 columnItem={item}
                                 isDragging={dragSnapshot.isDragging}
                                 isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
                                 provided={dragProvided}
+                                classes={classes}
                             />
+                            </>
                         )}
                     </Draggable>
                 ))}
                 {dropProvided.placeholder}
-            </div>
+            </Box>
     );
 }
 
@@ -47,6 +49,8 @@ export default function ColumnList(props) {
         isCombineEnabled, listId,
         listType, columnItems
     } = props;
+
+    const classes = dndStyles();
 
     return (
         <Droppable
@@ -59,6 +63,8 @@ export default function ColumnList(props) {
                     isDraggingOver={dropSnapshot.isDraggingOver}
                     isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
                     {...dropProvided.droppableProps}
+                    classes={classes}
+                    style={{ background: dropSnapshot.isDraggingOver?'red':'green'}}
                 >
                     {internalScroll ? (
                         <ScrollContainer >
@@ -66,15 +72,18 @@ export default function ColumnList(props) {
                                 dropProvided={dropProvided}
                                 isDraggingOver={dropSnapshot.isDraggingOver}
                                 isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
-                            />
+                                classes={classes}
+                           />
                         </ScrollContainer>
                     ) : (
                             <InnerList columnItems={columnItems} 
                             dropProvided={dropProvided}
                                 isDraggingOver={dropSnapshot.isDraggingOver}
                                 isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
+                                classes={classes}
                         />
                     )}
+                    <Button className={classes.button}>Add a Card</Button>
                 </Wrapper>
             )}
         </Droppable>
