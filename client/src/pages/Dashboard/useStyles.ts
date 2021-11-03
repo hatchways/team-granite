@@ -8,6 +8,8 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInput-underline:before': {
       borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',
     },
+    display:'flex',
+    flex: 1
   },
   dashboard: { backgroundColor: '#FFFFFF' },
   drawerWrapper: {
@@ -16,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
       width: '300px',
     },
   },
+
+  content: {
+  display: 'flex',
+  flex: 1,
+  maxWidth: '100%',
+}
 }));
 
 export default useStyles;
