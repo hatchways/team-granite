@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-const protect = (req, res, next) => {
+const protect = async (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -10,7 +11,13 @@ const protect = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    let dbUserId = await User.findById(decoded.id);
+    if (!dbUserId) {
+      res.status(401)
+      throw new Error("You are using a deleted account")
+    }
     req.user = decoded;
+
 
     next();
   } catch (err) {
