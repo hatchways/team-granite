@@ -20,7 +20,7 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
   const [newChatUser, setNewChatUser] = useState<User | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [imageSource, setImageSource] = useState<string | null>(null);
-
+  const testChange = 1;
   const classes = useStyles();
 
   useEffect(() => {
