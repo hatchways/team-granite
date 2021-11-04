@@ -14,7 +14,6 @@ const boardSchema = new mongoose.Schema(
 )
 
 boardSchema.statics.createBoardBoard = async function ({ name, userId }) {
-  // create the column
   let board = new this({
     name: name,
     userId: userId,
@@ -52,7 +51,7 @@ boardSchema.statics.generateBoard = async function (userId) {
   let boards = await this.find({ userId: userId })
     .populate({ path: 'columns', populate: { path: 'cards' } })
     .populate('userId', 'username  email register_date')
-    .lean() // [{}]
+    .lean()
 
   if (boards.length == 0) {
     let newBoard = await new this({
@@ -62,7 +61,7 @@ boardSchema.statics.generateBoard = async function (userId) {
     let columns = await this.model('Column').generateBoardColumns(newBoard._id)
     newBoard.columns = columns
     await newBoard.save()
-    // refetch the board data n populate
+
     boards = await Board.find({ userId: userId })
       .populate({ path: 'columns', populate: { path: 'cards' } })
       .populate('userId', 'username email register_date')
@@ -76,7 +75,6 @@ boardSchema.statics.updateBoardColumnsList = async function (
   columnId,
   index
 ) {
-  //  pop the columnId if it exist
   await this.findOneAndUpdate(
     { _id: boardId, columns: columnId },
     {
@@ -84,7 +82,6 @@ boardSchema.statics.updateBoardColumnsList = async function (
     }
   )
 
-  // update the user board
   await this.findOneAndUpdate(
     { _id: boardId },
     {

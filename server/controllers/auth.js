@@ -2,10 +2,7 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const generateToken = require('../utils/generateToken')
 
-// @route POST /auth/register
-// @desc Register user
-// @access Public
-exports.registerUser = asyncHandler(async (req, res, next) => {
+exports.registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body
 
   const emailExists = await User.findOne({ email })
@@ -52,10 +49,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   }
 })
 
-// @route POST /auth/login
-// @desc Login user
-// @access Public
-exports.loginUser = asyncHandler(async (req, res, next) => {
+exports.loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email })
@@ -83,10 +77,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   }
 })
 
-// @route GET /auth/user
-// @desc Get user data with valid token
-// @access Private
-exports.loadUser = asyncHandler(async (req, res, next) => {
+exports.loadUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
 
   if (!user) {
@@ -105,10 +96,7 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
   })
 })
 
-// @route GET /auth/logout
-// @desc Logout user
-// @access Public
-exports.logoutUser = asyncHandler(async (req, res, next) => {
+exports.logoutUser = asyncHandler(async (req, res) => {
   res.clearCookie('token')
 
   res.json({ success: true, message: 'You have successfully logged out' })

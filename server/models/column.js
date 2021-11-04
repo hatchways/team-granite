@@ -40,7 +40,6 @@ columnSchema.statics.createBoardColumn = async function (
   { name, index },
   boardId
 ) {
-  // create the column
   let column = await new this({
     name: name,
     boardId: boardId,
@@ -48,7 +47,7 @@ columnSchema.statics.createBoardColumn = async function (
   })
   await column.save()
   index = index == 0 ? 0 : null
-  // update the user board
+
   await this.model('Board').updateBoardColumnsList(boardId, column._id, index)
   return column
 }
@@ -69,7 +68,6 @@ columnSchema.statics.updateBoardColumn = async function (
     )
   }
   if (index >= 0) {
-    // update the user board
     await this.model('Board').updateBoardColumnsList(boardId, columnId, index)
   }
   let column = await this.findOne({ _id: columnId })
@@ -91,7 +89,6 @@ columnSchema.statics.updateColumnCardsList = async function (
   { cardId, index },
   columnId
 ) {
-  //  pop the cardId if it exist
   await this.findOneAndUpdate(
     { _id: columnId },
     {
@@ -99,7 +96,6 @@ columnSchema.statics.updateColumnCardsList = async function (
     }
   )
 
-  // update the Column with new cardId
   await this.findOneAndUpdate(
     { _id: columnId },
     {
@@ -118,7 +114,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
   currentColumnId,
   targetColumnId
 ) {
-  //  pop the cardId if it exist
   await this.findOneAndUpdate(
     { _id: currentColumnId },
     {
@@ -126,7 +121,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
     }
   )
 
-  // update the Column with new cardId
   await this.findOneAndUpdate(
     { _id: targetColumnId },
     {
@@ -143,7 +137,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
     }
   )
 
-  // update the card with its new targetId
   await this.model('Card').findOneAndUpdate(
     { _id: cardId },
     {

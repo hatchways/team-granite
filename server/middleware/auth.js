@@ -9,7 +9,6 @@ const protect = async (req, res, next) => {
       .status(401)
       .json({ success: false, message: 'No token, authorization denied' })
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

@@ -25,9 +25,7 @@ const io = socketio(server, {
   },
 })
 
-io.on('connection', (socket) => {
-  console.log('connected')
-})
+io.on('connection', (socket) => {})
 
 if (process.env.NODE_ENV === 'development') {
   app.use(logger('dev'))
@@ -61,10 +59,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.log(`Error: ${err.message}`.red)
-  // Close server & exit process
   server.close(() => process.exit(1))
 })
 
