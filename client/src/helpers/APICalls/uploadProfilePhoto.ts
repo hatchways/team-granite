@@ -7,13 +7,13 @@ interface ImageData {
 }
 
 const uploadProfilePhoto = async (image: File): Promise<ImageData> => {
-  const form_data = new FormData();
-  form_data.append('profilePhoto', image);
+  const formData = new FormData();
+  formData.append('profilePhoto', image);
 
   const fetchOptions: FetchOptions = {
     method: 'POST',
     credentials: 'include',
-    body: form_data,
+    body: formData,
   };
 
   return await fetch(`/image/profile`, fetchOptions)

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Dropzone, { DropzoneState } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -23,27 +24,26 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     );
   };
 
-  const previews = () => {
-    return files.map((file: any) => (
-      <Grid className={classes.thumb} key={file.name}>
-        <Grid className={classes.thumbInner}>
-          <img src={file.preview} className={classes.img} />
-        </Grid>
+  const previews = files.map((file: any) => (
+    <Grid className={classes.thumb} key={file.name}>
+      <Grid className={classes.thumbInner}>
+        <img src={file.preview} className={classes.img} />
       </Grid>
-    ));
-  };
+    </Grid>
+  ));
 
   return (
-    <Dropzone onDrop={onDrop}>
+    <Dropzone maxFiles={1} onDrop={onDrop}>
       {(state: DropzoneState) => (
         <>
           <Grid container>
             <Grid {...state.getRootProps({ className: classes.dropzone })}>
+              {/* @ts-ignore */}
               <Input inputProps={state.getInputProps()} />
               <Typography>Drag and drop some files here, or click to select files</Typography>
             </Grid>
           </Grid>
-          <Grid className={classes.center}>{previews()}</Grid>
+          <Grid className={classes.center}>{previews}</Grid>
           <Button
             onClick={() => {
               handleUpload(state.acceptedFiles);
