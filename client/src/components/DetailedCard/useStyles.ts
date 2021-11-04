@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.grey[500],
     },
   },
-  test: {
+  fixWidth: {
     minWidth: '700px',
   },
   buttonBox: {
@@ -121,8 +121,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       boxShadow: 'none',
     },
   },
-  contentB: { marginLeft: '7%', fontSize: '12px' },
-  dialog: { color: 'red' },
+  boxItems: { marginLeft: '7%', fontSize: '12px' },
+
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),

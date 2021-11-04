@@ -52,9 +52,9 @@ const DetailedCard: React.FC = () => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        classes={{ paper: classes.test }}
+        classes={{ paper: classes.fixWidth }}
       >
-        <Box className={classes.test}>
+        <Box className={classes.fixWidth}>
           <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             <Typography className={classes.titleBoxContent}>
               <div className={classes.cardIcons}>

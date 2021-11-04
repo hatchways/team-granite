@@ -21,7 +21,7 @@ const DetailedCardForm: React.FC = () => {
               </div>
               Description:
             </Typography>
-            <Box className={classes.contentB}>
+            <Box className={classes.boxItems}>
               <textarea
                 name="description"
                 rows={3}
@@ -44,7 +44,7 @@ const DetailedCardForm: React.FC = () => {
               </div>
               Deadline:
             </Typography>
-            <Box className={classes.contentB}>
+            <Box className={classes.boxItems}>
               <Router>
                 <Link to="#">March 10</Link>
               </Router>
@@ -57,14 +57,8 @@ const DetailedCardForm: React.FC = () => {
               </div>
               Add comment:
             </Typography>
-            <Box className={classes.contentB}>
-              <textarea
-                name="description"
-                rows={3}
-                cols={57}
-                className={classes.textArea}
-                placeholder="Write a comment"
-              />
+            <Box className={classes.boxItems}>
+              <textarea name="comments" rows={3} cols={57} className={classes.textArea} placeholder="Write a comment" />
               <Box color="cornflowerblue" className={classes.buttonBox}>
                 <Button variant="contained" className={classes.descriptionButton}>
                   Save
