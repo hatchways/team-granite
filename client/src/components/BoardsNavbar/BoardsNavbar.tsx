@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { Grid } from '@material-ui/core';
 
 const BoardsNavbar = (): JSX.Element => {
   const classes = useStyles();
@@ -34,7 +35,7 @@ const BoardsNavbar = (): JSX.Element => {
 
   const options = ['option1', 'option2'];
   return (
-    <div className={classes.root}>
+    <Grid className={classes.root}>
       <CssBaseline />
       <AppBar
         position="relative"
@@ -57,13 +58,6 @@ const BoardsNavbar = (): JSX.Element => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <Typography paragraph>Data will come here</Typography>
-      </main>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -89,7 +83,7 @@ const BoardsNavbar = (): JSX.Element => {
         </List>
         <Divider />
       </Drawer>
-    </div>
+    </Grid>
   );
 };
 export default BoardsNavbar;

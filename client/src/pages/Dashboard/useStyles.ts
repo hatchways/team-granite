@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   content: {
-  display: 'flex',
-  flex: 1,
-  maxWidth: '100%',
-}
+    display: 'flex',
+    flex: 1,
+    maxWidth: '100%',
+  },
 }));
 
 export default useStyles;

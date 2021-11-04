@@ -7,11 +7,9 @@ import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import Board from '../../components/DragAndDrop/drag&drop';
-import Navbar from '../../frontend/DashboardSkeleton/Navbar/Navbar';
-
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function Dashboard(): JSX.Element {
-  
   const classes = useStyles();
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
@@ -36,10 +34,10 @@ export default function Dashboard(): JSX.Element {
         <Grid item className={classes.drawerWrapper}>
           <Navbar />
         </Grid>
-
         <Grid item xs={12} sm={12} className={`${classes.content} `}>
           <Board />
         </Grid>
+      </Grid>
     </>
   );
 }

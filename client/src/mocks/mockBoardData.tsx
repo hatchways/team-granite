@@ -68,7 +68,6 @@ export const columnItems: Card[] = [
   },
 ];
 
-
 export const board: Board = {
   id: '1',
   title: 'Hatchway product',
