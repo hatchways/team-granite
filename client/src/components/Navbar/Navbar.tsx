@@ -5,7 +5,7 @@ import { NavLink, BrowserRouter as Router } from 'react-router-dom';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import AddIcon from '@material-ui/icons/Add';
-import BoardsNavbar from '../BoardsNavbar/BoardsNavbar';
+import BoardsNavbar from './BoardsNavbar/BoardsNavbar';
 
 const Navbar = (): JSX.Element => {
   const classes = useStyles();

@@ -1,77 +1,75 @@
 import { Board, Column, Card } from '../interface/BoardApiData';
 
-const date = new Date().toLocaleString();
+export const mockColumns: any = {
+  'col-0': {
+    id: 'col-0',
+    title: 'Incoming',
+    cardIds: ['card-1', 'card-5'],
+  },
+  'col-1': {
+    id: 'col-1',
+    title: 'Backlog',
+    cardIds: ['card-2'],
+  },
+  'col-2': {
+    id: 'col-2',
+    title: 'In progess',
+    cardIds: ['card-3'],
+  },
+  'col-3': {
+    id: 'col-3',
+    title: 'Completed',
+    cardIds: ['card-4'],
+  },
+};
 
-export const boardColumns: Column[] = [
-  {
-    index: 3,
-    title: 'TODO',
-    cards: [],
+export const mockCards: any = {
+  'card-1': {
+    id: 'card-1',
+    title: 'Card title 1',
+    description: 'Card description 1',
+    deadline: new Date().toLocaleString(),
+    columnKey: 'col-0',
+    color: 'green',
   },
-  {
-    index: 4,
-    title: 'IN_PROGRESS',
-    cards: [],
+  'card-2': {
+    id: 'card-2',
+    title: 'Card title 2',
+    description: 'Card description 2',
+    deadline: new Date().toLocaleString(),
+    columnKey: 'col-1',
+    color: 'red',
   },
-  {
-    index: 1,
-    title: 'DONE',
-    cards: [],
+  'card-3': {
+    id: 'card-3',
+    title: 'Card title 3',
+    description: 'Card description 3',
+    deadline: new Date().toLocaleString(),
+    columnKey: 'col-2',
+    color: 'yellow',
   },
-  {
-    index: 2,
-    title: 'INCOMING',
-    cards: [],
+  'card-4': {
+    id: 'card-4',
+    title: 'Card title 4',
+    description: 'Card description 4',
+    deadline: new Date().toLocaleString(),
+    columnKey: 'col-3',
+    color: 'blue',
   },
-];
+  'card-5': {
+    id: 'card-5',
+    title: 'Card title 5',
+    description: 'Card description 5',
+    deadline: new Date().toLocaleString(),
+    columnKey: 'col-0',
+    color: 'purple',
+  },
+};
 
-export const columnItems: Card[] = [
-  {
-    id: '1',
-    content: {
-      title: 'Ronaldo Transfer To Man U',
-      description: 'Sometimes life is scary and dark',
-      deadline: date,
-      tag: 1,
-    },
-    columnKey: boardColumns.find((column) => column.index === 2),
-  },
-  {
-    id: '2',
-    content: {
-      title: 'Ronaldo Transfer To Man U',
-      description: 'Sometimes life is scary and dark',
-      deadline: new Date().toLocaleString(),
-      tag: 2,
-    },
-    columnKey: boardColumns.find((column) => column.index === 1),
-  },
-  {
-    id: '3',
-    content: {
-      title: "You got to focus on what's real, man, Sometimes life is scary and dark",
-      description: 'Sometimes life is scary and dark',
-      deadline: new Date().toLocaleString(),
-      tag: 3,
-    },
-    columnKey: boardColumns.find((column) => column.index === 1),
-  },
-  {
-    id: '4',
-    content: {
-      title: 'Is that where creativity comes from? From sad biz?',
-      description: 'Sometimes life is scary and dark',
-      deadline: new Date().toLocaleString(),
-      tag: 4,
-    },
-    columnKey: boardColumns.find((column) => column.index === 3),
-  },
-];
-
-export const board: Board = {
+export const mockBoard: any = {
   id: '1',
   title: 'Hatchway product',
-  columns: boardColumns,
-  createdAt: date,
-  updatedAt: date,
+  columnIds: ['col-0', 'col-1', 'col-2', 'col-3'],
+  createdAt: new Date().toLocaleString(),
+  updatedAt: new Date().toLocaleString(),
 };

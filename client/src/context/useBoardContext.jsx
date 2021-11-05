@@ -1,24 +1,25 @@
 import { useState, createContext, useContext } from 'react';
-import { boardColumns, columnItems } from '../mocks/mockBoardData';
+import { mockColumns, mockCards, mockBoard } from '../mocks/mockBoardData';
 
-const BoardColumnMap = boardColumns
-  .sort((colA, colB) => colA.index - colB.index)
-  .reduce(
-    (previous, columnKey) => ({
-      ...previous,
-      [columnKey.title]: [...columnItems.filter((item) => item.columnKey === columnKey)],
-    }),
-    {},
-  );
+//interface
+//columns Column[]
+//cards Card[]
+//board Board
+
+const mockBoardData = {
+  columns: mockColumns,
+  cards: mockCards,
+  board: mockBoard,
+};
 
 const BoardContext = createContext({
-  boardColumnMap: {},
-  setBoardColumnMap: () => null,
+  boardData: {},
+  setBoardData: () => null,
 });
 
 export const BoardContextProvider = ({ children }) => {
-  const [boardColumnMap, setBoardColumnMap] = useState(BoardColumnMap);
-  const value = { boardColumnMap, setBoardColumnMap };
+  const [boardData, setBoardData] = useState(mockBoardData);
+  const value = { boardData, setBoardData };
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>;
 };
 

@@ -17,12 +17,6 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
-
-  content: {
-    display: 'flex',
-    flex: 1,
-    maxWidth: '100%',
-  },
 }));
 
 export default useStyles;
