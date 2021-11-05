@@ -9,7 +9,12 @@ const generateToken = require("../utils/generateToken");
 exports.registerUser = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
-  await checkUserExists(email, username, res);
+  try {
+    await checkUserExists(update.email, update.username);
+  } catch (error) {
+    res.status(400);
+    throw error;
+  }
 
   const user = await User.create({
     username,

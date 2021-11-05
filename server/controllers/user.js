@@ -71,7 +71,12 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     throw new Error("Same Email and Username");
   }
 
-  await checkUserExists(update.email, update.username, res);
+  try {
+    await checkUserExists(update.email, update.username);
+  } catch (error) {
+    res.status(400);
+    throw error;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, update, {
     new: true,

@@ -7,10 +7,10 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-exports.cloudinaryUpload = (file_path, folder) => {
+exports.cloudinaryUpload = (filePath, folder) => {
   return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
-      file_path,
+      filePath,
       {
         resource_type: "auto",
         folder: folder,
@@ -24,7 +24,7 @@ exports.cloudinaryUpload = (file_path, folder) => {
             id: result.public_id,
           });
         }
-        fs.unlinkSync(file_path);
+        fs.unlinkSync(filePath);
       }
     );
   });

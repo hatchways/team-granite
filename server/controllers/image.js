@@ -2,9 +2,8 @@ const Image = require("../models/Image");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const { cloudinaryUpload } = require("../cloudinary");
-const userId = null;
 
-const helperUploadImages = async (res, files, req) => {
+const helperUploadImages = async (files, user) => {
   const images = [];
   const uploadedImageData = [];
   const userId = null;
@@ -15,8 +14,7 @@ const helperUploadImages = async (res, files, req) => {
       process.env.CLOUDINARY_DIR
     );
     if (!imageData) {
-      res.status(500);
-      throw new Error("File not uploaded to cloudinary.");
+      return null;
     }
     uploadedImageData.push(imageData);
   }
@@ -42,7 +40,13 @@ const helperUploadImages = async (res, files, req) => {
 // @desc Upload any number of images
 // @access Public
 exports.uploadImages = asyncHandler(async (req, res, next) => {
-  const images = await helperUploadImages(res, req.files, req.user);
+  const images = await helperUploadImages(req.files, req.user);
+
+  if (!images) {
+    res.status(400);
+    throw new Error("File not uploaded to cloudinary.");
+  }
+
   const imageURIs = [];
   images.map((image) => {
     imageURIs.push(image.url);
@@ -56,8 +60,6 @@ exports.uploadImages = asyncHandler(async (req, res, next) => {
 // @desc Upload profile photo
 // @access Private
 exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
-  const [image] = await helperUploadImages(res, [req.file], req.user);
-
   const user = await User.findByIdAndUpdate(
     req.user.id,
     { profilePhoto: image.id },
@@ -69,7 +71,14 @@ exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized");
   }
 
+  const images = await helperUploadImages(res, [req.file], req.user);
+
+  if (!images) {
+    res.status(400);
+    throw new Error("File not uploaded to cloudinary.");
+  }
+
   res.status(200).json({
-    success: { imageURI: image.url },
+    success: { imageURI: images[0].url },
   });
 });

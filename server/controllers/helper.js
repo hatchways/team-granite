@@ -1,11 +1,10 @@
 const User = require("../models/User");
 
-exports.checkUserExists = async (email, username, res) => {
+exports.checkUserExists = async (email, username) => {
   if (email) {
     const emailExists = await User.findOne({ email });
 
     if (emailExists) {
-      res.status(400);
       throw new Error("A user with that email already exists");
     }
   }
@@ -14,7 +13,6 @@ exports.checkUserExists = async (email, username, res) => {
     const usernameExists = await User.findOne({ username });
 
     if (usernameExists) {
-      res.status(400);
       throw new Error("A user with that username already exists");
     }
   }

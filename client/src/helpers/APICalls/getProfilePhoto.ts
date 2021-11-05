@@ -8,7 +8,6 @@ interface ImageSourceData {
 const getProfilePhotoURI = async (): Promise<ImageSourceData> => {
   const fetchOptions: FetchOptions = {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
   return await fetch(`/users/profile-photo`, fetchOptions)
