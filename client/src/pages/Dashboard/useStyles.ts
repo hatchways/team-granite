@@ -4,6 +4,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: 'roboto',
     minHeight: '100vh',
     '& .MuiInput-underline:before': {
       borderBottom: '1.2px solid rgba(0, 0, 0, 0.2)',

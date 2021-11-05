@@ -4,6 +4,33 @@ const [grid, borderRadius, black, scrollHeight, nudeColor, leaving, entering, He
       ['8px', '2px', '#2e2e30', '94%', '#f4f6ff', '#ffeaea', '#eaffeb', '30px', '#e5ecfc', '#7aa1fc'];
       
 const dndStyles = makeStyles((theme) => ({
+  boardContainer: {
+    display: 'block',
+    padding: '20px',
+  },
+
+  boardTitle: {
+    // background: '#759cfc',
+    // width: '90%',
+    paddingLeft: '50px',
+    fontSize: '20px',
+    color: '#262626',
+    // textShadow: '1px 1px 4px black',
+    fontWeight: 600,
+    marginBottom: '30px',
+  },
+
+  boardAside: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    transition: 'background 0.2s ease, opacity 0.1s ease',
+    '&:hover': {
+      background: 'rgba(0,0,0,.3)',
+    },
+  },
+
   columnParentContainer: {
     marginTop: '50px',
     paddingBottom: '20px',
@@ -142,6 +169,39 @@ const dndStyles = makeStyles((theme) => ({
 
   button: {
     color: '#bac4dd',
+  },
+
+  modalDialog: {
+    userSelect: 'none',
+    '& .MuiDialog-paper': {
+      width: '400px',
+      height: '260px',
+      padding: '0 15px 18px',
+      textAlign: 'center',
+      '& .MuiDialogContent-root': {
+        overflowY: 'hidden',
+        overflowX: 'hidden',
+      },
+    },
+    '& h2': {
+      fontWeight: 600,
+    },
+    '& .close': {
+      fontWeight: 600,
+      display: 'flex',
+      justifyContent: 'flex-end',
+      background: 'none',
+    },
+
+    '& button': {
+      background: '#759cfc',
+      color: '#fff',
+      marginTop: '20px',
+      padding: '10px 20px',
+      '&:hover': {
+        background: '#424242',
+      },
+    },
   },
 }));
 

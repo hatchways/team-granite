@@ -47,7 +47,10 @@ export default function ColumnList(props) {
     const {
         internalScroll,
         isCombineEnabled, listId,
-        listType, columnItems
+        listType, columnItems,
+        boardActions, boardActionsInit, index,
+                        boardID 
+
     } = props;
 
     const classes = dndStyles();
@@ -72,18 +75,23 @@ export default function ColumnList(props) {
                                 dropProvided={dropProvided}
                                 isDraggingOver={dropSnapshot.isDraggingOver}
                                 isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
-                                classes={classes}
-                           />
+                                classes={classes} boardActions={boardActions}
+                                boardActionsInit={boardActionsInit}
+                                boardID={boardID}
+
+                          />
                         </ScrollContainer>
                     ) : (
                             <InnerList columnItems={columnItems} 
                             dropProvided={dropProvided}
                                 isDraggingOver={dropSnapshot.isDraggingOver}
                                 isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
-                                classes={classes}
-                        />
+                                classes={classes} boardActions={boardActions}
+                                boardActionsInit={boardActionsInit}
+                                boardID={boardID}
+                             />
                     )}
-                    <Button className={classes.button}>Add a Card</Button>
+                    <Button className={classes.button} onClick={() => boardActionsInit(2, 1, index, boardID)}>Add a Card</Button>
                 </Wrapper>
             )}
         </Droppable>

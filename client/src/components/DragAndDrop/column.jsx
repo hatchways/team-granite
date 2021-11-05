@@ -5,7 +5,7 @@ import { Box, Grid, Typography} from '@material-ui/core';
 
 export const Header = ({ children, isDragging }) => <Box className={classes.columnHeader + ' ' + (isDragging && classes.dragging)}>{children}</Box>
 
-export default function BoardColumn({ title, items, index, isScrollable, isCombineEnabled }) {
+export default function BoardColumn({ title, items, index, isScrollable, isCombineEnabled, boardActions, boardActionsInit, boardID }) {
     const classes = dndStyles();
 
     return (
@@ -22,12 +22,17 @@ export default function BoardColumn({ title, items, index, isScrollable, isCombi
                     <Grid item xs={12} sx={{ minHeight: '250px'}}>
                         
                     <ColumnList
+                    
                         listId={title}
                         listType="BOARD"
                         columnItems={items}
                         internalScroll={isScrollable}
                         isCombineEnabled={Boolean(isCombineEnabled)}
-                    />
+                        boardActions={boardActions}
+                        boardActionsInit={boardActionsInit}
+                        index={index}
+                        boardID={boardID}
+                   />
                 </Grid>
                 </Grid>
             )}

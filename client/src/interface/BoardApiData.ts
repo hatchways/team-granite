@@ -29,5 +29,5 @@ export interface Card {
 
 export interface BoardApiData {
   error?: { message: string };
-  success?: Board;
+  success?: Board[];
 }
