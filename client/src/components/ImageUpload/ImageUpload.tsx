@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Dropzone, { DropzoneState } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -43,7 +42,6 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
         <>
           <Grid container>
             <Grid {...state.getRootProps({ className: classes.dropzone })}>
-              {/* @ts-ignore */}
               <Input inputProps={state.getInputProps()} />
               <Typography>Drag and drop some files here, or click to select files</Typography>
             </Grid>
