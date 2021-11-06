@@ -1,8 +1,8 @@
 import { Box, Grid, Typography, Paper } from '@material-ui/core';
 
 export default function ColumnItem({ columnItem, isDragging, provided, classes }) {
-    const { title, description, tag } = columnItem.content;
-    const color = columnItem.id == 1 ? '#FF5D48' : columnItem.id == 2 ? '#5ACD76' : columnItem.id == 3 ? '#759CFC' : columnItem.id == 4 ? '#EDAB1D' :'#D460F7';
+    const { name, description, tag } = columnItem.content;
+    const color = tag == 0 ? '#FFF' : tag == 1 ? '#FF5D48' : tag == 2 ? '#5ACD76' : tag == 3 ? '#759CFC' : tag == 4 ? '#EDAB1D' :'#D460F7';
     
     return (<Paper className={isDragging ? classes.dragging : classes.columnItem}
             ref={provided.innerRef}
@@ -10,10 +10,11 @@ export default function ColumnItem({ columnItem, isDragging, provided, classes }
             {...provided.dragHandleProps}>
                 <Grid container wrap="nowrap" spacing={2}>
             <Grid item xs={12} sm={12}>
-                <Box className={classes.avatar} style={{ background: color}}></Box>
-                <Typography>{title}</Typography>
+                <Box className={classes.avatar} style={{ background: color, border: '.6px solid rgba(0,0,0,.5)'}}></Box>
+                <Typography>{name}</Typography>
                     </Grid>
                 </Grid>
             </Paper>
     );
 }
+

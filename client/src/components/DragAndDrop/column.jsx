@@ -7,7 +7,7 @@ export const Header = ({ children, isDragging }) => <Box className={classes.colu
 
 export default function BoardColumn({ title, items, index, isScrollable, isCombineEnabled, boardActions, boardActionsInit, boardID }) {
     const classes = dndStyles();
-
+    
     return (
         <Draggable draggableId={title} index={index}>
             {(provided) => (

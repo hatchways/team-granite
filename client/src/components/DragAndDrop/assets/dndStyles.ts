@@ -10,12 +10,9 @@ const dndStyles = makeStyles((theme) => ({
   },
 
   boardTitle: {
-    // background: '#759cfc',
-    // width: '90%',
     paddingLeft: '50px',
     fontSize: '20px',
     color: '#262626',
-    // textShadow: '1px 1px 4px black',
     fontWeight: 600,
     marginBottom: '30px',
   },
@@ -121,6 +118,22 @@ const dndStyles = makeStyles((theme) => ({
     backgroundColor: entering,
   },
 
+  addCardItem: {
+    background: '#fff !important',
+    width: '100%',
+    boxShadow: 'none',
+    padding: '15px',
+    color: black,
+    letterSpacing: '1px',
+    marginBottom: '15px',
+    borderRadius: '5px',
+    textAlign: 'justify',
+    border : `2px solid ${borderLine}`,
+    '& p': {
+      fontWeight: 600,
+    },
+  },
+
   columnItem: {
     background: '#fff !important',
     width: '100%',
@@ -192,17 +205,26 @@ const dndStyles = makeStyles((theme) => ({
       justifyContent: 'flex-end',
       background: 'none',
     },
-
-    '& button': {
-      background: '#759cfc',
-      color: '#fff',
-      marginTop: '20px',
-      padding: '10px 20px',
-      '&:hover': {
-        background: '#424242',
-      },
-    },
   },
+
+  stack: {
+      display:'flex',
+      flexDirection:'row', 
+      justifyContent:'space-between',
+      alignItems:'center',
+    '& > p':{
+        fontWeight: 300,
+        color: 'rgba(0,0,0,.4)',
+        whiteSpace: 'nowrap'
+    }
+},
+avatarx:{
+        width: '16px',
+        height: '16px',
+        marginRight:'2.5px',
+        border: '.5px solid rgba(0,0,0,.4)'
+        
+    }  ,
 }));
 
 export default dndStyles;

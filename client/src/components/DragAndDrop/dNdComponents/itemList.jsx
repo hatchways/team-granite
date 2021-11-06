@@ -1,7 +1,8 @@
+import { useState, useRef } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import ColumnItem from "./item";
 import dndStyles from '../assets/dndStyles'
-import { Box, Grid, Typography, Button } from '@material-ui/core';
+import { Box, Grid, Typography, Button, Paper, Avatar, TextField } from '@material-ui/core';
 
 
 export const Wrapper = ({ classes, isDraggingFrom, isDraggingOver, children}) => <Grid item className={isDraggingOver ?
@@ -55,6 +56,14 @@ export default function ColumnList(props) {
 
     const classes = dndStyles();
 
+    const inputElement = useRef()
+    const [data, setData] = useState({name:'', tag:''})
+    const [openAddDialog, setOpenAddDialog] = useState(false)
+
+    const setTag = (tag) =>{
+        setData({...data, tag})
+    }
+
     return (
         <Droppable
             droppableId={listId ? listId : "LIST"}
@@ -91,7 +100,40 @@ export default function ColumnList(props) {
                                 boardID={boardID}
                              />
                     )}
-                    <Button className={classes.button} onClick={() => boardActionsInit(2, 1, index, boardID)}>Add a Card</Button>
+                    {openAddDialog && <Paper className={classes.addCardItem}>
+                        <Grid container wrap="nowrap" spacing={2}>
+                            <Grid item xs={12} sm={12}>
+                                <Typography varaint='h5'> Add title...</Typography>
+                                <TextField
+                                    autoFocus
+                                    id="standard-basic"
+                                    type="text"
+                                    fullWidth
+                                    variant="standard"
+                                    inputRef={inputElement}
+                                    onChange={() => setData(prev => {
+                                        return { ...prev, name: inputElement.current.value }
+                                    })}
+                                />
+                                    <Box style={{display:'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop:'10px'}}>
+                                    <Typography variant='h6' style={{whiteSpace:'nowrap', fontSize:'14px'}}> Select Tag: </Typography>
+                                   
+                                    <Box className={classes.stack}>
+                                        <Avatar onClick={()=>setTag(0)} className={classes.avatarx} style={{background:'#FFF'}} > </Avatar>
+                                        <Avatar onClick={() => setTag(1)} className={classes.avatarx} style={{ background: '#5ACD76' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(2)} className={classes.avatarx} style={{ background: '#FF5D48' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(3)} className={classes.avatarx} style={{ background: '#EDAB1D' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(4)} className={classes.avatarx} style={{ background: '#59B0FF' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(5)} className={classes.avatarx} style={{ background: '#D460F7' }}> </Avatar>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>}
+                    <Box style={{display:'flex', justifyContent:'space-between'}}>
+                        {openAddDialog&& <Button variant="contained" color='primary' onClick={() => boardActions(2, 1, index, boardID, data)}>Add Card</Button>}
+                        <Button variant={openAddDialog ?'outlined':'contained'} color='primary' onClick={() => setOpenAddDialog(!openAddDialog)}>{openAddDialog?'Close':'Add a Card'}</Button>
+                    </Box>
                 </Wrapper>
             )}
         </Droppable>

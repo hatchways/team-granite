@@ -7,6 +7,8 @@ export const reorderColumn = (list, startIndex, endIndex) => {
 };
 
 export const reorderColumnCardMap = ({ columnMap, source, destination }) => {
+    const index = Object.keys(columnMap);
+    
     const [current, next] = [columnMap[source.droppableId], columnMap[destination.droppableId]];
     const target = current[source.index];
     if (source.droppableId === destination.droppableId) {

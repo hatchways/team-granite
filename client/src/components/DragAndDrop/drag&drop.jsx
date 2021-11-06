@@ -51,13 +51,12 @@ const Board = () => {
 
     return (<Grid className={classes.boardContainer} item container xs={12} sm={12}>
         <Grid item xs={12} sm={12} className={classes.boardTitle}>
-            <Typography variant='h2'>{board.id+" "+ board.title}</Typography>
-            <Typography variant='h6'>{board.createdAt}</Typography>
+            <Typography variant='h2'>{board.name}</Typography>
         </Grid>
 
         <Grid container item xs={12} sm={12}>
             <Grid className={classes.boardAside} item xs={12} sm={1}>
-            <h1>LEFT</h1>
+                <Typography>+</Typography>
             </Grid>
             
             <Grid item xs={12} sm={10}>
@@ -84,7 +83,7 @@ const Board = () => {
             </DragDropContext>
         </Grid>
             <Grid item xs={12} sm={1} className={classes.boardAside}>
-                  <h1>RIGHT</h1>
+                <Typography>+</Typography>
             </Grid>
         </Grid>
     </Grid>

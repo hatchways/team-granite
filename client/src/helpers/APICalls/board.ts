@@ -1,15 +1,19 @@
-import { Board, BoardApiData, Column, Card } from '../../interface/BoardApiData';
+import { Board, BoardApiData, Card } from '../../interface/BoardApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-
+export interface AddCard {
+  boardID: string;
+  columnIndex: string;
+  data: string;
+}
 
 export const FetchBoard = async (): Promise<BoardApiData> => {
-  const fetchOptions: FetchOptions = {
+    const fetchOptions: FetchOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   };
-  return await fetch(`/board`, fetchOptions)
+  return await fetch('/board', fetchOptions)
     .then(async (res) => {
       const result = await res.json();
       return result;
@@ -30,31 +34,24 @@ export const AddBoard = async (data: Board): Promise<BoardApiData> => {
   return await fetch(`/board`, fetchOptions)
     .then(async (res) => {
       const result = await res.json();
-      console.log(result);
       return result
     }).catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
     }));
 };
 
-export interface AddCard{
-    boardID: string,
-    columnIndex: string,
-    data: string
-}
+
 
 export const AddCard = async (data: AddCard): Promise<BoardApiData> => {
-  console.log('THIS IS THE TITLE ', data);
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
     credentials: 'include',
   };
-  return await fetch(`/board/card`, fetchOptions)
+  return await fetch(`/board/column/card`, fetchOptions)
     .then(async (res) => {
       const result = await res.json();
-      console.log(result);
       return result;
     })
     .catch(() => ({
@@ -65,7 +62,7 @@ export const AddCard = async (data: AddCard): Promise<BoardApiData> => {
 
 export const UpdateCard = async (data: Card): Promise<BoardApiData> => {
   const fetchOptions: FetchOptions = {
-    method: 'POST',
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
     credentials: 'include',
@@ -73,7 +70,23 @@ export const UpdateCard = async (data: Card): Promise<BoardApiData> => {
   return await fetch(`/board`, fetchOptions)
     .then(async (res) => {
       const result = await res.json();
-      console.log(result);
+      return result;
+    })
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+};
+
+export const DeleteCard = async (id: string): Promise<BoardApiData> => {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: id,
+    credentials: 'include',
+  };
+  return await fetch(`/board`, fetchOptions)
+    .then(async (res) => {
+      const result = await res.json();
       return result;
     })
     .catch(() => ({
