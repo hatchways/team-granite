@@ -10,7 +10,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   try {
-    await checkUserExists(update.email, update.username);
+    await checkUserExists(email, username);
   } catch (error) {
     res.status(400);
     throw error;
