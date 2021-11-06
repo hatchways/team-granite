@@ -7,15 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 
+interface FormData {
+  oldPassword: string;
+  newPassword: string;
+}
 interface Props {
   handleSubmit: (
-    {
-      oldPassword,
-      newPassword,
-    }: {
-      oldPassword: string;
-      newPassword: string;
-    },
+    { oldPassword, newPassword }: FormData,
     {
       setStatus,
       setSubmitting,
@@ -29,24 +27,24 @@ interface Props {
 const ChangePasswordForm = ({ handleSubmit }: Props): JSX.Element => {
   const classes = useStyles();
 
+  const validationSchema = Yup.object().shape({
+    oldPassword: Yup.string()
+      .required('Password is required')
+      .max(100, 'Password is too long')
+      .min(6, 'Password too short'),
+    newPassword: Yup.string()
+      .required('Password is required')
+      .max(100, 'Password is too long')
+      .min(6, 'Password too short'),
+  });
+
+  const initialValues = {
+    oldPassword: '',
+    newPassword: '',
+  };
+
   return (
-    <Formik
-      initialValues={{
-        oldPassword: '',
-        newPassword: '',
-      }}
-      validationSchema={Yup.object().shape({
-        oldPassword: Yup.string()
-          .required('Password is required')
-          .max(100, 'Password is too long')
-          .min(6, 'Password too short'),
-        newPassword: Yup.string()
-          .required('Password is required')
-          .max(100, 'Password is too long')
-          .min(6, 'Password too short'),
-      })}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField

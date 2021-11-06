@@ -7,15 +7,15 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './useStyles';
 import { CircularProgress } from '@material-ui/core';
 import { User } from '../../../interface/User';
+
+interface FormData {
+  newUsername: string;
+  newEmail: string;
+}
+
 interface Props {
   handleSubmit: (
-    {
-      newUsername,
-      newEmail,
-    }: {
-      newUsername: string;
-      newEmail: string;
-    },
+    { newUsername, newEmail }: FormData,
     {
       setStatus,
       setSubmitting,
@@ -30,18 +30,18 @@ interface Props {
 const EditProfileForm = ({ handleSubmit, loggedInUser }: Props): JSX.Element => {
   const classes = useStyles();
 
+  const initialValues = {
+    newEmail: loggedInUser.email,
+    newUsername: loggedInUser.username,
+  };
+
+  const validationSchema = Yup.object().shape({
+    newUsername: Yup.string().required('Username is required').max(40, 'Username is too long'),
+    newEmail: Yup.string().required('Email is required').email('Email is not valid'),
+  });
+
   return (
-    <Formik
-      initialValues={{
-        newEmail: loggedInUser.email,
-        newUsername: loggedInUser.username,
-      }}
-      validationSchema={Yup.object().shape({
-        newUsername: Yup.string().required('Username is required').max(40, 'Username is too long'),
-        newEmail: Yup.string().required('Email is required').email('Email is not valid'),
-      })}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField

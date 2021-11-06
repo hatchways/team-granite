@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Dropzone, { DropzoneState } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -9,9 +10,14 @@ interface Props {
   handleUpload: (files: File[]) => void;
 }
 
+interface URL {
+  name: string;
+  preview: string;
+}
+
 const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
   const classes = useStyles();
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<URL[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
     setFiles(
@@ -23,7 +29,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
     );
   };
 
-  const previews = files.map((file: any) => (
+  const previews = files.map((file: URL) => (
     <Grid className={classes.thumb} key={file.name}>
       <Grid className={classes.thumbInner}>
         <img src={file.preview} className={classes.img} />
@@ -37,6 +43,7 @@ const ImageUpload = ({ handleUpload }: Props): JSX.Element => {
         <>
           <Grid container>
             <Grid {...state.getRootProps({ className: classes.dropzone })}>
+              {/* @ts-ignore */}
               <Input inputProps={state.getInputProps()} />
               <Typography>Drag and drop some files here, or click to select files</Typography>
             </Grid>
