@@ -6,8 +6,7 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
-import Navbar from '../../frontend/DashboardSkeleton/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
