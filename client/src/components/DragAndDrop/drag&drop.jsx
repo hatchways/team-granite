@@ -10,8 +10,7 @@ import { useBoardContext } from '../../context/useBoardContext';
 
 const Board = () => {
     const classes = dndStyles();
-    const { boardColumnMap: columns, board, setBoardColumnMap, boardActions, boardActionsInit } = useBoardContext();
-    const [ordered, setOrdered] = useState(Object.keys(columns))
+    const { boardColumnMap: columns, board, ordered, setOrdered, setBoardColumnMap, boardActions, boardActionsInit } = useBoardContext();
 
     const onDragEnd = result => {
         const { type, combine, source, destination, droppableId, index} = result

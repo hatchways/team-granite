@@ -5,23 +5,23 @@ const date = new Date().toLocaleString();
 export const boardColumns: Column[] = [
   {
     index: 3,
-    title: 'TODO',
-    cards: [],
+    name: 'TODO',
+    tasks: [],
   },
   {
     index: 4,
-    title: 'IN_PROGRESS',
-    cards: [],
+    name: 'IN_PROGRESS',
+    tasks: [],
   },
   {
     index: 1,
-    title: 'DONE',
-    cards: [],
+    name: 'DONE',
+    tasks: [],
   },
   {
     index: 2,
-    title: 'INCOMING',
-    cards: [],
+    name: 'INCOMING',
+    tasks: [],
   },
 ];
 
@@ -29,7 +29,7 @@ export const columnItems: Card[] = [
   {
     id: '1',
     content: {
-      title: 'Ronaldo Transfer To Man U',
+      name: 'Ronaldo Transfer To Man U',
       description: 'Sometimes life is scary and dark',
       deadline: date,
       tag: 1,
@@ -39,7 +39,7 @@ export const columnItems: Card[] = [
   {
     id: '2',
     content: {
-      title: 'Ronaldo Transfer To Man U',
+      name: 'Ronaldo Transfer To Man U',
       description: 'Sometimes life is scary and dark',
       deadline: new Date().toLocaleString(),
       tag: 2,
@@ -49,7 +49,7 @@ export const columnItems: Card[] = [
   {
     id: '3',
     content: {
-      title: "You got to focus on what's real, man, Sometimes life is scary and dark",
+      name: "You got to focus on what's real, man, Sometimes life is scary and dark",
       description: 'Sometimes life is scary and dark',
       deadline: new Date().toLocaleString(),
       tag: 3,
@@ -59,7 +59,7 @@ export const columnItems: Card[] = [
   {
     id: '4',
     content: {
-      title: 'Is that where creativity comes from? From sad biz?',
+      name: 'Is that where creativity comes from? From sad biz?',
       description: 'Sometimes life is scary and dark',
       deadline: new Date().toLocaleString(),
       tag: 4,
@@ -71,7 +71,7 @@ export const columnItems: Card[] = [
 
 export const board: Board = {
   id: '1',
-  title: 'Hatchway product',
+  name: 'Hatchway product',
   columns: boardColumns,
   createdAt: date,
   updatedAt: date,

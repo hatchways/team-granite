@@ -1,17 +1,20 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+import { useState, createContext, useContext, useEffect, useCallback } from 'react';
 import dndStyles from '../components/DragAndDrop/assets/dndStyles';
-import {AddCard} from '../helpers/APICalls/board';
-import { GetBoardData, processBoard, BoardModal} from './primitives/boardContextHelper'
+import { UpdateBoard, AddCard } from '../helpers/APICalls/board';
+import { GetBoardData, processBoard, BoardModal } from './primitives/boardContextHelper'
 
 
 
 const BoardContext = createContext({
   boardColumnMap: {},
-  setBoardColumnMap:()=> null,
+  setBoardColumnMap: () => null,
   boards: [],
   setBoards: () => null,
   boardActions: () => null,
   boardActionsInit: () => null,
+
+  ordered: [],
+  setOrdered: () => null,
 });
 
 
@@ -22,23 +25,47 @@ export const BoardContextProvider = ({ children }) => {
   const [board, setBoard] = useState({});
   const [boardColumnMap, setBoardColumnMap] = useState({});
 
+  const [ordered, setOrdered] = useState([])
+
   const initBoardAPI = { type: '', action: '', columnIndex: '', boardID: '', data: '' }
   const [boardAPIData, setBoardAPIData] = useState(initBoardAPI);
 
   useEffect(() => {
     (async () => {
       const boardData = await GetBoardData();
-      console.log(boardData.board, boardData.result)
       return resolveResponse(boardData)
     })();
   }, [])
 
-  //0: for BOARD :- [1: for ADD, 2: for UPDATE, 3: for DELETE]
-  //1: for COLUMN :- [1: for ADD, 2: for UPDATE, 3: for DELETE]
-  //2: for CARD :- [1: for ADD, 2: for UPDATE, 3: for DELETE]
-  const boardActionsInit = (type, action, columnIndex, boardID) => {
-    console.log(type, action, columnIndex, boardID)
-    setBoardAPIData({ ...boardAPIData, type, action, columnIndex, boardID})
+  useEffect(() => {
+    if (!board.id) return;
+
+    const VALUES = Object.values(boardColumnMap);
+
+    const remapped = []
+
+    if (ordered.length === 0) return;
+    ordered.map((c, i) => {
+      remapped.push({ index: `${i}`, title: c, tasks: [] })
+    })
+
+    const newArr = [];
+    VALUES.map(v => newArr.push(...v));
+
+    newArr.map((x, i) => {
+      if (x.columnId.index == remapped[x.columnId.index].index) {
+        remapped[x.columnId.index].tasks.push(x)
+        x.columnId = x.columnId.index ? x.columnId.index : x.columnId
+      }
+    })
+
+    if (!board.id) return;
+    UpdateBoard(board.id, remapped)
+
+  }, [boardColumnMap, ordered, board])
+
+ const boardActionsInit = (type, action, columnIndex, boardID) => {
+    setBoardAPIData({ ...boardAPIData, type, action, columnIndex, boardID })
     boardActions(type, action, columnIndex, boardID, boardAPIData.data)
     setOpen(!open);
   };
@@ -48,9 +75,9 @@ export const BoardContextProvider = ({ children }) => {
     setOpen(!open);
   };
 
-  const boardActions = async (type, action, columnIndex, boardID, data ) => {
+  const boardActions = async (type, action, columnIndex, boardID, data) => {
     let response;
-    if(type === 2){
+    if (type === 2) {
       response = await (action === 1 && AddCard({ columnIndex, boardID, data }))
     }
     const { board } = response.success
@@ -58,21 +85,22 @@ export const BoardContextProvider = ({ children }) => {
     resolveResponse(boardData)
     setOpen(false);
   };
-  
+
   const resolveResponse = (data) => {
     const { boards, board, result } = data;
+    setOrdered(Object.keys(result));
     setBoardColumnMap(result);
     setBoards(boards);
     setBoard(board);
   }
-    
 
-  const value = { board, boardColumnMap, setBoardColumnMap, boardActions, boardActionsInit }
 
-  return  <BoardContext.Provider value={value}>
+  const value = { board, boardColumnMap, setBoardColumnMap, boardActions, boardActionsInit, ordered, setOrdered }
+
+  return <BoardContext.Provider value={value}>
     <BoardModal classes={classes} open={open} handleModalClick={handleModalClick}
       boardActions={boardActions} setBoardAPIData={setBoardAPIData}
-     />
+    />
     {boards.length > 0 && children}
   </BoardContext.Provider>;
 };

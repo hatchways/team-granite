@@ -1,4 +1,4 @@
-import { useRef} from 'react'
+import { useRef } from 'react'
 import {
     Button, TextField, Dialog, DialogContent,
     DialogTitle, Box
@@ -14,9 +14,8 @@ export const resolveBoard = (boardColumns, columnItems) => {
         }), {});
 }
 
-export const processBoard = async (boards, id = 1) => {
-    console.log(id, boards)
-    const board = id ? boards.find(x=> x.id == id) : boards[0];
+export const processBoard = async (boards, id) => {
+    const board = id ? boards.find(x => x.id == id) : boards[0];
     const boardColumns = board.columns;
     const columnItems = [];
     boardColumns.forEach((column) => columnItems.push(...column.tasks));
