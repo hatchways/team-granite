@@ -6,7 +6,7 @@ const cardSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String },
     columnId: { type: ObjectId, ref: "column", required: true },
-
+    color: { type: String },
     deadline: { Type: Date },
     comment: { type: String },
   },
@@ -28,7 +28,7 @@ cardSchema.statics.createCard = async function (
   });
   await card.save();
   // update the Column Card List board
-  await this.model("Column").updateColumnCardsList(
+  await this.model("Column").updateCardsList(
     { cardId: card._id, index },
     columnId
   );
@@ -59,13 +59,13 @@ cardSchema.statics.updateCard = async function (
   if (index >= 0) {
     // update the user board
     if (targetColumnId) {
-      await this.model("Column").updateTargetColumnCardsList(
+      await this.model("column").updateTargetColumnCardsList(
         { cardId, index },
         currentColumnId,
         targetColumnId
       );
     } else {
-      await this.model("Column").updateColumnCardsList(
+      await this.model("column").updateColumnCardsList(
         { cardId, index },
         currentColumnId
       );
@@ -76,7 +76,7 @@ cardSchema.statics.updateCard = async function (
 };
 
 cardSchema.statics.deleteCard = async function (columnId, cardId) {
-  await this.model("Column").findOneAndUpdate(
+  await this.model("column").findOneAndUpdate(
     { _id: columnId },
     {
       $pullAll: { cards: [cardId] },
@@ -85,4 +85,4 @@ cardSchema.statics.deleteCard = async function (columnId, cardId) {
   await this.deleteMany({ _id: cardId, columnId: columnId });
 };
 
-module.exports = Card = mongoose.model("Card", cardSchema);
+module.exports = Card = mongoose.model("card", cardSchema);

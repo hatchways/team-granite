@@ -4,6 +4,7 @@ const { ObjectId } = mongoose.Schema.Types;
 const boardSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
+
     columns: [
       { type: ObjectId, ref: "column", required: true, autopopulate: true },
     ],

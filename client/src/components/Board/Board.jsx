@@ -1,8 +1,9 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Column from './Column';
 import useStyles from './useStyles';
-import { Grid, Container } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useBoardContext } from '../../context/useBoardContext';
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
 
 const Board = () => {
   const classes = useStyles();
@@ -63,23 +64,36 @@ const Board = () => {
     setBoardData(boardData);
   };
 
+  const AddColumnButton = (props) => {
+    const { location } = props;
+
+    return (
+      <Grid item xs={1} style={{ backgroundColor: 'grey', opacity: 0.4 }}>
+        <ControlPointIcon />
+      </Grid>
+    );
+  };
+
   return (
-    <Container maxWidth="80%">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="column-list" direction="horizontal" type="column">
-          {(provided) => (
-            <Grid container className={classes.centerContent} {...provided.droppableProps} ref={provided.innerRef}>
-              {boardData.board.columnIds.map((columnId, index) => {
-                const column = boardData.columns[columnId];
-                return <Column key={column.id} column={column} index={index} />;
-              })}
-              {provided.placeholder}
-            </Grid>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </Container>
-    //Buttons
+    <Grid container xs={12} style={{ minHeight: '500px' }}>
+      <AddColumnButton location={'left'} />
+      <Grid item xs={10}>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="column-list" direction="horizontal" type="column">
+            {(provided) => (
+              <Grid container className={classes.centerContent} {...provided.droppableProps} ref={provided.innerRef}>
+                {boardData.board.columnIds.map((columnId, index) => {
+                  const column = boardData.columns[columnId];
+                  return <Column key={column.id} column={column} index={index} />;
+                })}
+                {provided.placeholder}
+              </Grid>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </Grid>
+      <AddColumnButton location={'right'} />
+    </Grid>
   );
 };
 

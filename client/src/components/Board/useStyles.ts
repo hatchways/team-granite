@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   columnTitle: {
     marginBottom: '10px',
+    flexGrow: 1,
+    fontFamily: 'roboto',
+  },
+
+  dragArea: {
+    minHeight: '10px',
   },
 
   card: {
