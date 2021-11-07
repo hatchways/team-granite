@@ -11,12 +11,12 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-const imageUploadRouter = require("./routes/imageUpload")
+const kanbanRouter = require("./routes/kanban");
+const imageUploadRouter = require("./routes/imageUpload");
 
-const UPLOAD_LIMIT = "1000kb"
+const UPLOAD_LIMIT = "1000kb";
 
 const { json, urlencoded } = express;
-
 
 connectDB();
 const app = express();
@@ -28,15 +28,14 @@ const io = socketio(server, {
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("connected");
-});
+io.on("connection", (socket) => {});
 
 if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
 }
-app.use(json({limit: UPLOAD_LIMIT}));
-app.use(urlencoded({ extended: false, limit:UPLOAD_LIMIT }));
+
+app.use(json({ limit: UPLOAD_LIMIT }));
+app.use(urlencoded({ extended: false, limit: UPLOAD_LIMIT }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
@@ -47,7 +46,8 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-app.use("/image-upload", imageUploadRouter);
+app.use("/kanban", kanbanRouter);
+app.use("/image", imageUploadRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
@@ -64,10 +64,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-// Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`.red);
-  // Close server & exit process
   server.close(() => process.exit(1));
 });
 
