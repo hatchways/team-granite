@@ -1,66 +1,67 @@
-const colors = require('colors')
-const path = require('path')
-const http = require('http')
-const express = require('express')
-const socketio = require('socket.io')
-const { notFound, errorHandler } = require('./middleware/error')
-const connectDB = require('./db')
-const { join } = require('path')
-const cookieParser = require('cookie-parser')
-const logger = require('morgan')
+const colors = require("colors");
+const path = require("path");
+const http = require("http");
+const express = require("express");
+const socketio = require("socket.io");
+const { notFound, errorHandler } = require("./middleware/error");
+const connectDB = require("./db");
+const { join } = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-const authRouter = require('./routes/auth')
-const userRouter = require('./routes/user')
-const kanbanRouter = require('./routes/kanban')
+const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
+const kanbanRouter = require("./routes/kanban");
 
-const { json, urlencoded } = express
+const { json, urlencoded } = express;
 
-connectDB()
-const app = express()
-const server = http.createServer(app)
+connectDB();
+const app = express();
+const server = http.createServer(app);
 
 const io = socketio(server, {
   cors: {
-    origin: '*',
+    origin: "*",
   },
-})
+});
 
-io.on('connection', (socket) => {})
+io.on("connection", (socket) => {});
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(logger('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(logger("dev"));
 }
-app.use(json())
-app.use(urlencoded({ extended: false }))
-app.use(cookieParser())
-app.use(express.static(join(__dirname, 'public')))
+
+app.use(json());
+app.use(urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  req.io = io
-  next()
-})
+  req.io = io;
+  next();
+});
 
-app.use('/auth', authRouter)
-app.use('/users', userRouter)
-app.use('/kanban', kanbanRouter)
+app.use("/auth", authRouter);
+app.use("/users", userRouter);
+app.use("/kanban", kanbanRouter);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname), 'client', 'build', 'index.html')
-  )
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname), "client", "build", "index.html")
+  );
 } else {
-  app.get('/', (req, res) => {
-    res.send('API is running')
-  })
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
 }
 
-app.use(notFound)
-app.use(errorHandler)
+app.use(notFound);
+app.use(errorHandler);
 
-process.on('unhandledRejection', (err, promise) => {
-  server.close(() => process.exit(1))
-})
+process.on("unhandledRejection", (err, promise) => {
+  server.close(() => process.exit(1));
+});
 
-module.exports = { app, server }
+module.exports = { app, server };

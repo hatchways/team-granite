@@ -6,12 +6,10 @@ import useStyles from './useStyles';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
-import Board from '../../components/DragAndDrop/drag&drop';
-
+import { useEffect } from 'react';
+import Navbar from '../../frontend/DashboardSkeleton/Navbar/Navbar';
 
 export default function Dashboard(): JSX.Element {
-  
   const classes = useStyles();
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
@@ -30,17 +28,11 @@ export default function Dashboard(): JSX.Element {
   }
 
   return (
-    <>
-      <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
-        <CssBaseline />
-        <Grid item className={classes.drawerWrapper}>
-          <ChatSideBanner loggedInUser={loggedInUser} />
-        </Grid>
-
-        <Grid item xs={12} sm={12} className={`${classes.content} `}>
-          <Board />
-        </Grid>
+    <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
+      <CssBaseline />
+      <Grid item className={classes.drawerWrapper}>
+        <Navbar />
       </Grid>
-    </>
+    </Grid>
   );
 }
