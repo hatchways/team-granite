@@ -1,59 +1,37 @@
-const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema.Types
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
 const columnSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    cards: [{ type: ObjectId, ref: 'Card' }],
-    boardId: { type: ObjectId, ref: 'Board', required: true },
+    cards: [
+      { type: ObjectId, ref: "card", required: true, autopopulate: true },
+    ],
+    boardId: { type: ObjectId, ref: "board", required: true },
   },
   {
-    collection: 'columns',
+    collection: "columns",
     timestamps: true,
   }
-)
+);
 
-columnSchema.statics.generateBoardColumns = async function (boardId) {
-  const columns = await this.find({ boardId: boardId })
-  let columnsObjectIds = []
+columnSchema.plugin(require("mongoose-autopopulate"));
 
-  if (columns.length == 0) {
-    let defaultColumnNames = ['In Progress', 'Completed']
-    defaultColumnNames.forEach((name) => {
-      let newColumn = new this.model('Column')({
-        boardId,
-        name: name,
-        cards: [],
-      })
-      newColumn.save()
-      columnsObjectIds.push(newColumn._id)
-    })
-  } else {
-    columns.forEach((column) => {
-      columnsObjectIds.push(column._id)
-    })
-  }
-  return columnsObjectIds
-}
-
-columnSchema.statics.createBoardColumn = async function (
-  { name, index },
-  boardId
-) {
+columnSchema.statics.createColumn = async function ({ name, index }, boardId) {
   // create the column
   let column = await new this({
     name: name,
     boardId: boardId,
     cards: [],
-  })
-  await column.save()
-  index = index == 0 ? 0 : null
+  });
+  await column.save();
+  index = index == 0 ? 0 : null;
   // update the user board
-  await this.model('Board').updateBoardColumnsList(boardId, column._id, index)
-  return column
-}
+  await this.model("Board").updateBoardColumnsList(boardId, column._id, index);
+  return column;
+};
 
-columnSchema.statics.updateBoardColumn = async function (
+columnSchema.statics.updateColumn = async function (
   { name, index },
   boardId,
   columnId
@@ -66,28 +44,28 @@ columnSchema.statics.updateBoardColumn = async function (
           name: name,
         },
       }
-    )
+    );
   }
   if (index >= 0) {
     // update the user board
-    await this.model('Board').updateBoardColumnsList(boardId, columnId, index)
+    await this.model("Board").updateBoardColumnsList(boardId, columnId, index);
   }
-  let column = await this.findOne({ _id: columnId })
-  return column
-}
+  let column = await this.findOne({ _id: columnId });
+  return column;
+};
 
-columnSchema.statics.deleteBoardColumn = async function (boardId, columnId) {
-  await this.model('Board').findOneAndUpdate(
+columnSchema.statics.deleteColumn = async function (boardId, columnId) {
+  await this.model("Board").findOneAndUpdate(
     { _id: boardId },
     {
       $pullAll: { columns: [columnId] },
     }
-  )
-  await this.deleteMany({ _Id: columnId })
-  await this.model('Card').deleteMany({ columnId: columnId })
-}
+  );
+  await this.deleteMany({ _Id: columnId });
+  await this.model("Card").deleteMany({ columnId: columnId });
+};
 
-columnSchema.statics.updateColumnCardsList = async function (
+columnSchema.statics.updateCardsList = async function (
   { cardId, index },
   columnId
 ) {
@@ -97,7 +75,7 @@ columnSchema.statics.updateColumnCardsList = async function (
     {
       $pullAll: { cards: [cardId] },
     }
-  )
+  );
 
   // update the Column with new cardId
   await this.findOneAndUpdate(
@@ -110,8 +88,8 @@ columnSchema.statics.updateColumnCardsList = async function (
         },
       },
     }
-  )
-}
+  );
+};
 
 columnSchema.statics.updateTargetColumnCardsList = async function (
   { cardId, index },
@@ -124,7 +102,7 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
     {
       $pullAll: { cards: [cardId], cardsSort: [cardId] },
     }
-  )
+  );
 
   // update the Column with new cardId
   await this.findOneAndUpdate(
@@ -141,17 +119,17 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
         },
       },
     }
-  )
+  );
 
   // update the card with its new targetId
-  await this.model('Card').findOneAndUpdate(
+  await this.model("Card").findOneAndUpdate(
     { _id: cardId },
     {
       $set: {
         columnId: targetColumnId,
       },
     }
-  )
-}
+  );
+};
 
-module.exports = Column = mongoose.model('Column', columnSchema)
+module.exports = Column = mongoose.model("column", columnSchema);
