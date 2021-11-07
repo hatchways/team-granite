@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { reorderColumn, reorderColumnCardMap } from "./reorder";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import BoardColumn from './column'
@@ -48,7 +47,7 @@ const Board = () => {
     };
 
 
-    return (<Grid className={classes.boardContainer} item container xs={12} sm={12}>
+    return (<Grid className={classes.boardContainer} container item xs={12} sm={12}>
         <Grid item xs={12} sm={12} className={classes.boardTitle}>
             <Typography variant='h2'>{board.name}</Typography>
         </Grid>

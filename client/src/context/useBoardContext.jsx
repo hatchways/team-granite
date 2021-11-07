@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect, useCallback } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import dndStyles from '../components/DragAndDrop/assets/dndStyles';
 import { UpdateBoard, AddCard } from '../helpers/APICalls/board';
 import { GetBoardData, processBoard, BoardModal } from './primitives/boardContextHelper'
@@ -36,33 +36,6 @@ export const BoardContextProvider = ({ children }) => {
       return resolveResponse(boardData)
     })();
   }, [])
-
-  useEffect(() => {
-    if (!board.id) return;
-
-    const VALUES = Object.values(boardColumnMap);
-
-    const remapped = []
-
-    if (ordered.length === 0) return;
-    ordered.map((c, i) => {
-      remapped.push({ index: `${i}`, title: c, tasks: [] })
-    })
-
-    const newArr = [];
-    VALUES.map(v => newArr.push(...v));
-
-    newArr.map((x, i) => {
-      if (x.columnId.index == remapped[x.columnId.index].index) {
-        remapped[x.columnId.index].tasks.push(x)
-        x.columnId = x.columnId.index ? x.columnId.index : x.columnId
-      }
-    })
-
-    if (!board.id) return;
-    UpdateBoard(board.id, remapped)
-
-  }, [boardColumnMap, ordered, board])
 
  const boardActionsInit = (type, action, columnIndex, boardID) => {
     setBoardAPIData({ ...boardAPIData, type, action, columnIndex, boardID })
