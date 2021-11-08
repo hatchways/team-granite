@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const [grid, borderRadius, black, scrollHeight, nudeColor, leaving, entering, Height, placeholder, borderLine] =
       ['8px', '2px', '#2e2e30', '94%', '#f4f6ff', '#ffeaea', '#eaffeb', '30px', '#e5ecfc', '#7aa1fc'];
       
-const dndStyles = makeStyles((theme) => ({
+const dndStyles = makeStyles(() => ({
   boardContainer: {
     display: 'block',
     padding: '20px',
@@ -128,7 +128,7 @@ const dndStyles = makeStyles((theme) => ({
     marginBottom: '15px',
     borderRadius: '5px',
     textAlign: 'justify',
-    border : `2px solid ${borderLine}`,
+    border: `2px solid ${borderLine}`,
     '& p': {
       fontWeight: 600,
     },
@@ -208,23 +208,28 @@ const dndStyles = makeStyles((theme) => ({
   },
 
   stack: {
-      display:'flex',
-      flexDirection:'row', 
-      justifyContent:'space-between',
-      alignItems:'center',
-    '& > p':{
-        fontWeight: 300,
-        color: 'rgba(0,0,0,.4)',
-        whiteSpace: 'nowrap'
-    }
-},
-avatarx:{
-        width: '16px',
-        height: '16px',
-        marginRight:'2.5px',
-        border: '.5px solid rgba(0,0,0,.4)'
-        
-    }  ,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '& > p': {
+      fontWeight: 300,
+      color: 'rgba(0,0,0,.4)',
+      whiteSpace: 'nowrap',
+    },
+  },
+  avatarx: {
+    width: '16px',
+    height: '16px',
+    marginRight: '2.5px',
+    border: '.5px solid rgba(0,0,0,.4)',
+    transition: 'background 0.2s ease, box-shadow 0.1s ease',
+
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow: '2px 2px 4px rgba(0,0,0,.4)',
+    },
+  },
 }));
 
 export default dndStyles;

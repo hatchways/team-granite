@@ -57,7 +57,7 @@ export default function ColumnList(props) {
     const classes = dndStyles();
 
     const inputElement = useRef()
-    const [data, setData] = useState({name:'', tag:''})
+    const [data, setData] = useState({name:'', tag:0})
     const [openAddDialog, setOpenAddDialog] = useState(false)
 
     const setTag = (tag) =>{
@@ -105,6 +105,7 @@ export default function ColumnList(props) {
                             <Grid item xs={12} sm={12}>
                                 <Typography varaint='h5'> Add title...</Typography>
                                 <TextField
+                                    required
                                     autoFocus
                                     id="standard-basic"
                                     type="text"
@@ -114,16 +115,17 @@ export default function ColumnList(props) {
                                     onChange={() => setData(prev => {
                                         return { ...prev, name: inputElement.current.value }
                                     })}
+
                                 />
                                     <Box style={{display:'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop:'10px'}}>
                                     <Typography variant='h6' style={{whiteSpace:'nowrap', fontSize:'14px'}}> Select Tag: </Typography>
                                    
                                     <Box className={classes.stack}>
                                         <Avatar onClick={()=>setTag(0)} className={classes.avatarx} style={{background:'#FFF'}} > </Avatar>
-                                        <Avatar onClick={() => setTag(1)} className={classes.avatarx} style={{ background: '#5ACD76' }}> </Avatar>
-                                        <Avatar onClick={() => setTag(2)} className={classes.avatarx} style={{ background: '#FF5D48' }}> </Avatar>
-                                        <Avatar onClick={() => setTag(3)} className={classes.avatarx} style={{ background: '#EDAB1D' }}> </Avatar>
-                                        <Avatar onClick={() => setTag(4)} className={classes.avatarx} style={{ background: '#59B0FF' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(2)} className={classes.avatarx} style={{ background: '#5ACD76' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(1)} className={classes.avatarx} style={{ background: '#FF5D48' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(4)} className={classes.avatarx} style={{ background: '#EDAB1D' }}> </Avatar>
+                                        <Avatar onClick={() => setTag(3)} className={classes.avatarx} style={{ background: '#59B0FF' }}> </Avatar>
                                         <Avatar onClick={() => setTag(5)} className={classes.avatarx} style={{ background: '#D460F7' }}> </Avatar>
                                     </Box>
                                 </Box>
@@ -131,7 +133,7 @@ export default function ColumnList(props) {
                         </Grid>
                     </Paper>}
                     <Box style={{display:'flex', justifyContent:'space-between'}}>
-                        {openAddDialog&& <Button variant="contained" color='primary' onClick={() => boardActions(2, 1, index, boardID, data)}>Add Card</Button>}
+                        {openAddDialog && <Button variant="contained" color='primary' onClick={() => boardActions(2, 1, index, boardID, data)} disabled={data.name === "" ? true:false }>Add Card</Button>}
                         <Button variant={openAddDialog ?'outlined':'contained'} color='primary' onClick={() => setOpenAddDialog(!openAddDialog)}>{openAddDialog?'Close':'Add a Card'}</Button>
                     </Box>
                 </Wrapper>

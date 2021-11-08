@@ -1,4 +1,4 @@
-import { Board, Column, BoardApiData, Card } from '../../interface/BoardApiData';
+import { Column, BoardApiData, Card } from '../../interface/BoardApiData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
 export interface AddCard {

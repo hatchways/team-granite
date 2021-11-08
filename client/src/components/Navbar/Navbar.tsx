@@ -12,7 +12,7 @@ const Navbar = (): JSX.Element => {
 
   return (
     <Box>
-      <Grid container className={classes.container} xs={12}>
+      <Grid container className={classes.container}>
         <Grid item container style={{justifyContent:"space-between", alignItems:"center"}} xs={12}>
           <Grid item xs={4}>
             <Box ml={3}>

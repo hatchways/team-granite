@@ -3,7 +3,7 @@ import {
     Button, TextField, Dialog, DialogContent,
     DialogTitle, Box
 } from '@material-ui/core';
-import { FetchBoard } from '../../helpers/APICalls/board';
+import { FetchBoard, UpdateBoard } from '../../helpers/APICalls/board';
 
 
 export const resolveBoard = (boardColumns, columnItems) => {
@@ -33,6 +33,17 @@ export const GetBoardData = async (id) => {
     } else if (data.success) {
         const { boards, board, result } = await processBoard(data.success.board, id);
         return { boards, board, result };
+    } else {
+        console.error({ data });
+    }
+};
+
+export const GetBoardUpdate = async (id, boardData) => {
+    const data = await UpdateBoard(id, boardData);
+    if (data.error) {
+        return (data.error.message);
+    } else if (data.success) {
+        return;
     } else {
         console.error({ data });
     }

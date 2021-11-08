@@ -1,18 +1,18 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import dndStyles from '../components/DragAndDrop/assets/dndStyles';
-import { UpdateBoard, AddCard } from '../helpers/APICalls/board';
-import { GetBoardData, processBoard, BoardModal } from './primitives/boardContextHelper'
+import { AddCard } from '../helpers/APICalls/board';
+import { GetBoardData, GetBoardUpdate, processBoard, BoardModal } from './primitives/boardContextHelper'
 
 
 
 const BoardContext = createContext({
   boardColumnMap: {},
   setBoardColumnMap: () => null,
+  board: {id:'', name:''},
   boards: [],
   setBoards: () => null,
   boardActions: () => null,
   boardActionsInit: () => null,
-
   ordered: [],
   setOrdered: () => null,
 });
@@ -37,7 +37,26 @@ export const BoardContextProvider = ({ children }) => {
     })();
   }, [])
 
- const boardActionsInit = (type, action, columnIndex, boardID) => {
+  useEffect(() => {
+    (async () => {
+    if (!board.id || ordered.length === 0) return;
+
+    const remapped = []
+    ordered.map((c, i) => remapped.push({ index: `${i}`, name: c, tasks: [] }))
+
+    ordered.map((x, i)=>{
+     const init = boardColumnMap[x];
+     init.forEach(n=>{
+       remapped[i].tasks.push(n);
+       n.columnId = `${i}`
+     })
+    })
+
+    return await GetBoardUpdate(board.id, remapped);
+    })();
+  }, [boardColumnMap, ordered, board])
+
+  const boardActionsInit = (type, action, columnIndex, boardID) => {
     setBoardAPIData({ ...boardAPIData, type, action, columnIndex, boardID })
     boardActions(type, action, columnIndex, boardID, boardAPIData.data)
     setOpen(!open);
@@ -59,8 +78,9 @@ export const BoardContextProvider = ({ children }) => {
     setOpen(false);
   };
 
-  const resolveResponse = (data) => {
-    const { boards, board, result } = data;
+  const resolveResponse = async (data) => {
+    if(!data) return;
+    const { boards, board, result } = await data;
     setOrdered(Object.keys(result));
     setBoardColumnMap(result);
     setBoards(boards);

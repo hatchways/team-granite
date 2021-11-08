@@ -48,10 +48,7 @@ const Board = () => {
 
 
     return (<Grid className={classes.boardContainer} container item xs={12} sm={12}>
-        <Grid item xs={12} sm={12} className={classes.boardTitle}>
-            <Typography variant='h2'>{board.name}</Typography>
-        </Grid>
-
+        
         <Grid container item xs={12} sm={12}>
             <Grid className={classes.boardAside} item xs={12} sm={1}>
                 <Typography>+</Typography>

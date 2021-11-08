@@ -19,14 +19,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Board from '../DragAndDrop/drag&drop';
+import { useBoardContext } from '../../context/useBoardContext';
 
 
 
 
 const BoardsNavbar = (): JSX.Element => {
+
+  const { board } = useBoardContext();
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -48,7 +53,7 @@ const BoardsNavbar = (): JSX.Element => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            My School Board
+            {board.name}
           </Typography>
           <IconButton
             color="inherit"
@@ -64,7 +69,8 @@ const BoardsNavbar = (): JSX.Element => {
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
-        })}>
+        })}
+      >
         <Board />
       </main>
       <Drawer
