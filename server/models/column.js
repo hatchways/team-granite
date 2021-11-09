@@ -18,7 +18,6 @@ const columnSchema = new mongoose.Schema(
 columnSchema.plugin(require("mongoose-autopopulate"));
 
 columnSchema.statics.createColumn = async function ({ name, index }, boardId) {
-  // create the column
   let column = await new this({
     name: name,
     boardId: boardId,
@@ -26,8 +25,8 @@ columnSchema.statics.createColumn = async function ({ name, index }, boardId) {
   });
   await column.save();
   index = index == 0 ? 0 : null;
-  // update the user board
-  await this.model("board").updateColumns(boardId, column._id, index);
+
+  await this.model("Board").updateColumns(boardId, column._id, index);
   return column;
 };
 
@@ -48,7 +47,6 @@ columnSchema.statics.updateColumn = async function (
     );
   }
   if (index >= 0) {
-    // update the user board
     await this.model("board").updateColumns(boardId, columnId, index);
   }
   let column = await this.findOne({ _id: columnId });
@@ -70,7 +68,6 @@ columnSchema.statics.updateCards = async function (
   { cardId, index },
   columnId
 ) {
-  //  pop the cardId if it exist
   await this.findOneAndUpdate(
     { _id: columnId },
     {
@@ -78,7 +75,6 @@ columnSchema.statics.updateCards = async function (
     }
   );
 
-  // update the Column with new cardId
   await this.findOneAndUpdate(
     { _id: columnId },
     {
@@ -97,7 +93,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
   currentColumnId,
   targetColumnId
 ) {
-  //  pop the cardId if it exist
   await this.findOneAndUpdate(
     { _id: currentColumnId },
     {
@@ -105,7 +100,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
     }
   );
 
-  // update the Column with new cardId
   await this.findOneAndUpdate(
     { _id: targetColumnId },
     {
@@ -122,7 +116,6 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
     }
   );
 
-  // update the card with its new targetId
   await this.model("card").findOneAndUpdate(
     { _id: cardId },
     {

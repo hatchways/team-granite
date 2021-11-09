@@ -18,7 +18,6 @@ const boardSchema = new mongoose.Schema(
 boardSchema.plugin(require("mongoose-autopopulate"));
 
 boardSchema.statics.createBoard = async function ({ name, userId }) {
-  // create the column
   let board = new this({
     name: name,
     userId: userId,
@@ -61,7 +60,6 @@ boardSchema.statics.updateColumns = async function (boardId, columnId, index) {
     }
   );
 
-  // update the user board
   await this.findOneAndUpdate(
     { _id: boardId },
     {

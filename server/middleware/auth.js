@@ -6,22 +6,21 @@ const protect = async (req, res, next) => {
 
   if (!token) {
     return res
-      .status(401)
+      .status(404)
       .json({ success: false, message: 'No token, authorization denied' })
   }
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
     let dbUserId = await User.findById(decoded.id)
     if (!dbUserId) {
-      res.status(401).json({ success: false, message: "Account doesn't exist" })
+      res.status(404).json({ success: false, message: "Account doesn't exist" })
     }
     req.user = decoded
 
     next()
   } catch (err) {
-    res.status(401).json({ success: false, message: 'Token is not valid' })
+    res.status(404).json({ success: false, message: 'Token is not valid' })
   }
 }
 

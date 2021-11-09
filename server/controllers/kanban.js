@@ -9,7 +9,6 @@ exports.homeBoard = async (req, res) => {
     const boards = await Board.generateBoard(userId);
     res.status(200).json({ success: true, boards });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "Error Processing your request at this time",
@@ -28,8 +27,6 @@ exports.demoBoard = async (req, res) => {
   });
 };
 
-// @route POST /kaban/board
-// @access Protected
 exports.createBoard = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -44,11 +41,8 @@ exports.createBoard = async (req, res) => {
   }
 };
 
-// @route PUT /kaban/board
-// @access Protected
 exports.updateBoard = async (req, res) => {
   try {
-    const userId = req.user.id;
     const { name } = req.body;
     const { boardId } = req.params;
     const updatedBoard = await Board.updateBoardBoard({ name }, boardId);
@@ -61,13 +55,9 @@ exports.updateBoard = async (req, res) => {
   }
 };
 
-// @route DELETE /kaban/board
-// @access Protected
 exports.deleteBoard = async (req, res) => {
   try {
-    const userId = req.user.id;
     const { boardId } = req.params;
-
     await Board.deleteBoardBoard(boardId);
     res.status(200).json({ success: true });
   } catch (error) {
@@ -78,19 +68,16 @@ exports.deleteBoard = async (req, res) => {
   }
 };
 
-// @route POST /column/:boardId
-// @access Protected
 exports.createColumn = async (req, res) => {
   try {
     const { name } = req.body;
     let { index } = req.body;
     const { boardId } = req.params;
 
-    // only allows 0 or 1(i.e end) position within the Board
     if (index === 0) {
       index = 0;
     } else if (index == 1 || index == null) {
-      index = null; // mongodb takes null values as a directive to append to the end of the List
+      index = null;
     } else {
       return res.status(403).json({
         succes: false,
@@ -109,26 +96,14 @@ exports.createColumn = async (req, res) => {
   }
 };
 
-// @route PUT /column/:boardId
-// @access Protected
 exports.updateColumn = async (req, res) => {
-  const userId = req.user.id;
   const { name, index } = req.body;
   const { boardId, columnId } = req.params;
-  console.log(req.body);
-  if (index && typeof index != "number") {
-    return res
-      .status(403)
-      .json({ success: false, message: "Index value not supported" });
-  }
-
   const column = await Column.updateColumn({ name, index }, boardId, columnId);
 
   res.status(200).json({ success: { column } });
 };
 
-// @route PUT /column/:boardId
-// @access Protected
 exports.deleteColumn = async (req, res) => {
   const { boardId, columnId } = req.params;
 
@@ -136,17 +111,14 @@ exports.deleteColumn = async (req, res) => {
   res.status(200).json({ success: "Column deleted." });
 };
 
-// @route POST /kaban/card/:boardId/:columnId
-// @access Protected
 exports.createCard = async (req, res) => {
   try {
     const { name, description } = req.body;
     let { index } = req.body;
     const { columnId } = req.params;
 
-    // only allows 1(i.e end) position during Card creation within the Column
     if (index == 1 || index == null) {
-      index = null; // mongodb takes null values as a directive to append to the end of the List
+      index = null;
     } else {
       return res.status(403).json({
         succes: false,
@@ -167,8 +139,6 @@ exports.createCard = async (req, res) => {
   }
 };
 
-// @route PUT /kaban/card/:boardId/:columnId/:cardId
-// @access Protected
 exports.updateCard = async (req, res) => {
   try {
     const { name, description, targetColumnId, index, deadline, comment } =
@@ -210,8 +180,6 @@ exports.updateCard = async (req, res) => {
   }
 };
 
-// @route PUT /kaban/card/:boardId/:columnId/:cardId
-// @access Protected
 exports.deleteCard = async (req, res) => {
   try {
     const { columnId, cardId } = req.params;
