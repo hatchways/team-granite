@@ -133,7 +133,11 @@ export default function ColumnList(props) {
                         </Grid>
                     </Paper>}
                     <Box style={{display:'flex', justifyContent:'space-between'}}>
-                        {openAddDialog && <Button variant="contained" color='primary' onClick={() => boardActions(2, 1, index, boardID, data)} disabled={data.name === "" ? true:false }>Add Card</Button>}
+                        {openAddDialog && <Button variant="contained" color='primary' onClick={() =>{
+                             boardActions(2, 1, index, boardID, data);
+                             setData({name: '', tag: 0})
+                            inputElement.current.value = null
+                             }} disabled={data.name === "" ? true:false }>Add Card</Button>}
                         <Button variant={openAddDialog ?'outlined':'contained'} color='primary' onClick={() => setOpenAddDialog(!openAddDialog)}>{openAddDialog?'Close':'Add a Card'}</Button>
                     </Box>
                 </Wrapper>
