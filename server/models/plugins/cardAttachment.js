@@ -6,12 +6,12 @@ const cardAttachmentSchema = new mongoose.Schema({
   files: [{ type: ObjectId, ref: "file", default: [] }],
 });
 
-cardAttachmentSchema.statics.get = async (pluginId) => {
+cardAttachmentSchema.methods.get = async (pluginId) => {
   const plugin = await this.findById(pluginId);
   return plugin.files;
 };
 
-cardAttachmentSchema.statics.create = async (pluginId, files) => {
+cardAttachmentSchema.methods.create = async (pluginId, files) => {
   const plugin = await this.findById(pluginId);
   if (plugin.files.length === 0) {
     plugin.files = files;
@@ -21,7 +21,7 @@ cardAttachmentSchema.statics.create = async (pluginId, files) => {
   }
 };
 
-cardAttachmentSchema.statics.update = async (pluginId, files) => {
+cardAttachmentSchema.methods.update = async (pluginId, files) => {
   const plugin = await this.findbyId(pluginId);
   files.map((file) => {
     plugin.files.push(file);
@@ -29,7 +29,7 @@ cardAttachmentSchema.statics.update = async (pluginId, files) => {
   await plugin.save();
 };
 
-cardAttachmentSchema.statics.delete = async (pluginId) => {
+cardAttachmentSchema.methods.delete = async (pluginId) => {
   const plugin = await this.findbyId(pluginId);
   plugin.files.map(async (file) => {
     this.model("file").deleteOne(file);
