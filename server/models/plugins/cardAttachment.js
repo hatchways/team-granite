@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 const basePlugin = require("./basePlugin");
 
-const cardAttachSchema = new mongoose.Schema({
+const cardAttachmentSchema = new mongoose.Schema({
   files: [{ type: ObjectId, ref: "file", default: [] }],
 });
 
-cardAttachSchema.statics.get = async (pluginId) => {
+cardAttachmentSchema.statics.get = async (pluginId) => {
   const plugin = await this.findById(pluginId);
   return plugin.files;
 };
 
-cardAttachSchema.statics.create = async (pluginId, files) => {
+cardAttachmentSchema.statics.create = async (pluginId, files) => {
   const plugin = await this.findById(pluginId);
   if (plugin.files.length === 0) {
     plugin.files = files;
@@ -21,7 +21,7 @@ cardAttachSchema.statics.create = async (pluginId, files) => {
   }
 };
 
-cardAttachSchema.statics.update = async (pluginId, files) => {
+cardAttachmentSchema.statics.update = async (pluginId, files) => {
   const plugin = await this.findbyId(pluginId);
   files.map((file) => {
     plugin.files.push(file);
@@ -29,7 +29,7 @@ cardAttachSchema.statics.update = async (pluginId, files) => {
   await plugin.save();
 };
 
-cardAttachSchema.statics.delete = async (pluginId) => {
+cardAttachmentSchema.statics.delete = async (pluginId) => {
   const plugin = await this.findbyId(pluginId);
   plugin.files.map(async (file) => {
     this.model("file").deleteOne(file);
