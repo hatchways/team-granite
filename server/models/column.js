@@ -27,7 +27,7 @@ columnSchema.statics.createColumn = async function ({ name, index }, boardId) {
   await column.save();
   index = index == 0 ? 0 : null;
   // update the user board
-  await this.model("board").updateColumnsList(boardId, column._id, index);
+  await this.model("board").updateColumns(boardId, column._id, index);
   return column;
 };
 
@@ -62,11 +62,11 @@ columnSchema.statics.deleteColumn = async function (boardId, columnId) {
       $pullAll: { columns: [columnId] },
     }
   );
-  await this.deleteMany({ _Id: columnId });
+  await this.deleteMany({ _id: columnId });
   await this.model("card").deleteMany({ columnId: columnId });
 };
 
-columnSchema.statics.updateCardsList = async function (
+columnSchema.statics.updateCards = async function (
   { cardId, index },
   columnId
 ) {

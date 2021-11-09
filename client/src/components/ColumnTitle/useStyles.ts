@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     margin: 0,
   },
-  forgot: {
-    paddingRight: 10,
-    color: '#3a8dff',
-  },
   submit: {
     margin: theme.spacing(1),
     width: 70,

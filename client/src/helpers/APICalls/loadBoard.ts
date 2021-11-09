@@ -1,5 +1,5 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { Board } from '../../mocks/mockBoardData';
+import { Board } from '../../interface/Board';
 
 interface BoardApiData {
   success?: {

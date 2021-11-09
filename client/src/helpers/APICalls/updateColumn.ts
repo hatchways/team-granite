@@ -1,5 +1,5 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { Column } from '../../mocks/mockBoardData';
+import { Column } from '../../interface/Board';
 
 interface ColumnApiData {
   success?: {
@@ -10,12 +10,12 @@ interface ColumnApiData {
   };
 }
 
-const updateBoard = async (
-  updateBody: { name: string; index: number },
-  boardId: string,
-  columnId: string,
-): Promise<ColumnApiData> => {
-  console.log(updateBody);
+interface UpdateBody {
+  name: string;
+  index: number;
+}
+
+const updateBoard = async (updateBody: UpdateBody, boardId: string, columnId: string): Promise<ColumnApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',

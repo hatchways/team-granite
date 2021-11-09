@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from 'react';
-import { Board } from '../mocks/mockBoardData';
+import { Board } from '../interface/Board';
 
 interface IBoardContext {
   boardData: Board | null;

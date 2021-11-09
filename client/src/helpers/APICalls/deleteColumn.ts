@@ -1,5 +1,5 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { Column } from '../../mocks/mockBoardData';
+import { Column } from '../../interface/Board';
 
 interface ColumnApiData {
   success?: {

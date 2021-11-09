@@ -1,7 +1,7 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
-import { Menu, MenuItem, Grid, Box } from '@material-ui/core';
-import useStyles from '../Board/useStyles';
+import { Menu, MenuItem, Grid } from '@material-ui/core';
+import useStyles from './useStyles';
 import { useBoardContext } from '../../context/useBoardContext';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { MouseEvent, useState } from 'react';
@@ -13,7 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { FormikHelpers } from 'formik';
-import { Card as CardInterface, Column as ColumnInterface } from '../../mocks/mockBoardData';
+import { Card as CardInterface, Column as ColumnInterface } from '../../interface/Board';
 import updateColumn from '../../helpers/APICalls/updateColumn';
 import loadBoard from '../../helpers/APICalls/loadBoard';
 import { useSnackBar } from '../../context/useSnackbarContext';
@@ -29,20 +29,22 @@ export default function Column(props: Props): JSX.Element {
   const { column, index } = props;
 
   const [anchorElement, setAnchorElement] = useState<null | Element | ((element: Element) => Element)>(null);
-  const isOpen = Boolean(anchorElement);
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [isEditable, setIsEditable] = useState(false);
 
   const { boardData, updateBoardData } = useBoardContext();
   const { updateSnackBarMessage } = useSnackBar();
 
-  const handleClick = (event: MouseEvent<Element>) => {
+  const isOpen = Boolean(anchorElement);
+
+  const handleMenuClick = (event: MouseEvent<Element>) => {
     setAnchorElement(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleMenuClose = () => {
     setAnchorElement(null);
   };
-
-  const [open, setOpen] = useState<boolean>(false);
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -51,8 +53,6 @@ export default function Column(props: Props): JSX.Element {
   const handleDialogClose = () => {
     setOpen(false);
   };
-
-  const [isEditable, setIsEditable] = useState(false);
 
   const handleSubmit = ({ title }: { title: string }, { setSubmitting }: FormikHelpers<{ title: string }>): void => {
     console.log(title);
@@ -107,9 +107,9 @@ export default function Column(props: Props): JSX.Element {
               isEditable={isEditable}
               title={column.name}
             />
-            <MoreHorizIcon onClick={handleClick} />
+            <MoreHorizIcon onClick={handleMenuClick} />
           </Grid>
-          <Menu anchorEl={anchorElement} open={isOpen} onClose={handleClose}>
+          <Menu anchorEl={anchorElement} open={isOpen} onClose={handleMenuClose}>
             <MenuItem onClick={handleEdit}>Edit Column Title</MenuItem>
             <MenuItem onClick={handleDialogOpen}>Delete Column</MenuItem>
           </Menu>

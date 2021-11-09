@@ -28,10 +28,7 @@ cardSchema.statics.createCard = async function (
   });
   await card.save();
   // update the Column Card List board
-  await this.model("column").updateCardsList(
-    { cardId: card._id, index },
-    columnId
-  );
+  await this.model("column").updateCards({ cardId: card._id, index }, columnId);
 
   return card;
 };
@@ -65,7 +62,7 @@ cardSchema.statics.updateCard = async function (
         targetColumnId
       );
     } else {
-      await this.model("column").updateColumnCardsList(
+      await this.model("column").updateColumnCards(
         { cardId, index },
         currentColumnId
       );
