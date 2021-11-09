@@ -1,4 +1,4 @@
-const ImageModel = require("../models/Image");
+const ImageModel = require("../models/File");
 const asyncHandler = require("express-async-handler");
 const { cloudinary_upload } = require("../cloudinary");
 
