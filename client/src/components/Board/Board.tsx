@@ -43,7 +43,7 @@ const Board = (): JSX.Element => {
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="column-list" direction="horizontal" type="column">
             {(provided) => (
-              <Grid container justify="space-between" {...provided.droppableProps} ref={provided.innerRef}>
+              <Grid container justify="center" {...provided.droppableProps} ref={provided.innerRef}>
                 {boardData.columns.map((column: ColumnInterface, index: number) => {
                   return <Column key={column._id} column={column} index={index} />;
                 })}
