@@ -1,4 +1,4 @@
-import { DragDropContext, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import Column from '../Column/Column';
 import useStyles from './useStyles';
 import { CircularProgress, Grid } from '@material-ui/core';
@@ -16,7 +16,7 @@ const Board = (): JSX.Element => {
     return <CircularProgress />;
   }
 
-  const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
+  const handleDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
     if (!destination) {
       return;

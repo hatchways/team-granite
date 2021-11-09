@@ -33,7 +33,7 @@ export default function Column(props: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const [isEditable, setIsEditable] = useState(false);
 
-  const { boardData, updateBoardData } = useBoardContext();
+  const { updateBoardData } = useBoardContext();
   const { updateSnackBarMessage } = useSnackBar();
 
   const isOpen = Boolean(anchorElement);
@@ -55,7 +55,6 @@ export default function Column(props: Props): JSX.Element {
   };
 
   const handleSubmit = ({ title }: { title: string }, { setSubmitting }: FormikHelpers<{ title: string }>): void => {
-    console.log(title);
     updateColumn({ name: title, index: index }, column.boardId, column._id).then((data) => {
       if (data.success) {
         loadBoard().then((data) => {
@@ -98,7 +97,7 @@ export default function Column(props: Props): JSX.Element {
   return (
     <Draggable draggableId={column._id} index={index}>
       {(provided) => (
-        <Grid className={classes.column} item ref={provided.innerRef} {...provided.draggableProps}>
+        <Grid className={classes.root} item ref={provided.innerRef} {...provided.draggableProps}>
           <Grid className={classes.dragArea} {...provided.dragHandleProps} />
           <Grid item container justify={'space-between'}>
             <ColumnTitle

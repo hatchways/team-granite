@@ -35,7 +35,6 @@ columnSchema.statics.updateColumn = async function (
   boardId,
   columnId
 ) {
-  console.log(name);
   if (name) {
     await this.findOneAndUpdate(
       { _id: columnId },

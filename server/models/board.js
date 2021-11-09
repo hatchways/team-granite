@@ -45,7 +45,7 @@ boardSchema.statics.updateBoard = async function ({ name }, boardId) {
 boardSchema.statics.deleteBoard = async function (boardId) {
   const board = await this.findOne({ _id: boardId });
   await board?.columns.forEach((columnObjectId) => {
-    this.model("column").deleteMany({ _Id: columnObjectId });
+    this.model("column").deleteMany({ _id: columnObjectId });
     this.model("card").deleteMany({ columnId: columnObjectId });
   });
   await Board.deleteMany({ _id: boardId });

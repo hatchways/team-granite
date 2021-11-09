@@ -55,10 +55,10 @@ export default function ColumnTitle({ handleSubmit, handleCancel, isEditable, ti
             onChange={handleChange}
           />
           <ButtonGroup className={classes.buttonGroup}>
-            <Button type="submit" size="large" variant="contained" className={classes.submit}>
+            <Button type="submit" size="large" variant="contained" className={classes.button}>
               {'Rename'}
             </Button>
-            <Button type="button" size="large" variant="contained" className={classes.submit} onClick={handleCancel}>
+            <Button type="button" size="large" variant="contained" className={classes.button} onClick={handleCancel}>
               {'Cancel'}
             </Button>
           </ButtonGroup>

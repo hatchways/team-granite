@@ -5,9 +5,7 @@ exports.userCanEditBoard = async (req, res, next) => {
   const { boardId } = req.params;
   const board = await Board.findOne({ _id: boardId });
   //Temporary workaround, to be removed once multiple board feature is added.
-
   if (board.name === "Hatchway Demo") {
-    console.log(board.name);
     next();
   } else if (!board) {
     return res

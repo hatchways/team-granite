@@ -4,20 +4,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '80%',
   },
-  label: {
-    fontSize: 19,
-    color: 'rgb(0,0,0,0.4)',
-    paddingLeft: '5px',
-  },
   inputs: {
     fontSize: 22,
     fontWeight: 400,
     margin: 0,
   },
-  submit: {
+  button: {
     margin: theme.spacing(1),
-    width: 70,
-    height: 25,
     borderRadius: '5px',
     backgroundColor: '#759CFC',
     fontWeight: 'bold',
