@@ -33,8 +33,8 @@ const Board = () => {
             index === destination.index) return;
 
         if (type === "COLUMN") {
-            const $_ordered = reorderColumn(ordered, source.index, destination.index);
-            setOrdered($_ordered);
+            const reordered = reorderColumn(ordered, source.index, destination.index);
+            setOrdered(reordered);
             return;
         }
 
@@ -59,13 +59,13 @@ const Board = () => {
                     <Droppable droppableId="board" type="COLUMN" direction="horizontal">
                         {provided => (
                         <Grid container item xs={12} sm={12} className={classes.columnParentContainer}  spacing={2} sx={{marginTop:'50px'}} ref={provided.innerRef} {...provided.droppableProps}>
-                                {ordered.map((key, index) => (
-                                    <Box key={key} className={classes.columnContainer} >
+                                {ordered.map((columnName, columnIndex) => (
+                                    <Box key={columnName} className={classes.columnContainer} >
                                     <BoardColumn 
                                         boardID={board.id}
-                                        index={index}
-                                        title={key}
-                                        items={columns[key]}
+                                        index={columnIndex}
+                                        title={columnName}
+                                        items={columns[columnName]}
                                         boardActionsInit={boardActionsInit}
                                         boardActions={boardActions}
                                     />

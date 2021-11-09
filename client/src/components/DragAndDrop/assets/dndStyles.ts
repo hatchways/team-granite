@@ -1,8 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const [grid, borderRadius, black, scrollHeight, nudeColor, leaving, entering, Height, placeholder, borderLine] =
-      ['8px', '2px', '#2e2e30', '94%', '#f4f6ff', '#ffeaea', '#eaffeb', '30px', '#e5ecfc', '#7aa1fc'];
-      
 const dndStyles = makeStyles(() => ({
   boardContainer: {
     display: 'block',
@@ -35,14 +32,14 @@ const dndStyles = makeStyles(() => ({
     justifyContent: 'center',
     flex: 'auto',
     '& > div': {
-      color: black,
+      color: '#2e2e30',
       padding: '2.5px',
       borderRadius: '10px',
     },
   },
 
   column: {
-    backgroundColor: nudeColor,
+    backgroundColor: '#f4f6ff',
     width: '250px !important',
     h2: {
       fontWeight: 600,
@@ -53,7 +50,7 @@ const dndStyles = makeStyles(() => ({
     margin: '0 10px',
     borderRadius: '10px',
     userSelect: 'none',
-    minHeight: Height,
+    minHeight: '30px',
   },
 
   columnHeader: {
@@ -70,15 +67,15 @@ const dndStyles = makeStyles(() => ({
   scrollContainer: {
     overflowX: 'hidden',
     overflowY: 'auto',
-    maxHeight: scrollHeight,
+    maxHeight: '94%',
   },
 
   item_container: {
-    borderRadius: borderRadius,
+    borderRadius: '2px',
     border: '2px solid transparent',
-    padding: grid,
+    padding: '8px',
     minHeight: '40px',
-    marginBottom: grid,
+    marginBottom: '8px',
     userSelect: 'none',
 
     '&:hover, &:active': {
@@ -88,7 +85,7 @@ const dndStyles = makeStyles(() => ({
     '&:focus': {
       outline: 'none',
       boxShadow: 'none',
-      background: leaving,
+      background: '#ffeaea',
     },
     background: 'red',
   },
@@ -98,12 +95,12 @@ const dndStyles = makeStyles(() => ({
     flex: 1,
     flexDirection: 'column',
     background: 'transparent',
-    minHeight: Height,
+    minHeight: '30px',
     padding: '5px 2.5px 15px',
   },
 
   '.wrapper, .wrapperOver, .wrapperFrom': {
-    minHeight: Height,
+    minHeight: '30px',
     display: 'flex',
     flex: 1,
     opacity: 1,
@@ -112,10 +109,10 @@ const dndStyles = makeStyles(() => ({
   },
 
   '.wrapperFrom, .dropFrom': {
-    backgroundColor: leaving,
+    backgroundColor: '#ffeaea',
   },
   '.wrapperOver, .dropOver': {
-    backgroundColor: entering,
+    backgroundColor: '#eaffeb',
   },
 
   addCardItem: {
@@ -123,12 +120,12 @@ const dndStyles = makeStyles(() => ({
     width: '100%',
     boxShadow: 'none',
     padding: '15px',
-    color: black,
+    color: '#2e2e30',
     letterSpacing: '1px',
     marginBottom: '15px',
     borderRadius: '5px',
     textAlign: 'justify',
-    border: `2px solid ${borderLine}`,
+    border: '2px solid #7aa1fc',
     '& p': {
       fontWeight: 600,
     },
@@ -139,7 +136,7 @@ const dndStyles = makeStyles(() => ({
     width: '100%',
     boxShadow: 'none',
     padding: '15px',
-    color: black,
+    color: '#2e2e30',
     letterSpacing: '1px',
     marginBottom: '15px',
     borderRadius: '5px',
@@ -152,11 +149,11 @@ const dndStyles = makeStyles(() => ({
   dragging: {
     width: '100%',
     letterSpacing: '1px',
-    background: leaving,
+    background: '#ffeaea',
     boxShadow: '0px 0px 20px 0px #cdd8f5',
     transition: 'backgroundColor 0.2s ease, opacity 0.1s ease',
     padding: '15px',
-    color: black,
+    color: '#2e2e30',
     marginBottom: '15px',
     borderRadius: '5px',
     textAlign: 'justify',
@@ -173,11 +170,11 @@ const dndStyles = makeStyles(() => ({
   },
 
   colDragOver: {
-    background: entering,
+    background: '#eaffeb',
   },
 
   colDragFrom: {
-    background: placeholder,
+    background: '#e5ecfc',
   },
 
   button: {
@@ -222,13 +219,47 @@ const dndStyles = makeStyles(() => ({
     width: '16px',
     height: '16px',
     marginRight: '2.5px',
-    border: '.5px solid rgba(0,0,0,.4)',
     transition: 'background 0.2s ease, box-shadow 0.1s ease',
-
+    border: '.6px solid rgba(0,0,0,.5)',
     '&:hover': {
       cursor: 'pointer',
       boxShadow: '2px 2px 4px rgba(0,0,0,.4)',
     },
+  },
+
+  default: {
+    background: '#ede4e4',
+  },
+  green: {
+    background: '#5ACD76',
+  },
+  red: {
+    background: '#FF5D48',
+  },
+  gold: {
+    background: '#EDAB1D',
+  },
+  blue: {
+    background: '#59B0FF',
+  },
+  purple: {
+    background: '#D460F7',
+  },
+
+  addActionBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+    '& h6': {
+      whiteSpace: 'nowrap',
+      fontSize: '14px',
+    },
+  },
+
+  addActionBtnBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 

@@ -13,7 +13,7 @@ const Navbar = (): JSX.Element => {
   return (
     <Box>
       <Grid container className={classes.container}>
-        <Grid item container style={{justifyContent:"space-between", alignItems:"center"}} xs={12}>
+        <Grid item container className={classes.box} xs={12}>
           <Grid item xs={4}>
             <Box ml={3}>
               <img src={logoImage} alt="logo" />
@@ -22,9 +22,9 @@ const Navbar = (): JSX.Element => {
 
           <Grid item container alignItems="center" xs={4}>
             <Router>
-              <Grid item container style={{justifyContent:"space-evenly", alignItems:"center"}}>
+              <Grid item container className={classes.miniBox}>
                 <NavLink exact to="/page2" className={classes.navNotActive} activeClassName={classes.navActive}>
-                  <Grid item container style={{justifyContent:"flex-end", alignItems:"center"}} spacing={1}>
+                  <Grid item container className={classes.miniBoxAlign} spacing={1}>
                     <Grid item>
                       <DashboardIcon />
                     </Grid>
@@ -34,7 +34,7 @@ const Navbar = (): JSX.Element => {
                   </Grid>
                 </NavLink>
                 <NavLink exact to="/page1" className={classes.navNotActive} activeClassName={classes.navActive}>
-                  <Grid item container style={{justifyContent:"flex-end", alignItems:"center"}} spacing={1}>
+                  <Grid item container className={classes.miniBoxAlign} spacing={1}>
                     <Grid item>
                       <CalendarTodayIcon />
                     </Grid>
