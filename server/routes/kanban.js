@@ -11,8 +11,8 @@ const {
 const { columnExist } = require("../middleware/columnExist");
 const { cardExist } = require("../middleware/cardExist");
 
-router.route("/").get(protect, controler.homeBoard);
-router.route("/board").post(protect, validateBoardData, controler.createBoard);
+router.route("/board").get(protect, controler.homeBoard);
+router.route("/board/demo").get(protect, controler.demoBoard);
 router
   .route("/board/:boardId")
   .put(protect, userCanEditBoard, controler.updateBoard);
@@ -27,7 +27,7 @@ router
   .put(protect, userCanEditBoard, controler.updateColumn);
 router
   .route("/board/column/:boardId/:columnId")
-  .delete(protect, userCanEditBoard, controler.deleteColumn);
+  .delete(protect, controler.deleteColumn);
 router
   .route("/board/column/card/:boardId/:columnId")
   .post(

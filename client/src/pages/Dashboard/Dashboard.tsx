@@ -8,13 +8,17 @@ import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
 import Board from '../../components/Board/Board';
 import Navbar from '../../components/Navbar/Navbar';
+import loadBoard from '../../helpers/APICalls/loadBoard';
+import { useSnackBar } from '../../context/useSnackbarContext';
+import { useBoardContext } from '../../context/useBoardContext';
 
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
   const { loggedInUser } = useAuth();
   const { initSocket } = useSocket();
-
+  const { updateSnackBarMessage } = useSnackBar();
   const history = useHistory();
+  const { boardData, updateBoardData } = useBoardContext();
 
   useEffect(() => {
     initSocket();
@@ -27,12 +31,22 @@ export default function Dashboard(): JSX.Element {
     return <CircularProgress />;
   }
 
+  if (!boardData) {
+    loadBoard().then((data) => {
+      if (data.success) {
+        updateBoardData(data.success.board);
+      } else if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      }
+    });
+  }
+
   return (
     <>
       <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
         <CssBaseline />
         <Grid item className={classes.drawerWrapper}>
-          <Navbar />
+          <Navbar boardName={boardData ? boardData.name : 'No Board'} />
         </Grid>
         <Board />
       </Grid>

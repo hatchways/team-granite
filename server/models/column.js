@@ -7,7 +7,7 @@ const columnSchema = new mongoose.Schema(
     cards: [
       { type: ObjectId, ref: "card", required: true, autopopulate: true },
     ],
-    boardId: { type: ObjectId, ref: "board", required: true },
+    boardId: { type: ObjectId, ref: "board" },
   },
   {
     collection: "columns",
@@ -27,7 +27,7 @@ columnSchema.statics.createColumn = async function ({ name, index }, boardId) {
   await column.save();
   index = index == 0 ? 0 : null;
   // update the user board
-  await this.model("Board").updateBoardColumnsList(boardId, column._id, index);
+  await this.model("board").updateColumnsList(boardId, column._id, index);
   return column;
 };
 
@@ -36,6 +36,7 @@ columnSchema.statics.updateColumn = async function (
   boardId,
   columnId
 ) {
+  console.log(name);
   if (name) {
     await this.findOneAndUpdate(
       { _id: columnId },
@@ -48,21 +49,21 @@ columnSchema.statics.updateColumn = async function (
   }
   if (index >= 0) {
     // update the user board
-    await this.model("Board").updateBoardColumnsList(boardId, columnId, index);
+    await this.model("board").updateColumns(boardId, columnId, index);
   }
   let column = await this.findOne({ _id: columnId });
   return column;
 };
 
 columnSchema.statics.deleteColumn = async function (boardId, columnId) {
-  await this.model("Board").findOneAndUpdate(
+  await this.model("board").findOneAndUpdate(
     { _id: boardId },
     {
       $pullAll: { columns: [columnId] },
     }
   );
   await this.deleteMany({ _Id: columnId });
-  await this.model("Card").deleteMany({ columnId: columnId });
+  await this.model("card").deleteMany({ columnId: columnId });
 };
 
 columnSchema.statics.updateCardsList = async function (
@@ -122,7 +123,7 @@ columnSchema.statics.updateTargetColumnCardsList = async function (
   );
 
   // update the card with its new targetId
-  await this.model("Card").findOneAndUpdate(
+  await this.model("card").findOneAndUpdate(
     { _id: cardId },
     {
       $set: {

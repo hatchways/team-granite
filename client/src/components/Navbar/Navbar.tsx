@@ -5,11 +5,11 @@ import { NavLink, BrowserRouter as Router } from 'react-router-dom';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import AddIcon from '@material-ui/icons/Add';
-import BoardsNavbar from './BoardsNavbar/BoardsNavbar';
+import BoardsNavbar from '../BoardsNavbar/BoardsNavbar';
 
-const Navbar = (): JSX.Element => {
+const Navbar = (props: { boardName: string }): JSX.Element => {
   const classes = useStyles();
-
+  const { boardName } = props;
   return (
     <Box>
       <Grid container className={classes.container} xs={12}>
@@ -67,7 +67,7 @@ const Navbar = (): JSX.Element => {
           </Grid>
         </Grid>
       </Grid>
-      <BoardsNavbar />
+      <BoardsNavbar boardName={boardName} />
     </Box>
   );
 };

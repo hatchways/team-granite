@@ -17,6 +17,17 @@ exports.homeBoard = async (req, res) => {
   }
 };
 
+// @route GET /kaban/demoBoard
+// @access Protected
+exports.demoBoard = async (req, res) => {
+  const [board] = await Board.find({ name: "Hatchway Demo" });
+  res.status(200).json({
+    success: {
+      board,
+    },
+  });
+};
+
 // @route POST /kaban/board
 // @access Protected
 exports.createBoard = async (req, res) => {
@@ -101,45 +112,28 @@ exports.createColumn = async (req, res) => {
 // @route PUT /column/:boardId
 // @access Protected
 exports.updateColumn = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const { name, index } = req.body;
-    const { boardId, columnId } = req.params;
-
-    if (index && typeof index != "number") {
-      return res
-        .status(403)
-        .json({ success: false, message: "Index value not supported" });
-    }
-
-    const column = await Column.updateBoardColumn(
-      { name, index },
-      boardId,
-      columnId
-    );
-    res.status(200).json({ success: true, column });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error Processing your request at this time",
-    });
+  const userId = req.user.id;
+  const { name, index } = req.body;
+  const { boardId, columnId } = req.params;
+  console.log(req.body);
+  if (index && typeof index != "number") {
+    return res
+      .status(403)
+      .json({ success: false, message: "Index value not supported" });
   }
+
+  const column = await Column.updateColumn({ name, index }, boardId, columnId);
+
+  res.status(200).json({ success: { column } });
 };
 
 // @route PUT /column/:boardId
 // @access Protected
 exports.deleteColumn = async (req, res) => {
-  try {
-    const { boardId, columnId } = req.params;
+  const { boardId, columnId } = req.params;
 
-    await Column.deleteBoardColumn(boardId, columnId);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error Processing your request at this time",
-    });
-  }
+  await Column.deleteColumn(boardId, columnId);
+  res.status(200).json({ success: "Column deleted." });
 };
 
 // @route POST /kaban/card/:boardId/:columnId

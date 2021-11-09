@@ -20,10 +20,11 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { Grid } from '@material-ui/core';
 
-const BoardsNavbar = (): JSX.Element => {
+const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { boardName } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -45,7 +46,7 @@ const BoardsNavbar = (): JSX.Element => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            My School Board
+            {boardName}
           </Typography>
           <IconButton
             color="inherit"

@@ -4,11 +4,10 @@ const { ObjectId } = mongoose.Schema.Types;
 const boardSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-
     columns: [
       { type: ObjectId, ref: "column", required: true, autopopulate: true },
     ],
-    userId: { type: ObjectId, ref: "user", required: true },
+    userId: { type: ObjectId, ref: "user" },
   },
   {
     collection: "boards",
@@ -76,6 +75,4 @@ boardSchema.statics.updateColumns = async function (boardId, columnId, index) {
   );
 };
 
-let Board = mongoose.model("board", boardSchema);
-
-module.exports = Board;
+module.exports = Board = mongoose.model("board", boardSchema);

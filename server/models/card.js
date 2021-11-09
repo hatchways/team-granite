@@ -5,7 +5,7 @@ const cardSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
-    columnId: { type: ObjectId, ref: "column", required: true },
+    columnId: { type: ObjectId, ref: "column" },
     color: { type: String },
     deadline: { Type: Date },
     comment: { type: String },
@@ -28,7 +28,7 @@ cardSchema.statics.createCard = async function (
   });
   await card.save();
   // update the Column Card List board
-  await this.model("Column").updateCardsList(
+  await this.model("column").updateCardsList(
     { cardId: card._id, index },
     columnId
   );
