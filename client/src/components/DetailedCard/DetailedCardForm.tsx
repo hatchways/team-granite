@@ -13,7 +13,7 @@ const DetailedCardForm: React.FC = () => {
   const [actionCard, setActionCard] = useState(['Move', 'Copy', 'Share', 'Delete']);
   return (
     <Box>
-      <Grid container xs={12} className={classes.container} direction="row">
+      <Grid item container xs={12} className={classes.container} direction="row">
         <Grid container item xs={9} direction="column">
           <Box className={classes.itemBox}>
             <Typography className={classes.boxContent}>
@@ -68,9 +68,9 @@ const DetailedCardForm: React.FC = () => {
           <Grid item className={classes.actionGrid} container direction="column">
             <Typography> ADD TO CARD:</Typography>
             <Box className={classes.addCardBox}>
-              {addCard.map((item, key) => {
+              {addCard.map((item) => {
                 return (
-                  <Button key={key} variant="contained">
+                  <Button key={item} variant="contained">
                     {item}
                   </Button>
                 );
