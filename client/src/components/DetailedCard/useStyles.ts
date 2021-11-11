@@ -47,15 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: '10px',
     marginLeft: '3%',
   },
-  textArea: {
-    border: '1px solid lavender',
-    padding: '15px',
-    borderRadius: '5px',
-    fontFamily: 'Sans, Helvetica Neue, sans-serif',
-    '&::placeholder': {
-      color: theme.palette.grey[500],
-    },
-  },
+
   fixWidth: {
     minWidth: '700px',
   },

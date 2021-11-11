@@ -6,6 +6,7 @@ import MenuBook from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
 import AccessTime from '@material-ui/icons/AccessTime';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
+import { TextField } from '@material-ui/core';
 const DetailedCardForm: React.FC = () => {
   const classes = useStyles();
   const [addCard, setAddCard] = useState(['Tag', 'Check-list', 'Deadline', 'Attachement', 'Cover']);
@@ -22,13 +23,7 @@ const DetailedCardForm: React.FC = () => {
               Description:
             </Typography>
             <Box className={classes.boxItems}>
-              <textarea
-                name="description"
-                rows={3}
-                cols={57}
-                className={classes.textArea}
-                placeholder="Write a description"
-              />
+              <TextField variant="outlined" color="secondary" fullWidth required multiline minRows={3} />
               <Box color="cornflowerblue" className={classes.buttonBox}>
                 <Button variant="contained" className={classes.descriptionButton}>
                   Save
@@ -58,7 +53,7 @@ const DetailedCardForm: React.FC = () => {
               Add comment:
             </Typography>
             <Box className={classes.boxItems}>
-              <textarea name="comments" rows={3} cols={57} className={classes.textArea} placeholder="Write a comment" />
+              <TextField variant="outlined" color="secondary" fullWidth required multiline minRows={3} />
               <Box color="cornflowerblue" className={classes.buttonBox}>
                 <Button variant="contained" className={classes.descriptionButton}>
                   Save
