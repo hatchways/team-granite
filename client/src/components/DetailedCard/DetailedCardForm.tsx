@@ -16,9 +16,9 @@ const DetailedCardForm: React.FC = () => {
         <Grid container item xs={9} direction="column">
           <Box className={classes.itemBox}>
             <Typography className={classes.boxContent}>
-              <div>
+              <Box>
                 <MenuBook className={classes.cardIcons} />
-              </div>
+              </Box>
               Description:
             </Typography>
             <Box className={classes.boxItems}>
@@ -39,9 +39,9 @@ const DetailedCardForm: React.FC = () => {
           </Box>
           <Box className={classes.deadlineBox}>
             <Typography className={classes.boxContent}>
-              <div>
+              <Box>
                 <AccessTime className={classes.cardIcons} />
-              </div>
+              </Box>
               Deadline:
             </Typography>
             <Box className={classes.boxItems}>
@@ -52,9 +52,9 @@ const DetailedCardForm: React.FC = () => {
           </Box>
           <Box className={classes.itemBox}>
             <Typography className={classes.boxContent}>
-              <div>
+              <Box>
                 <ChatBubbleOutline className={classes.cardIcons} />
-              </div>
+              </Box>
               Add comment:
             </Typography>
             <Box className={classes.boxItems}>

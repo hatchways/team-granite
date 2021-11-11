@@ -43,7 +43,7 @@ const DetailedCard: React.FC = () => {
   };
 
   return (
-    <div>
+    <Box>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open dialog
       </Button>
@@ -57,9 +57,9 @@ const DetailedCard: React.FC = () => {
         <Box className={classes.fixWidth}>
           <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             <Typography className={classes.titleBoxContent}>
-              <div className={classes.cardIcons}>
+              <Box className={classes.cardIcons}>
                 <EventNote />
-              </div>
+              </Box>
               Midterm exam
               <Box className={classes.colorDisplay}></Box>
             </Typography>
@@ -72,7 +72,7 @@ const DetailedCard: React.FC = () => {
           </DialogContent>
         </Box>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 export default DetailedCard;
