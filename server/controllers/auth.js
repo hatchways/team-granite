@@ -12,7 +12,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   try {
     await checkUserExists(email, username);
   } catch (error) {
-    res.status(400);
+    res.status(422);
     throw error;
   }
 
