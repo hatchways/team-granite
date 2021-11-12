@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Box, Button, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Typography, TextField } from '@material-ui/core';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import useStyles from './useStyles';
 import MenuBook from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
 import AccessTime from '@material-ui/icons/AccessTime';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
-import { TextField } from '@material-ui/core';
+import { v4 } from 'uuid';
 const DetailedCardForm: React.FC = () => {
   const classes = useStyles();
   const [addCard, setAddCard] = useState(['Tag', 'Check-list', 'Deadline', 'Attachement', 'Cover']);
   const [actionCard, setActionCard] = useState(['Move', 'Copy', 'Share', 'Delete']);
+
   return (
     <Box>
       <Grid item container xs={12} className={classes.container} direction="row">
@@ -23,7 +24,7 @@ const DetailedCardForm: React.FC = () => {
               Description:
             </Typography>
             <Box className={classes.boxItems}>
-              <TextField variant="outlined" color="secondary" fullWidth required multiline minRows={3} />
+              <TextField variant="outlined" color="secondary" fullWidth required multiline rows={3} />
               <Box color="cornflowerblue" className={classes.buttonBox}>
                 <Button variant="contained" className={classes.descriptionButton}>
                   Save
@@ -53,7 +54,7 @@ const DetailedCardForm: React.FC = () => {
               Add comment:
             </Typography>
             <Box className={classes.boxItems}>
-              <TextField variant="outlined" color="secondary" fullWidth required multiline minRows={3} />
+              <TextField variant="outlined" color="secondary" fullWidth required multiline rows={3} />
               <Box color="cornflowerblue" className={classes.buttonBox}>
                 <Button variant="contained" className={classes.descriptionButton}>
                   Save
@@ -70,7 +71,7 @@ const DetailedCardForm: React.FC = () => {
             <Box className={classes.addCardBox}>
               {addCard.map((item) => {
                 return (
-                  <Button key={item} variant="contained">
+                  <Button key={v4()} variant="contained">
                     {item}
                   </Button>
                 );
@@ -80,9 +81,9 @@ const DetailedCardForm: React.FC = () => {
           <Grid item className={classes.actionGrid} container direction="column">
             <Typography> ACTIONS:</Typography>
             <Box className={classes.actionBox}>
-              {actionCard.map((item, key) => {
+              {actionCard.map((item) => {
                 return (
-                  <Button key={key} variant="contained">
+                  <Button key={v4()} variant="contained">
                     {item}
                   </Button>
                 );
