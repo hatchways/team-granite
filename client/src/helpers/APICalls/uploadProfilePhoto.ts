@@ -1,5 +1,4 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-
 interface ImageData {
   success: { imageURI: string };
   error?: string;

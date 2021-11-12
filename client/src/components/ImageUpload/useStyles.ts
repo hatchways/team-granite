@@ -2,49 +2,36 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   dropzone: {
-    display: 'inline-flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 16,
-    flex: 1,
+    margin: '10px',
+    borderRadius: '5px',
+    height: '120px',
+    boxShadow: '3px 3px 5px #aaaaaa',
     alignItems: 'center',
-    padding: '20px',
-    borderWidth: '2px',
-    borderRadius: '2px',
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out',
   },
-  thumbsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 16,
-  },
-  thumb: {
-    display: 'inline-flex',
-    borderRadius: 2,
-    border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
-    width: 100,
-    height: 100,
-    padding: 4,
-    boxSizing: 'border-box',
-  },
-  thumbInner: {
-    display: 'flex',
-    minWidth: 0,
-    overflow: 'hidden',
-  },
-  img: {
-    display: 'block',
-    width: 'auto',
+
+  input: {
     height: '100%',
+    widht: '100%',
+    opacity: 0,
   },
+
+  inputLabel: {
+    height: '100%',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 15,
+    paddingTop: '10%',
+  },
+
+  inputLabelWithFiles: {
+    height: '100%',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 15,
+    paddingTop: '10%',
+    paddingLeft: '6%',
+  },
+
   center: {
     alignContent: 'center',
   },

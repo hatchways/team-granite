@@ -10,6 +10,7 @@ import AuthMenu from '../AuthMenu/AuthMenu';
 import EditProfileDialog from '../EditProfilePhotoDialog/EditProfilePhotoDialog';
 import uploadProfilePhoto from '../../helpers/APICalls/uploadProfilePhoto';
 import getProfilePhoto from '../../helpers/APICalls/getProfilePhoto';
+import { IDropzoneProps } from 'react-dropzone-uploader';
 interface Props {
   loggedInUser: User;
   handleDrawerToggle?: () => void;
@@ -42,12 +43,12 @@ const ChatSideBanner = ({ loggedInUser }: Props): JSX.Element => {
     }
   };
 
-  const handleUpload = (files: File[]) => {
-    if (files.length) {
-      uploadProfilePhoto(files[0]).then((data) => {
+  const handleUpload: IDropzoneProps['onSubmit'] = (files) => {
+    uploadProfilePhoto(files[0].file).then((data) => {
+      if (data.success) {
         setImageSource(data.success.imageURI);
-      });
-    }
+      }
+    });
     setOpen(false);
   };
 

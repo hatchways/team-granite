@@ -42,7 +42,7 @@ exports.uploadImages = asyncHandler(async (req, res, next) => {
   const images = await helperUploadImages(req.files, req.user);
 
   if (!images) {
-    res.status(400);
+    res.status(500);
     throw new Error("File not uploaded to cloudinary.");
   }
 
@@ -59,7 +59,7 @@ exports.uploadImages = asyncHandler(async (req, res, next) => {
 // @desc Upload profile photo
 // @access Private
 exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
-  let user = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id);
 
   if (!user) {
     res.status(401);
@@ -69,7 +69,7 @@ exports.uploadProfilePhoto = asyncHandler(async (req, res, next) => {
   const images = await helperUploadImages([req.file], user);
 
   if (!images) {
-    res.status(400);
+    res.status(500);
     throw new Error("File not uploaded to cloudinary.");
   }
 
