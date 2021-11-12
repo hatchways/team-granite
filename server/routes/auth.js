@@ -20,4 +20,4 @@ router.route("/logout").get(logoutUser);
 
 router.route("/demo").get(loginDemoUser);
 
-module.exports = router;
+module.exports = router
