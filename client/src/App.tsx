@@ -7,8 +7,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import { BoardContextProvider } from './context/useBoardContext';
 import './App.css';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App(): JSX.Element {
   return (
@@ -17,18 +17,14 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <BoardContextProvider>
-                <Switch>
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/signup" component={Signup} />
-                  <Route exact path="/dashboard">
-                    <Dashboard />
-                  </Route>
-                  <Route path="*">
-                    <Redirect to="/login" />
-                  </Route>
-                </Switch>
-              </BoardContextProvider>
+              <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+                <Route path="*">
+                  <Redirect to="/login" />
+                </Route>
+              </Switch>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>

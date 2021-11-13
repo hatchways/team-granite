@@ -4,7 +4,7 @@ This is a little description about your project.
 
 **Tech Stack:** MongoDB, Express.js, React.js, Node.js, Typescript
 
-**Contributors**: [Hatchways](https://github.com/hatchways) (replace)
+**Contributors**: Tejas, Guru, Gideon, Vicheans and Ethan.
 
 ---
 
@@ -20,6 +20,8 @@ This is a little description about your project.
 2. Run `npm install` to install packages
 3. Create your environment variable (.env) file
 4. Run `npm run dev` to start the server
+
+Kindly find [API documentation](https://documenter.getpostman.com/view/10413337/UV5f6tSz) Here
 
 ---
 

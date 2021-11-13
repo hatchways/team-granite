@@ -1,16 +1,13 @@
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 
-// @route POST /users
-// @desc Search for users
-// @access Private
-exports.searchUsers = asyncHandler(async (req, res, next) => {
+exports.searchUsers = asyncHandler(async (req, res) => {
   const searchString = req.query.search;
 
   let users;
   if (searchString) {
     users = await User.find({
-      username: { $regex: searchString, $options: "i" }
+      username: { $regex: searchString, $options: "i" },
     });
   }
 
