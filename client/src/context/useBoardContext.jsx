@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import dndStyles from '../components/DragAndDrop/assets/dndStyles';
 import { AddCard } from '../helpers/APICalls/board';
-import { GetBoardData, GetBoardUpdate, processBoard, BoardModal } from './primitives/boardContextHelper';
+import { GetBoardData, GetBoardUpdate, processBoard } from './primitives/boardContextHelper';
 
 const BoardContext = createContext({
   boardColumnMap: {},
