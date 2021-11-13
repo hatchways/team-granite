@@ -18,9 +18,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Grid } from '@material-ui/core';
+import { IBoards } from '../Navbar/Navbar';
+import Delete from '@material-ui/icons/Delete';
+import { Box } from '@material-ui/core';
+import GroupWork from '@material-ui/icons/GroupWork';
 
-const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
+interface ITest {
+  boardsTitle: IBoards[];
+}
+const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -34,9 +40,8 @@ const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
     setOpen(false);
   };
 
-  const options = ['option1', 'option2'];
   return (
-    <Grid className={classes.root}>
+    <Box className={classes.root}>
       <CssBaseline />
       <AppBar
         position="relative"
@@ -47,6 +52,7 @@ const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
             {boardName}
+            My School boards
           </Typography>
           <IconButton
             color="inherit"
@@ -59,6 +65,13 @@ const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Box
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <Typography paragraph>Data will come here</Typography>
+      </Box>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -68,23 +81,24 @@ const BoardsNavbar = (props: { boardName: string }): JSX.Element => {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
+        <Box className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </div>
+        </Box>
         <Divider />
         <List>
-          {options.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+          {boardsTitle.map((text, index) => (
+            <ListItem button key={index}>
+              <ListItemIcon>
+                <GroupWork />
+              </ListItemIcon>
+              <ListItemText primary={text.board} /> <Delete />
             </ListItem>
           ))}
         </List>
-        <Divider />
       </Drawer>
-    </Grid>
+    </Box>
   );
 };
 export default BoardsNavbar;
