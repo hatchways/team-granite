@@ -12,8 +12,8 @@ const logger = require("morgan");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const kanbanRouter = require("./routes/kanban");
-const imageUploadRouter = require("./routes/imageUpload");
 const emailRouter = require("./routes/email");
+const imageUploadRouter = require("./routes/image");
 
 const UPLOAD_LIMIT = "1000kb";
 
