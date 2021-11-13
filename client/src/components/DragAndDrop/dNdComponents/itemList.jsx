@@ -49,6 +49,16 @@ export function InnerList({ columnItems, dropProvided, classes, isDraggingOver, 
   );
 }
 
+export const avatarColor = (def, classes, tag) =>
+  clsx(def, {
+    [classes.default]: tag === 0,
+    [classes.green]: tag === 1,
+    [classes.red]: tag === 2,
+    [classes.gold]: tag === 3,
+    [classes.blue]: tag === 4,
+    [classes.purple]: tag === 5,
+  });
+
 export default function ColumnList(props) {
   const {
     internalScroll,
@@ -77,16 +87,6 @@ export default function ColumnList(props) {
     setData({ name: '', tag: 0 });
     inputElement.current.value = null;
   };
-
-  const avatarColor = (tag) =>
-    clsx(classes.avatarx, {
-      [classes.default]: tag === 0,
-      [classes.green]: tag === 1,
-      [classes.red]: tag === 2,
-      [classes.gold]: tag === 3,
-      [classes.blue]: tag === 4,
-      [classes.purple]: tag === 5,
-    });
 
   return (
     <Droppable droppableId={listId ? listId : 'LIST'} type={listType} isCombineEnabled={isCombineEnabled}>
@@ -148,7 +148,7 @@ export default function ColumnList(props) {
 
                     <Box className={classes.stack}>
                       {[0, 1, 2, 3, 4, 5].map((i) => (
-                        <Avatar key={i} onClick={() => setTag(i)} className={avatarColor(i)}>
+                        <Avatar key={i} onClick={() => setTag(i)} className={avatarColor(classes.avatarx, classes, i)}>
                           {' '}
                         </Avatar>
                       ))}

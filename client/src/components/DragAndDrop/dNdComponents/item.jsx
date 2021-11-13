@@ -1,5 +1,6 @@
 import { Box, Grid, Typography, Paper } from '@material-ui/core';
 import dndStyles from '../assets/dndStyles';
+import { avatarColor } from './itemList';
 import clsx from 'clsx';
 
 export default function ColumnItem({ columnItem, isDragging, provided }) {
@@ -11,15 +12,6 @@ export default function ColumnItem({ columnItem, isDragging, provided }) {
     [classes.columnItem]: !isDragging,
   });
 
-  const avatarColor = clsx(classes.avatar, {
-    [classes.default]: tag === 0,
-    [classes.green]: tag === 1,
-    [classes.red]: tag === 2,
-    [classes.gold]: tag === 3,
-    [classes.blue]: tag === 4,
-    [classes.purple]: tag === 5,
-  });
-
   return (
     <Paper
       className={clsx(paperStyle)}
@@ -29,7 +21,7 @@ export default function ColumnItem({ columnItem, isDragging, provided }) {
     >
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item xs={12} sm={12}>
-          <Box className={avatarColor}></Box>
+          <Box className={avatarColor(classes.avatar, classes, tag)}></Box>
           <Typography>{name}</Typography>
         </Grid>
       </Grid>
