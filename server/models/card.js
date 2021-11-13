@@ -6,7 +6,7 @@ const cardSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String },
     columnId: { type: ObjectId, ref: 'Column', required: true },
-
+    plugins: [{ type: ObjectId, ref: 'BasePlugin' }],
     deadline: { Type: Date },
     comment: { type: String },
   },
