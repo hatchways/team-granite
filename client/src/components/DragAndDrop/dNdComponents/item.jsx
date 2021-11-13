@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 export default function ColumnItem({ columnItem, isDragging, provided }) {
   const classes = dndStyles();
-  const { name, description, tag } = columnItem.content;
+  const { name, tag } = columnItem.content;
 
   const paperStyle = clsx({
     [classes.dragging]: isDragging,
