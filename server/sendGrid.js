@@ -1,6 +1,8 @@
 const sendGrid = require("@sendgrid/mail");
 const client = require("@sendgrid/client");
+
 client.setApiKey(process.env.SENDGRID_API_KEY);
+sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 const request = {
   method: "GET",
@@ -15,21 +17,19 @@ client.request(request).then((response) => {
       TEMPLATES.push(template);
     });
   } catch (error) {
+    //This console statement is required as errors are not logged without it.
     console.error(error);
   }
 });
 
-sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
-
 const sendTemplateEmail = async (user, templateName, substitutionStrings) => {
-  const templateId = TEMPLATES.find(
-    (templateObj) => templateObj.templateName === templateName
-  ).templateId;
-
+  const template = TEMPLATES.find(
+    (templateObj) => templateObj.name === templateName
+  );
   const msg = {
     to: user.email,
     from: process.env.SENDER_EMAIL,
-    templateId: templateId,
+    templateId: template.id,
     dynamicTemplateData: substitutionStrings,
   };
   //Error handler not used, to be used inside controllers.(async-handler).

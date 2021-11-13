@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const sendTemplateEmail = require("../sendGrid");
+const { sendTemplateEmail } = require("../sendGrid");
 
 exports.sendTestEmail = asyncHandler(async (req, res, next) => {
   const { firstName, testString, email } = req.body;
