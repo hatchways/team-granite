@@ -16,9 +16,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  register_date: {
+  registerDate: {
     type: Date,
     default: Date.now,
+  },
+
+  profilePhoto: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "image",
+    default: null,
+    autopopulate: true,
   },
 });
 
@@ -34,5 +41,7 @@ userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+userSchema.plugin(require("mongoose-autopopulate"));
 
 module.exports = User = mongoose.model("user", userSchema);

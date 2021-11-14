@@ -1,28 +1,28 @@
 const mongoose = require("mongoose");
 
-const imageSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "user",
+const imageSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "user",
+      default: null,
+    },
+    cloudinaryId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    url: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    metadata: {
+      type: Object,
+      default: {},
+    },
   },
-  cloudinaryId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  url: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  metadata: {
-    type: Object,
-    default: {},
-  },
-  uploadDate: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true }
+);
 
-module.exports = ImageModel = mongoose.model("image", imageSchema);
+module.exports = Image = mongoose.model("image", imageSchema);

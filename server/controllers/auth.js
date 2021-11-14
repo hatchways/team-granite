@@ -1,22 +1,15 @@
 const User = require("../models/User");
+const { checkUserExists } = require("./helper.js");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
 exports.registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-
-  const emailExists = await User.findOne({ email });
-
-  if (emailExists) {
-    res.status(400);
-    throw new Error("A user with that email already exists");
-  }
-
-  const usernameExists = await User.findOne({ username });
-
-  if (usernameExists) {
-    res.status(400);
-    throw new Error("A user with that username already exists");
+  try {
+    await checkUserExists(email, username);
+  } catch (error) {
+    res.status(422);
+    throw error;
   }
 
   const user = await User.create({
@@ -64,11 +57,12 @@ exports.loginUser = asyncHandler(async (req, res) => {
     });
 
     res.status(200).json({
-      success: true,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+      success: {
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+        },
       },
     });
   } else {
@@ -96,8 +90,36 @@ exports.loadUser = asyncHandler(async (req, res) => {
   });
 });
 
-exports.logoutUser = asyncHandler(async (req, res) => {
+// @route GET /auth/logout
+// @desc Logout user
+// @access Public
+exports.logoutUser = asyncHandler(async (req, res, next) => {
   res.clearCookie("token");
+  res.send("You have successfully logged out");
+});
 
-  res.json({ success: true, message: "You have successfully logged out" });
+// @route POST /auth/password
+// @desc Change password
+// @access Protected
+exports.changePassword = asyncHandler(async (req, res, next) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
+
+  if (await user.matchPassword(oldPassword)) {
+    user.password = newPassword;
+    user.save();
+  } else {
+    res.status(400);
+    throw new Error("Invalid Password.");
+  }
+
+  res.status(200).json({
+    success: "Password changed.",
+  });
 });
