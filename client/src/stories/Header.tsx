@@ -1,8 +1,10 @@
+import React from 'react';
+
 import { Button } from './Button';
 import './header.css';
 
 interface HeaderProps {
-  user?: unknown;
+  user?: {};
   onLogin: () => void;
   onLogout: () => void;
   onCreateAccount: () => void;
