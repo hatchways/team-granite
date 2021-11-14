@@ -32,7 +32,7 @@ const sendTemplateEmail = async (user, templateName, substitutionStrings) => {
     templateId: template.id,
     dynamicTemplateData: substitutionStrings,
   };
-  //Error handler not used, to be used inside controllers.(async-handler).
+  //Error handler not needed since, inside controllers.(async-handler).
   await sendGrid.send(msg);
 };
 
