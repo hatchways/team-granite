@@ -11,16 +11,20 @@ const request = {
 
 const TEMPLATES = [];
 
-client.request(request).then((response) => {
-  try {
-    response[0].body.templates.map((template) => {
-      TEMPLATES.push(template);
-    });
-  } catch (error) {
-    //This console statement is required as errors are not logged without it.
-    console.error(error);
-  }
-});
+const loadTemplates = () => {
+  client.request(request).then((response) => {
+    try {
+      response[0].body.templates.map((template) => {
+        TEMPLATES.push(template);
+      });
+    } catch (error) {
+      //This console statement is required as errors are not logged without it.
+      console.error(error);
+    }
+  });
+};
+
+loadTemplates();
 
 const sendTemplateEmail = async (user, templateName, substitutionStrings) => {
   const template = TEMPLATES.find(
