@@ -49,18 +49,19 @@ cardAttachmentSchema.methods.delete = async ({ body, params, query }) => {
       this.model("file").deleteOne(file);
     });
     this.files = [];
-    await this.save();
   } else {
-    const files = Array.from(this.files);
+    const files = [];
     this.files.map(async (file, index) => {
       if (indices.includes(index)) {
         this.model("file").deleteOne(file);
-        files.splice(index, 1);
+      } else {
+        files.push(file);
       }
     });
     this.files = files;
-    await this.save();
   }
+
+  await this.save();
 
   return { response: 200, data: { success: "Files deleted." } };
 };
