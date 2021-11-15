@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Index from './index';
+import { Button } from '../components';
 
 export default {
   title: 'Team Granite Alpha/index',
@@ -11,9 +12,15 @@ export default {
 
 const Template: ComponentStory<typeof Index> = (args) => <Index {...args} />;
 
-export const Message = Template.bind({});
+export const ComponentOne = Template.bind({});
 
-Message.args = {
+ComponentOne.args = {
   text: "Welcome to Team Granite's Storybook",
-  children: <Index />,
+  children: <Button variant="primary" text="Primary" />,
+};
+
+export const ComponentTwo = Template.bind({});
+ComponentTwo.args = {
+  text: "Welcome to Team Granite's Storybook",
+  children: <Button variant="secondary" text="Secondary" />,
 };
