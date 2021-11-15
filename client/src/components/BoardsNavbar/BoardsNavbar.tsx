@@ -18,8 +18,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { IBoards } from '../Navbar/Navbar';
+import Delete from '@material-ui/icons/Delete';
+import { Box } from '@material-ui/core';
+import GroupWork from '@material-ui/icons/GroupWork';
 
-const BoardsNavbar = (): JSX.Element => {
+interface ITest {
+  boardsTitle: IBoards[];
+}
+const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -32,9 +39,8 @@ const BoardsNavbar = (): JSX.Element => {
     setOpen(false);
   };
 
-  const options = ['option1', 'option2'];
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <CssBaseline />
       <AppBar
         position="relative"
@@ -44,7 +50,7 @@ const BoardsNavbar = (): JSX.Element => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            My School Board
+            My School boards
           </Typography>
           <IconButton
             color="inherit"
@@ -57,13 +63,14 @@ const BoardsNavbar = (): JSX.Element => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <main
+      <Box
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <Typography paragraph>Data will come here</Typography>
-      </main>
+      </Box>
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -73,23 +80,24 @@ const BoardsNavbar = (): JSX.Element => {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
+        <Box className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </div>
+        </Box>
         <Divider />
         <List>
-          {options.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+          {boardsTitle.map((text, index) => (
+            <ListItem button key={index}>
+              <ListItemIcon>
+                <GroupWork />
+              </ListItemIcon>
+              <ListItemText primary={text.board} /> <Delete />
             </ListItem>
           ))}
         </List>
-        <Divider />
       </Drawer>
-    </div>
+    </Box>
   );
 };
 export default BoardsNavbar;
