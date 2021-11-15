@@ -1,59 +1,111 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 const BasePlugin = require("./BasePlugin");
 
-const CheckListSchema = new Schema({
-  checklist: [{ item: String, completed: Boolean }],
+const CheckListSchema = new mongoose.Schema({
+  checkListItem: {
+    type: String,
+  },
+  isChecked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const CardChecklistPluginSchema = BasePlugin.discriminator(
+const ChecklistPluginSchema = BasePlugin.discriminator(
   "CardCheckListPlugin",
-  new Schema(
+  new mongoose.Schema(
     {
-      cardCheckList: [CheckListSchema],
+      checklist: [CheckListSchema],
     },
     { timestamps: true }
   )
 );
 
-CardChecklistPluginSchema.methods.get = async (pluginId) => {
-  const plugin = await this.findById(pluginId);
-  return plugin.checklist;
-};
-
-CardChecklistPluginSchema.methods.create = async (pluginId, checklist) => {
-  const plugin = await this.findById(pluginId);
-  if (plugin.checklist.item.length === 0) {
-    plugin.checklist = checklist;
-    await plugin.save();
+ChecklistPluginSchema.methods.get = async ({ params }) => {
+  const { pluginId } = params;
+  const data = await this.model("CardCheckListPlugin").findById(pluginId);
+  if (data) {
+    return { status: 200, data };
   } else {
-    throw new Error("Cannot rewrite files.");
+    return {
+      status: 300,
+      message: "Unable to get checklist",
+    };
   }
 };
 
-CardChecklistPluginSchema.methods.update = async (pluginId, checklist) => {
-  const plugin = await this.findbyId(pluginId);
-  checklist.map((list) => {
-    return plugin.checklist.push(list);
+ChecklistPluginSchema.methods.create = async ({ body }) => {
+  const { checkListItem } = body;
+  const data = await mongoose.model("CardCheckListPlugin").create({
+    checkListItem,
+    isChecked: false,
   });
-  await plugin.save();
-};
-
-CardChecklistPluginSchema.methods.patch = async (pluginId) => {
-  const plugin = await this.findById(pluginId);
-  if (plugin.checklist.completed === false) {
-    plugin.checklist.completed = true;
-    await plugin.save();
+  if (data) {
+    return {
+      status: 200,
+      data,
+    };
   } else {
-    plugin.checklist.completed = false;
-    await plugin.save();
+    return {
+      status: 300,
+      message: "Unable to create checklist",
+    };
   }
 };
 
-CardChecklistPluginSchema.methods.delete = async (pluginId) => {
-  const plugin = await this.findbyId(pluginId);
-  plugin.checklist.map(async (list) => {
-    this.model("list").deleteOne(list);
-  });
-  plugin.checklist = [];
-  await plugin.save();
+ChecklistPluginSchema.methods.update = async ({ body }) => {
+  const { checkListItem, pluginId, isChecked } = body;
+  const data = await mongoose
+    .model("CardCheckListPlugin")
+    .findByIdAndUpdate(
+      { id: pluginId },
+      { update: { checkListItem: checkListItem, isChecked: isChecked } }
+    );
+  if (data) {
+    return {
+      status: 200,
+      data,
+    };
+  } else {
+    return {
+      status: 300,
+      message: "Data not found",
+    };
+  }
+};
+
+ChecklistPluginSchema.methods.patch = async ({ body }) => {
+  const { pluginId, isChecked } = body;
+  const data = await mongoose
+    .model("CardCheckListPlugin")
+    .findByIdAndUpdate({ id: pluginId }, { toggle: { isChecked: isChecked } });
+  if (data) {
+    return {
+      status: 200,
+      data,
+    };
+  } else {
+    return {
+      status: 300,
+      message: "Data not found",
+    };
+  }
+};
+
+ChecklistPluginSchema.methods.delete = async ({ body }) => {
+  const { pluginId, isChecked } = body;
+  const data = await mongoose
+    .model("CardCheckListPlugin")
+    .findByIdAndUpdate({ id: pluginId }, { delete: { isChecked: isChecked } });
+  if (data) {
+    return {
+      status: 200,
+      data,
+    };
+  } else {
+    return {
+      status: 300,
+      message: "Data not found",
+    };
+  }
 };
