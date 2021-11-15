@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: 'flex-start',
     },
@@ -50,6 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginRight: 0,
+    },
+    sidebarOpenBackground: {
+      backgroundColor: 'grey',
+      height: '100vh',
+      opacity: 0.5,
+      top: '-6%',
+      marginTop: '-6%',
     },
   }),
 );
