@@ -31,7 +31,7 @@ const CardCheckList: React.FC = () => {
         inputProps={{ 'aria-label': 'description' }}
       />
       <Button variant="contained" color="primary" onClick={handleSubmit} className={classes.buttonCreate}>
-        Submit
+        Create
       </Button>
       <Box>
         {list.map((item) => {
