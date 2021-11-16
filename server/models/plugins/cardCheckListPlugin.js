@@ -53,8 +53,11 @@ ChecklistPluginSchema.methods.create = async ({ body }) => {
   }
 };
 
-ChecklistPluginSchema.methods.update = async ({ body }) => {
-  const { checkListItem, pluginId, isChecked } = body;
+ChecklistPluginSchema.methods.update = async ({ body,params }) => {
+  const { checkListItem, isChecked } = body;
+  const { pluginId } = params;
+  
+
   const data = await mongoose
     .model("CardCheckListPlugin")
     .findByIdAndUpdate(
@@ -63,7 +66,7 @@ ChecklistPluginSchema.methods.update = async ({ body }) => {
     );
   if (data) {
     return {
-      status: 200,
+      status: 200, 
       data,
     };
   } else {
@@ -74,8 +77,10 @@ ChecklistPluginSchema.methods.update = async ({ body }) => {
   }
 };
 
-ChecklistPluginSchema.methods.patch = async ({ body }) => {
-  const { pluginId, isChecked } = body;
+ChecklistPluginSchema.methods.patch = async ({ body, params }) => {
+  const { isChecked } = body;
+  const { pluginId } = params;
+
   const data = await mongoose
     .model("CardCheckListPlugin")
     .findByIdAndUpdate({ id: pluginId }, { toggle: { isChecked: isChecked } });
@@ -92,8 +97,10 @@ ChecklistPluginSchema.methods.patch = async ({ body }) => {
   }
 };
 
-ChecklistPluginSchema.methods.delete = async ({ body }) => {
-  const { pluginId, isChecked } = body;
+ChecklistPluginSchema.methods.delete = async ({ body, params }) => {
+  const { isChecked } = body;
+  const { pluginId } = params;
+
   const data = await mongoose
     .model("CardCheckListPlugin")
     .findByIdAndUpdate({ id: pluginId }, { delete: { isChecked: isChecked } });
