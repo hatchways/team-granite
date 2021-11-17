@@ -8,7 +8,7 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const { checkBoardData } = require("./mock/boardData");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const kanbanRouter = require("./routes/kanban");
@@ -19,6 +19,8 @@ const UPLOAD_LIMIT = "1000kb";
 const { json, urlencoded } = express;
 
 connectDB();
+checkBoardData();
+
 const app = express();
 const server = http.createServer(app);
 
@@ -36,6 +38,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(json({ limit: UPLOAD_LIMIT }));
 app.use(urlencoded({ extended: false, limit: UPLOAD_LIMIT }));
+
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 

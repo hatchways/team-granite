@@ -1,27 +1,21 @@
-
 export interface Board {
-    id: string | number;
-    title: string;
-    columns: Column[];
-    createdAt: string;
-    updatedAt: string;
+  id: string | number;
+  title: string;
+  columnIds: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Column {
-  index: number;
+  id: string;
   title: string;
-  cards: Card[];
-}
-
-export interface Content {
-  title: string;
-  deadline: string;
-  description: string;
-  tag: number;
+  cardIds: string[];
 }
 
 export interface Card {
-  id: string | number;
-  content: Content;
+  id: string;
+  title: string;
+  deadline: string;
+  description: string;
   columnKey: number | unknown;
 }

@@ -1,0 +1,24 @@
+{
+  "columns": [
+    {
+      "id": "col-0",
+      "name": "Incoming",
+      "cards": ["card-1", "card-5"]
+    },
+    {
+      "id": "col-1",
+      "name": "Backlog",
+      "cards": ["card-2"]
+    },
+    {
+      "id": "col-2",
+      "name": "In progess",
+      "cards": ["card-3"]
+    },
+    {
+      "id": "col-3",
+      "name": "Completed",
+      "cards": ["card-4"]
+    }
+  ]
+}
