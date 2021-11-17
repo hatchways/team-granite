@@ -139,6 +139,7 @@ exports.loginDemoUser = asyncHandler(async (req, res, next) => {
     res.status(401);
     throw new Error("Invalid email or password");
   }
+});
 
 // @route POST /auth/password
 // @desc Change password
