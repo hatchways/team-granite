@@ -9,6 +9,7 @@ import { useSnackBar } from '../../context/useSnackbarContext';
 import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import SignUpForm from './SignUpForm/SignUpForm';
+import loginDemoUser from '../../helpers/APICalls/loginDemoUser';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
@@ -35,6 +36,20 @@ export default function Register(): JSX.Element {
     });
   };
 
+  const handleClick = () => {
+    loginDemoUser().then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateLoginContext(data.success);
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
   return (
     <Grid container className={classes.root}>
       <CssBaseline />
@@ -52,6 +67,9 @@ export default function Register(): JSX.Element {
         </Grid>
         <Grid xs={12} className={`${classes.center} ${classes.loginDiv}`}>
           <SignUpForm handleSubmit={handleSubmit} />
+          <Typography onClick={handleClick} className={`${classes.center} ${classes.linkText}`}>
+            Login Demo User
+          </Typography>
         </Grid>
         <Grid xs={12}>
           <Divider />
