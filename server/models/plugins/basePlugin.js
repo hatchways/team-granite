@@ -4,78 +4,52 @@ const BasePluginSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
     },
-    resourceId: {
+    cardId: {
       type: Schema.Types.ObjectId,
     },
     description: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
 )
 
-BasePluginSchema.methods.get = function () {
-  return await this.findOne({ _id: this._id })
+BasePluginSchema.methods.get = async () => {
+  return 'Resource'
 }
 
-BasePluginSchema.methods.post = async () => {}
-
-BasePluginSchema.methods.update = async (objectInfo) => {
-  let pluginInfo = await this.findOneAndUpdate({ _id: this._id }).lean()
-  await this.findOneAndUpdate(
-    { _id: this._id },
-    {
-      $set: {
-        ...pluginInfo,
-        ...objectInfo,
-      },
-    }
-  )
+BasePluginSchema.methods.post = async () => {
+  return 'Resource Created'
 }
 
-BasePluginSchema.methods.patch = async (newResourceId) => {
-  await this.model(`${this.pluginKey}`).findOneAndUpdate(
-    { _id: this.resourceId },
-    {
-      $pullAll: {
-        pluginList: {
-          $each: [this._id],
-        },
-      },
-    }
-  )
+BasePluginSchema.methods.update = async () => {
+  return 'Resource Updated'
+}
 
-  await this.model(`${this.pluginKey}`).findOneAndUpdate(
-    { _id: newResourceId },
-    {
-      $push: {
-        pluginList: { $each: [this._id] },
-      },
-    }
-  )
+BasePluginSchema.methods.patch = async () => {
+  return 'Resource Patch Update'
 }
 
 BasePluginSchema.methods.delete = async () => {
-  return this.findOneAndDelete({ _id: this._id })
+  return 'Resource Deleted'
 }
 
-BasePluginSchema.methods.attach = async () => {
-  await this.model(`${this.pluginKey}`).findOneAndUpdate(
-    { _id: this.resourceId },
+BasePluginSchema.statics.attach = async (cardId, pluginId) => {
+  //get the object cardId, then add the pluginId to the PluginList,
+  await this.findOneAndUpdate(
+    { _id: cardId },
     {
       $pullAll: {
         pluginList: {
-          $each: [this._id],
+          $each: [pluginId],
         },
       },
     }
   )
 
-  await this.model(`${this.pluginKey}`).findOneAndUpdate(
-    { _id: this.resourceId },
+  await this.findOneAndUpdate(
+    { _id: this.cardId },
     {
       $push: {
         pluginList: {
@@ -86,13 +60,14 @@ BasePluginSchema.methods.attach = async () => {
   )
 }
 
-BasePluginSchema.methods.detach = async () => {
-  await this.model(`${this.pluginKey}`).findOneAndUpdate(
-    { _id: this.resourceId },
+BasePluginSchema.statics.detach = async (resourceId, pluginId) => {
+  //get the object resourceId, then add the pluginId to the PluginList,
+  await this.findOneAndUpdate(
+    { _id: cardId },
     {
       $pullAll: {
         pluginList: {
-          $each: [this._id],
+          $each: [pluginId],
         },
       },
     }
