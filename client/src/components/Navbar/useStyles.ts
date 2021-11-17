@@ -6,6 +6,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'space-between',
     padding: '12px 0px 12px 0px',
   },
+
+  box: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  miniBox: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+
+  miniBoxAlign: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
   navbarLinkTitle: {
     fontSize: '13px',
   },

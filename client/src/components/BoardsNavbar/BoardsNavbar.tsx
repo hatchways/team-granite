@@ -31,6 +31,7 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };

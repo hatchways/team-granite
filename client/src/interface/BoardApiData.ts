@@ -1,7 +1,7 @@
 
 export interface Board {
     id: string | number;
-    title: string;
+    name: string;
     columns: Column[];
     createdAt: string;
     updatedAt: string;
@@ -9,12 +9,12 @@ export interface Board {
 
 export interface Column {
   index: number;
-  title: string;
-  cards: Card[];
+  name: string;
+  tasks: Card[];
 }
 
 export interface Content {
-  title: string;
+  name: string;
   deadline: string;
   description: string;
   tag: number;
@@ -24,4 +24,10 @@ export interface Card {
   id: string | number;
   content: Content;
   columnKey: number | unknown;
+}
+
+
+export interface BoardApiData {
+  error?: { message: string };
+  success?: Board[];
 }
