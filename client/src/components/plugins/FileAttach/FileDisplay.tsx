@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { FileMeta } from '../../../interface/FileApiData';
 import { useState } from 'react';
 import useStyles from './useStyles';
@@ -47,7 +47,9 @@ const FileDisplay = ({ file, allFiles, setFiles, fileIndex }: FileDisplayProps):
       <DeleteIcon onClick={handleClick} className={classes.hoverPointer} />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure?</DialogTitle>
-        <DialogContent>Please confirm to delete file</DialogContent>
+        <DialogContent>
+          <DialogContentText>Please confirm to delete file</DialogContentText>
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleDelete}>Confirm</Button>
         </DialogActions>
