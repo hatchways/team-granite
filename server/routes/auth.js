@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const { validateRegister, validateLogin } = require("../validate");
+const {
+  validateRegister,
+  validateLogin,
+  validatePassword,
+} = require("../validate");
 const protect = require("../middleware/auth");
 const {
   registerUser,
   loginUser,
   loadUser,
   logoutUser,
+  changePassword,
   loginDemoUser,
 } = require("../controllers/auth");
 
@@ -20,4 +25,6 @@ router.route("/logout").get(logoutUser);
 
 router.route("/demo").get(loginDemoUser);
 
-module.exports = router
+router.route("/password").post(protect, validatePassword, changePassword);
+
+module.exports = router;

@@ -1,22 +1,15 @@
-const User = require('../models/User')
-const asyncHandler = require('express-async-handler')
-const generateToken = require('../utils/generateToken')
+const User = require("../models/User");
+const { checkUserExists } = require("./helper.js");
+const asyncHandler = require("express-async-handler");
+const generateToken = require("../utils/generateToken");
 
 exports.registerUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body
-
-  const emailExists = await User.findOne({ email })
-
-  if (emailExists) {
-    res.status(400)
-    throw new Error('A user with that email already exists')
-  }
-
-  const usernameExists = await User.findOne({ username })
-
-  if (usernameExists) {
-    res.status(400)
-    throw new Error('A user with that username already exists')
+  const { username, email, password } = req.body;
+  try {
+    await checkUserExists(email, username);
+  } catch (error) {
+    res.status(422);
+    throw error;
   }
 
   const user = await User.create({
@@ -26,10 +19,10 @@ exports.registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    const token = generateToken(user._id)
-    const secondsInWeek = 604800
+    const token = generateToken(user._id);
+    const secondsInWeek = 604800;
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
     });
@@ -44,21 +37,21 @@ exports.registerUser = asyncHandler(async (req, res) => {
       },
     });
   } else {
-    res.status(400)
-    throw new Error('Invalid user data')
+    res.status(400);
+    throw new Error("Invalid user data");
   }
-})
+});
 
 exports.loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    const token = generateToken(user._id)
-    const secondsInWeek = 604800
+    const token = generateToken(user._id);
+    const secondsInWeek = 604800;
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
     });
@@ -73,17 +66,17 @@ exports.loginUser = asyncHandler(async (req, res) => {
       },
     });
   } else {
-    res.status(401)
-    throw new Error('Invalid email or password')
+    res.status(401);
+    throw new Error("Invalid email or password");
   }
-})
+});
 
 exports.loadUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
+  const user = await User.findById(req.user.id);
 
   if (!user) {
-    res.status(401)
-    throw new Error('Not authorized')
+    res.status(401);
+    throw new Error("Not authorized");
   }
 
   res.status(200).json({
@@ -146,4 +139,29 @@ exports.loginDemoUser = asyncHandler(async (req, res, next) => {
     res.status(401);
     throw new Error("Invalid email or password");
   }
+
+// @route POST /auth/password
+// @desc Change password
+// @access Protected
+exports.changePassword = asyncHandler(async (req, res, next) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
+
+  if (await user.matchPassword(oldPassword)) {
+    user.password = newPassword;
+    user.save();
+  } else {
+    res.status(400);
+    throw new Error("Invalid Password.");
+  }
+
+  res.status(200).json({
+    success: "Password changed.",
+  });
 });
