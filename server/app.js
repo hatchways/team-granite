@@ -12,8 +12,7 @@ const { checkBoardData } = require("./mock/boardData");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const kanbanRouter = require("./routes/kanban");
-
-const imageUploadRouter = require("./routes/imageUpload");
+const imageUploadRouter = require("./routes/image");
 
 const UPLOAD_LIMIT = "1000kb";
 
