@@ -15,7 +15,7 @@ const FileUpload = ({ handleUpload }: Props): JSX.Element => {
 
   const Layout = ({ input, submitButton, dropzoneProps, files, extra: { maxFiles }, previews }: ILayoutProps) => {
     return (
-      <Grid container style={{ padding: '20px' }}>
+      <Grid container className={classes.layout}>
         {previews !== null
           ? previews.map((preview) => {
               return (

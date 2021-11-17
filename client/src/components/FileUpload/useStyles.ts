@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  layout: {
+    padding: '20px',
+  },
+
   dropzone: {
     margin: '10px',
     borderRadius: '5px',
