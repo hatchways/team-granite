@@ -2,7 +2,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      marginBottom: '50px',
+    },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,

@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "id": "card-1",
+      "name": "Card name 1",
+      "description": "Card description 1",
+      "deadline": "DeadlineDateString",
+      "columnId": "col-0",
+      "color": "green"
+    },
+    {
+      "id": "card-2",
+      "name": "Card name 2",
+      "description": "Card description 2",
+      "deadline": "DeadlineDateString",
+      "columnId": "col-1",
+      "color": "red"
+    },
+    {
+      "id": "card-3",
+      "name": "Card name 3",
+      "description": "Card description 3",
+      "deadline": "DeadlineDateString",
+      "columnId": "col-2",
+      "color": "yellow"
+    },
+    {
+      "id": "card-4",
+      "name": "Card name 4",
+      "description": "Card description 4",
+      "deadline": "DeadlineDateString",
+      "columnId": "col-3",
+      "color": "blue"
+    },
+    {
+      "id": "card-5",
+      "name": "Card name 5",
+      "description": "Card description 5",
+      "deadline": "DeadlineDateString",
+      "columnId": "col-0",
+      "color": "purple"
+    }
+  ]
+}
