@@ -33,7 +33,7 @@ const Navbar = (): JSX.Element => {
 
   const [openImgDialog, setOpenImgDialog] = useState<boolean>(false);
   const [imageSource, setImageSource] = useState<string>('');
-
+  const boardsTitle = { board: title };
   useEffect(() => {
     getProfilePhoto().then((data) => {
       if (data.success) {
@@ -89,14 +89,21 @@ const Navbar = (): JSX.Element => {
       </MuiDialogTitle>
     );
   };
-  function handleTextChange(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setTitle(e.target.value);
-  }
-  function handleSubmitBoard() {
-    const boardsTitle = { board: title };
+  };
+  const handleSubmitBoard = () => {
     setBoards([...boards, boardsTitle]);
     setTitle('');
-  }
+  };
+
+  const handleDelete = (titleName: string): void => {
+    setBoards(
+      boards.filter((boardtitle) => {
+        return boardtitle.board != titleName;
+      }),
+    );
+  };
   return (
     <Box>
       <Grid container className={classes.container} xs={12}>
@@ -186,7 +193,7 @@ const Navbar = (): JSX.Element => {
         </Box>
       </Dialog>
 
-      <BoardsNavbar boardsTitle={totalTitle} />
+      <BoardsNavbar boardsTitle={totalTitle} handleDelete={handleDelete} />
     </Box>
   );
 };

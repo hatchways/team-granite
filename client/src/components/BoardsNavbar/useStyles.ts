@@ -72,6 +72,11 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       zIndex: 200,
     },
+    deleteIcon: {
+      '&:hover': {
+        color: 'purple',
+      },
+    },
   }),
 );
 export default useStyles;
