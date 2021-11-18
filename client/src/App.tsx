@@ -8,8 +8,9 @@ import EditProfile from './pages/EditProfile/EditProfile';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-import './App.css';
+import { BoardContextProvider } from './context/useBoardContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import './App.css';
 
 function App(): JSX.Element {
   return (
@@ -18,15 +19,16 @@ function App(): JSX.Element {
         <SnackBarProvider>
           <AuthProvider>
             <SocketProvider>
-              <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/edit-profile" component={EditProfile} />
-                <Route path="*">
-                  <Redirect to="/login" />
-                </Route>
-              </Switch>
+              <BoardContextProvider>
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Signup} />
+                  <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+                  <Route path="*">
+                    <Redirect to="/login" />
+                  </Route>
+                </Switch>
+              </BoardContextProvider>
             </SocketProvider>
           </AuthProvider>
         </SnackBarProvider>
