@@ -12,11 +12,11 @@ import FileUpload from '../../FileUpload/FileUpload';
 import Dialog from '@material-ui/core/Dialog';
 import mockFiles from '../../../mocks/mockFile';
 
-interface FileAttachProps {
+interface Props {
   pluginId: string;
 }
 
-const FileAttach = ({ pluginId, ...props }: FileAttachProps): JSX.Element => {
+const FileAttach = ({ pluginId, ...props }: Props): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<FileMeta[]>(mockFiles);
 

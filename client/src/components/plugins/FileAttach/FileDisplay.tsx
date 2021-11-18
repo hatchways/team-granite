@@ -8,14 +8,14 @@ import { useState } from 'react';
 import useStyles from './useStyles';
 import Typography from '@material-ui/core/Typography';
 
-interface FileDisplayProps {
+interface Props {
   file: FileMeta;
   allFiles: FileMeta[];
   setFiles: (files: FileMeta[]) => void;
   fileIndex: number;
 }
 
-const FileDisplay = ({ file, allFiles, setFiles, fileIndex }: FileDisplayProps): JSX.Element => {
+const FileDisplay = ({ file, allFiles, setFiles, fileIndex }: Props): JSX.Element => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
