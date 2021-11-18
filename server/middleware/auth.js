@@ -1,27 +1,29 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/User')
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 const protect = async (req, res, next) => {
-  const token = req.cookies.token
+  const token = req.cookies.token;
 
   if (!token) {
     return res
       .status(404)
-      .json({ success: false, message: 'No token, authorization denied' })
+      .json({ success: false, message: "No token, authorization denied" });
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    let dbUserId = await User.findById(decoded.id)
+    let dbUserId = await User.findById(decoded.id);
     if (!dbUserId) {
-      res.status(404).json({ success: false, message: "Account doesn't exist" })
+      res
+        .status(404)
+        .json({ success: false, message: "Account doesn't exist" });
     }
-    req.user = decoded
+    req.user = decoded;
 
-    next()
+    next();
   } catch (err) {
-    res.status(404).json({ success: false, message: 'Token is not valid' })
+    res.status(404).json({ success: false, message: "Token is not valid" });
   }
-}
+};
 
-module.exports = protect
+module.exports = protect;
