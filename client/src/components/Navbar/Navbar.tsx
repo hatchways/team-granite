@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Button, Dialog, FormControl, Grid, IconButton, TextField, Typography } from '@material-ui/core';
-import useStyles from './useStyles';
+import useStyles, { StyledButton } from './useStyles';
 import logoImage from './logo.jpg';
 import { NavLink, BrowserRouter as Router } from 'react-router-dom';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -100,7 +100,7 @@ const Navbar = (): JSX.Element => {
   return (
     <Box>
       <Grid container className={classes.container} xs={12}>
-        <Grid item container justify="space-between" xs={12}>
+        <Grid item container justify="space-between" xs={12} alignItems="center">
           <Grid item xs={4}>
             <Box ml={3}>
               <img src={logoImage} alt="logo" />
@@ -110,8 +110,8 @@ const Navbar = (): JSX.Element => {
           <Grid item container alignItems="center" xs={4}>
             <Router>
               <Grid item container justify="space-evenly">
-                <NavLink exact to="/page2" className={classes.navNotActive} activeClassName={classes.navActive}>
-                  <Grid item container justify="flex-end" spacing={1}>
+                <NavLink exact to="/Dashboard" className={classes.navNotActive} activeClassName={classes.navActive}>
+                  <Grid item container justify="flex-end" spacing={1} alignItems="center">
                     <Grid item>
                       <DashboardIcon />
                     </Grid>
@@ -120,8 +120,8 @@ const Navbar = (): JSX.Element => {
                     </Grid>
                   </Grid>
                 </NavLink>
-                <NavLink exact to="/page1" className={classes.navNotActive} activeClassName={classes.navActive}>
-                  <Grid item container justify="flex-end" spacing={1}>
+                <NavLink exact to="/Calender" className={classes.navNotActive} activeClassName={classes.navActive}>
+                  <Grid item container justify="flex-end" spacing={1} alignItems="center">
                     <Grid item>
                       <CalendarTodayIcon />
                     </Grid>
@@ -136,16 +136,9 @@ const Navbar = (): JSX.Element => {
 
           <Grid item>
             <Box ml={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.buttonNavbar}
-                startIcon={<AddIcon />}
-                onClick={handleClickOpen}
-              >
+              <StyledButton variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClickOpen}>
                 Create board
-              </Button>
+              </StyledButton>
             </Box>
           </Grid>
           <Grid item>
@@ -184,9 +177,9 @@ const Navbar = (): JSX.Element => {
                 value={title}
               />
               <Box className={classes.boardsButtonBox}>
-                <Button variant="contained" className={classes.boardsButton} onClick={handleSubmitBoard}>
+                <StyledButton variant="contained" className={classes.addTitleButton} onClick={handleSubmitBoard}>
                   Create
-                </Button>
+                </StyledButton>
               </Box>
             </FormControl>
           </DialogContent>

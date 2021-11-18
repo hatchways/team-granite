@@ -70,7 +70,7 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
       >
         <Typography paragraph>Data will come here</Typography>
       </Box>
-
+      {open && <Box className={classes.backgroundFade} onClick={handleDrawerClose}></Box>}
       <Drawer
         className={classes.drawer}
         variant="persistent"
