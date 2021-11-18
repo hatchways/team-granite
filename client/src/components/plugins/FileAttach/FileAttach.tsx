@@ -29,7 +29,6 @@ const FileAttach = ({ pluginId, ...props }: FileAttachProps): JSX.Element => {
   };
 
   const handleUpload: IDropzoneProps['onSubmit'] = () => {
-    //This function will upload files and set the files state.
     setOpen(false);
   };
 

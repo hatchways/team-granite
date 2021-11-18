@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link } from '@material-ui/core';
 import { FileMeta } from '../../../interface/FileApiData';
 import { useState } from 'react';
 import useStyles from './useStyles';
@@ -37,9 +37,9 @@ const FileDisplay = ({ file, allFiles, setFiles, fileIndex }: FileDisplayProps):
 
   return (
     <Grid item>
-      <a href={file.url} download>
+      <Link href={file.url} download>
         <CloudDownloadIcon />
-      </a>
+      </Link>
       <Typography>
         {file.name}
         {'.' + file.type}
