@@ -16,8 +16,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { IBoards } from '../Navbar/Navbar';
 import Delete from '@material-ui/icons/Delete';
 import { Box } from '@material-ui/core';
@@ -30,7 +28,6 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { boardName } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -51,7 +48,6 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            {boardName}
             My School boards
           </Typography>
           <IconButton
@@ -65,13 +61,6 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <Typography paragraph>Data will come here</Typography>
-      </Box>
       <Drawer
         className={classes.drawer}
         variant="persistent"

@@ -4,7 +4,7 @@ import useStyles from './useStyles';
 import { CircularProgress, Grid } from '@material-ui/core';
 import { useBoardContext } from '../../context/useBoardContext';
 import { Column as ColumnInterface } from '../../interface/Board';
-import { moveColumn, moveCard } from '../../helpers/boardContext/boardContext';
+import { moveColumn, moveCard } from '../../helpers/boardContext/moveEntity';
 import ColumnAddButton from '../ColumnAddButton/ColumnAddButton';
 
 const Board = (): JSX.Element => {
@@ -55,6 +55,7 @@ const Board = (): JSX.Element => {
       </Grid>
       <ColumnAddButton location={'right'} />
     </Grid>
+    // AddColumn Dialog.
   );
 };
 

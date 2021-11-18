@@ -31,7 +31,7 @@ exports.createBoard = async (req, res) => {
   try {
     const userId = req.user.id;
     const { name } = req.body;
-    const board = await Board.createBoardBoard({ name, userId });
+    const board = await Board.createBoard({ name, userId });
     res.status(200).json({ success: true, board });
   } catch (error) {
     res.status(500).json({
@@ -45,7 +45,7 @@ exports.updateBoard = async (req, res) => {
   try {
     const { name } = req.body;
     const { boardId } = req.params;
-    const updatedBoard = await Board.updateBoardBoard({ name }, boardId);
+    const updatedBoard = await Board.updateBoard({ name }, boardId);
     res.status(200).json({ success: true, board: updatedBoard });
   } catch (error) {
     res.status(500).json({
@@ -58,7 +58,7 @@ exports.updateBoard = async (req, res) => {
 exports.deleteBoard = async (req, res) => {
   try {
     const { boardId } = req.params;
-    await Board.deleteBoardBoard(boardId);
+    await Board.deleteBoard(boardId);
     res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({
@@ -125,10 +125,7 @@ exports.createCard = async (req, res) => {
         message: "only index 0 and 1 is allowed during Card creation",
       });
     }
-    const card = await Card.createColumnCard(
-      { name, description, index },
-      columnId
-    );
+    const card = await Card.createCard({ name, description, index }, columnId);
 
     res.status(200).json({ success: true, card });
   } catch (error) {
@@ -158,7 +155,7 @@ exports.updateCard = async (req, res) => {
         .json({ success: false, message: "Index value not supported" });
     }
 
-    const card = await Card.updateColumnCard(
+    const card = await Card.updateCard(
       {
         name,
         description,
@@ -184,7 +181,7 @@ exports.deleteCard = async (req, res) => {
   try {
     const { columnId, cardId } = req.params;
 
-    const card = await Card.deleteColumnCard(columnId, cardId);
+    const card = await Card.deleteCard(columnId, cardId);
     res.status(200).json({ success: true, card });
   } catch (error) {
     res.status(500).json({

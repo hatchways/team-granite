@@ -1,20 +1,20 @@
 import { Board, Column } from '../../interface/Board';
 
-export function moveColumn(board: Board, sourceIndex: number, destIndex: number): Board {
+export const moveColumn = (board: Board, sourceIndex: number, destIndex: number): Board => {
   const columns = Array.from(board.columns);
   const [targetColumn] = columns.splice(sourceIndex, 1);
   columns.splice(destIndex, 0, targetColumn);
   board.columns = columns;
   return board;
-}
+};
 
-export function moveCard(
+export const moveCard = (
   board: Board,
   sourceIndex: number,
   destIndex: number,
   sourceColId: string,
   destColId: string,
-): Board {
+): Board => {
   const startColumn = board.columns.find((column: Column) => column._id === sourceColId);
   const endColumn = board.columns.find((column: Column) => column._id === destColId);
 
@@ -53,4 +53,4 @@ export function moveCard(
   board.columns[endColIndex] = endColumn;
 
   return board;
-}
+};

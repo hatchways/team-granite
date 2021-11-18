@@ -110,7 +110,7 @@ const Navbar = (props: { boardName: string }): JSX.Element => {
 
           <Grid item container xs={4}>
             <Router>
-              <Grid item container justify="space-evenly">
+              <Grid item container justify="space-evenly" style={{ alignContent: 'center' }}>
                 <NavLink exact to="/page2" className={classes.navNotActive} activeClassName={classes.navActive}>
                   <Grid item container justify="flex-end" spacing={1}>
                     <Grid item>

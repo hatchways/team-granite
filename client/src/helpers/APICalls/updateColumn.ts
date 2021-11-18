@@ -15,7 +15,7 @@ interface UpdateBody {
   index: number;
 }
 
-const updateBoard = async (updateBody: UpdateBody, boardId: string, columnId: string): Promise<ColumnApiData> => {
+const updateColumn = async (updateBody: UpdateBody, boardId: string, columnId: string): Promise<ColumnApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'PUT',
     credentials: 'include',
@@ -29,4 +29,4 @@ const updateBoard = async (updateBody: UpdateBody, boardId: string, columnId: st
     }));
 };
 
-export default updateBoard;
+export default updateColumn;

@@ -131,6 +131,7 @@ export default function Column(props: Props): JSX.Element {
               </Grid>
             )}
           </Droppable>
+          {/* Add Card From */}
         </Grid>
       )}
     </Draggable>
