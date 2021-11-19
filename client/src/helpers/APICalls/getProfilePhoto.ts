@@ -10,7 +10,7 @@ const getProfilePhotoURI = async (): Promise<ImageSourceData> => {
     method: 'GET',
     credentials: 'include',
   };
-  return await fetch(`/image/profile`, fetchOptions)
+  return await fetch(`/users/profile-photo`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

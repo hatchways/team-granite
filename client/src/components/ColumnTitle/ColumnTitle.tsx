@@ -34,7 +34,7 @@ export default function ColumnTitle({ handleSubmit, handleCancel, isEditable, ti
         title: title,
       }}
       validationSchema={Yup.object().shape({
-        title: Yup.string().required('Title is required').max(100, 'Password is too long').min(6, 'Password too short'),
+        title: Yup.string().required('Title is required').max(100, 'Title is too long').min(6, 'Title is too short'),
       })}
       onSubmit={handleSubmit}
     >
