@@ -2,9 +2,9 @@ const cardJson = require("./card.json");
 const columnJson = require("./column.json");
 const boardJson = require("./board.json");
 
-const Board = require("../models/Board");
-const Card = require("../models/Card");
-const Column = require("../models/Column");
+const Board = require("../models/board");
+const Card = require("../models/card");
+const Column = require("../models/column");
 
 exports.checkBoardData = async () => {
   if (!(await Board.exists({ name: "Hatchway Demo" }))) {

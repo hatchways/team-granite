@@ -1,4 +1,4 @@
-const Board = require("../models/Board");
+const Board = require("../models/board");
 
 exports.userCanEditBoard = async (req, res, next) => {
   const userId = req.user.id;

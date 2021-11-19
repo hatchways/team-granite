@@ -1,4 +1,4 @@
-const Column = require("../models/Column");
+const Column = require("../models/column");
 
 exports.columnExist = async (req, res, next) => {
   const { columnId: currentColumnId } = req.params;

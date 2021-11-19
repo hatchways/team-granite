@@ -1,6 +1,6 @@
-const Board = require("../models/Board");
-const Column = require("../models/Column");
-const Card = require("../models/Card");
+const Board = require("../models/board");
+const Column = require("../models/column");
+const Card = require("../models/card");
 // @route GET /kaban/homeBoard
 // @access Protected
 exports.homeBoard = async (req, res) => {
