@@ -1,5 +1,6 @@
 import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import MuiDialogContent from '@material-ui/core/DialogContent';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#6281FE',
     color: 'white',
     textTransform: 'none',
+    boxShadow: 'none',
   },
 
   navNotActive: {
@@ -47,16 +49,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: '1%',
   },
   formControl: { width: '80%' },
-  boardsButton: {
-    width: '40%',
-    backgroundColor: 'cornflowerblue',
-    color: 'white',
-  },
   boardsButtonBox: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '16%',
     marginBottom: '10%',
+  },
+  addTitleButton: {
+    width: '40%',
   },
 }));
 
@@ -67,5 +67,18 @@ export const DialogContent = withStyles((theme: Theme) => ({
     justifyContent: 'center',
   },
 }))(MuiDialogContent);
+export const StyledButton = withStyles({
+  root: {
+    fontSize: '13px',
+    backgroundColor: '#6281FE',
+    color: 'white',
+    textTransform: 'none',
+    boxShadow: 'none',
+    '&:hover': {
+      backgroundColor: 'purple',
+      boxShadow: 'none',
+    },
+  },
+})(Button);
 
 export default useStyles;

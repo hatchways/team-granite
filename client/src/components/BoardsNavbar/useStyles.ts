@@ -1,5 +1,6 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const drawerWidth = 240;
+const zIndex = 10;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -11,6 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       backgroundColor: '#6281FE',
+      boxShadow: 'none',
+      zIndex: 10,
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -58,6 +61,23 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: 0.5,
       top: '-6%',
       marginTop: '-6%',
+    },
+    backgroundFade: {
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
+      display: 'flex',
+      position: 'fixed',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      zIndex: 200,
+    },
+    deleteIcon: {
+      '&:hover': {
+        color: 'purple',
+      },
     },
   }),
 );

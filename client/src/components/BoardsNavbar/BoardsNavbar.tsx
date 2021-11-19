@@ -16,8 +16,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { IBoards } from '../Navbar/Navbar';
 import Delete from '@material-ui/icons/Delete';
 import { Box } from '@material-ui/core';
@@ -25,8 +23,9 @@ import GroupWork from '@material-ui/icons/GroupWork';
 
 interface ITest {
   boardsTitle: IBoards[];
+  handleDelete(titleName: string): void;
 }
-const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
+const BoardsNavbar = ({ boardsTitle, handleDelete }: ITest): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -72,6 +71,9 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
       >
         <Typography paragraph>Data will come here</Typography>
       </Box>
+
+      {open && <Box className={classes.backgroundFade} onClick={handleDrawerClose}></Box>}
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -93,7 +95,8 @@ const BoardsNavbar = ({ boardsTitle }: ITest): JSX.Element => {
               <ListItemIcon>
                 <GroupWork />
               </ListItemIcon>
-              <ListItemText primary={text.board} /> <Delete />
+              <ListItemText primary={text.board} />{' '}
+              <Delete onClick={() => handleDelete(text.board)} className={classes.deleteIcon} />
             </ListItem>
           ))}
         </List>
