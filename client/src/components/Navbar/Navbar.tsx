@@ -194,7 +194,6 @@ const Navbar = (props: { boardName: string }): JSX.Element => {
       </Dialog>
 
       <BoardsNavbar boardsTitle={totalTitle} handleDelete={handleDelete} />
-
     </Box>
   );
 };

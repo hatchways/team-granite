@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const Image = require("../models/Image");
+const Image = require("../models/File");
 const asyncHandler = require("express-async-handler");
 const { checkUserExists } = require("./helper.js");
 
