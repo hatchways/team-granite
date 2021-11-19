@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Button, Dialog, FormControl, Grid, IconButton, TextField, Typography } from '@material-ui/core';
 import useStyles from './useStyles';
 import logoImage from './logo.jpg';
@@ -10,6 +10,10 @@ import AddIcon from '@material-ui/icons/Add';
 import BoardsNavbar from '../BoardsNavbar/BoardsNavbar';
 import { DialogContent } from './useStyles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import getProfilePhoto from '../../helpers/APICalls/getProfilePhoto';
+import EditProfilePhotoDialog from '../EditProfilePhotoDialog/EditProfilePhotoDialog';
+import { IDropzoneProps } from 'react-dropzone-uploader';
+import uploadProfilePhoto from '../../helpers/APICalls/uploadProfilePhoto';
 
 export interface Props {
   id: string;
@@ -20,12 +24,41 @@ export interface IBoards {
   board: string;
 }
 
-const Navbar = (): JSX.Element => {
+const Navbar = (props: { boardName: string }): JSX.Element => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [boards, setBoards] = useState<IBoards[]>([]);
   const totalTitle = boards;
+
+  const [openImgDialog, setOpenImgDialog] = useState<boolean>(false);
+  const [imageSource, setImageSource] = useState<string>('');
+
+  useEffect(() => {
+    getProfilePhoto().then((data) => {
+      if (data.success) {
+        setImageSource(data.success.imageURI);
+      }
+    });
+  }, [imageSource]);
+
+  const handleUpload: IDropzoneProps['onSubmit'] = (files) => {
+    uploadProfilePhoto(files[0].file).then((data) => {
+      if (data.success) {
+        setImageSource(data.success.imageURI);
+      }
+    });
+    setOpenImgDialog(false);
+  };
+
+  const handlePhotoDialogClose = () => {
+    setOpenImgDialog(false);
+  };
+
+  const handleAvatarClick = () => {
+    setOpenImgDialog(true);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -64,6 +97,7 @@ const Navbar = (): JSX.Element => {
     setBoards([...boards, boardsTitle]);
     setTitle('');
   }
+
   return (
     <Box>
       <Grid container className={classes.container} xs={12}>
@@ -74,7 +108,7 @@ const Navbar = (): JSX.Element => {
             </Box>
           </Grid>
 
-          <Grid item container alignItems="center" xs={4}>
+          <Grid item container xs={4}>
             <Router>
               <Grid item container justify="space-evenly">
                 <NavLink exact to="/page2" className={classes.navNotActive} activeClassName={classes.navActive}>
@@ -117,7 +151,12 @@ const Navbar = (): JSX.Element => {
           </Grid>
           <Grid item>
             <Box mr={3}>
-              <Avatar alt="Avatar" src="" />
+              <Avatar alt="Avatar" src={imageSource} onClick={handleAvatarClick} />
+              <EditProfilePhotoDialog
+                handleUpload={handleUpload}
+                handleClose={handlePhotoDialogClose}
+                open={openImgDialog}
+              />
             </Box>
           </Grid>
         </Grid>
@@ -154,7 +193,6 @@ const Navbar = (): JSX.Element => {
           </DialogContent>
         </Box>
       </Dialog>
-
       <BoardsNavbar boardsTitle={totalTitle} />
     </Box>
   );
