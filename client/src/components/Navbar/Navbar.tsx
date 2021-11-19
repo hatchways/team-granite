@@ -24,7 +24,7 @@ export interface IBoards {
   board: string;
 }
 
-const Navbar = (): JSX.Element => {
+const Navbar = (props: { boardName: string }): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -114,7 +114,7 @@ const Navbar = (): JSX.Element => {
             </Box>
           </Grid>
 
-          <Grid item container alignItems="center" xs={4}>
+          <Grid item container xs={4}>
             <Router>
               <Grid item container justify="space-evenly">
                 <NavLink exact to="/Dashboard" className={classes.navNotActive} activeClassName={classes.navActive}>
@@ -194,6 +194,7 @@ const Navbar = (): JSX.Element => {
       </Dialog>
 
       <BoardsNavbar boardsTitle={totalTitle} handleDelete={handleDelete} />
+
     </Box>
   );
 };

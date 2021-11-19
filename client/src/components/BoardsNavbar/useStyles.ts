@@ -3,7 +3,9 @@ const drawerWidth = 240;
 const zIndex = 10;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      marginBottom: '50px',
+    },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,

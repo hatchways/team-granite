@@ -29,6 +29,7 @@ const BoardsNavbar = ({ boardsTitle, handleDelete }: ITest): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { boardName } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -49,6 +50,7 @@ const BoardsNavbar = ({ boardsTitle, handleDelete }: ITest): JSX.Element => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
+            {boardName}
             My School boards
           </Typography>
           <IconButton
@@ -69,7 +71,9 @@ const BoardsNavbar = ({ boardsTitle, handleDelete }: ITest): JSX.Element => {
       >
         <Typography paragraph>Data will come here</Typography>
       </Box>
+
       {open && <Box className={classes.backgroundFade} onClick={handleDrawerClose}></Box>}
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
